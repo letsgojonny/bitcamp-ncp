@@ -1,5 +1,6 @@
-# Created by https://www.toptal.com/developers/gitignore/api/windows,macos,linux,gradle,java,visualstudiocode,eclipse
-# Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,linux,gradle,java,visualstudiocode,eclipse
+
+# Created by https://www.gitignore.io/api/java,linux,macos,gradle,windows,eclipse,java-web,visualstudiocode
+# Edit at https://www.gitignore.io/?templates=java,linux,macos,gradle,windows,eclipse,java-web,visualstudiocode
 
 ### Eclipse ###
 .metadata
@@ -52,19 +53,22 @@ local.properties
 
 # Annotation Processing
 .apt_generated/
-.apt_generated_test/
 
 # Scala IDE specific (Scala & Java development for Eclipse)
 .cache-main
 .scala_dependencies
 .worksheet
 
-# Uncomment this line if you wish to ignore the project description file.
-# Typically, this file would be tracked if it contains build/dependency configurations:
-#.project
-
 ### Eclipse Patch ###
-# Spring Boot Tooling
+# Eclipse Core
+.project
+
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
+
+# Annotation Processing
+.apt_generated
+
 .sts4-cache/
 
 ### Java ###
@@ -91,7 +95,10 @@ local.properties
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-replay_pid*
+
+### Java-Web ###
+## ignoring target file
+target/
 
 ### Linux ###
 *~
@@ -117,7 +124,6 @@ replay_pid*
 # Icon must end with two \r
 Icon
 
-
 # Thumbnails
 ._*
 
@@ -137,28 +143,16 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-### macOS Patch ###
-# iCloud generated files
-*.icloud
-
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-!.vscode/*.code-snippets
-
-# Local History for Visual Studio Code
-.history/
-
-# Built Visual Studio Code Extensions
-*.vsix
 
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
-.ionide
 
 ### Windows ###
 # Windows thumbnail cache files
@@ -188,8 +182,7 @@ $RECYCLE.BIN/
 
 ### Gradle ###
 .gradle
-**/build/
-!src/**/build/
+build/
 
 # Ignore Gradle GUI config
 gradle-app.setting
@@ -197,20 +190,21 @@ gradle-app.setting
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle-wrapper.jar
 
-# Avoid ignore Gradle wrappper properties
-!gradle-wrapper.properties
-
 # Cache of project
 .gradletasknamecache
 
-# Eclipse Gradle plugin generated files
-# Eclipse Core
-.project
-# JDT-specific (Eclipse Java Development Tools)
-.classpath
+# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
+# gradle/wrapper/gradle-wrapper.properties
 
 ### Gradle Patch ###
-# Java heap dump
-*.hprof
+**/build/
 
-# End of https://www.toptal.com/developers/gitignore/api/windows,macos,linux,gradle,java,visualstudiocode,eclipse
+# End of https://www.gitignore.io/api/java,linux,macos,gradle,windows,eclipse,java-web,visualstudiocode
+
+logs/
+*.exe
+node_modules/
+temp/
+Debug/
+Release/
+html-exam/
