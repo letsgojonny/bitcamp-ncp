@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex03</title>
+</head>
+<body>
+<h1>함수 - 애로우(arrow) 함수를 아규먼트로 전달하기</h1>
+<script>
+"use strict"
+
+
+// [Quiz]
+
+let arr = [100, "홍길동", 3.14, "임걱정", true]
+
+// cb는 콜백함수, 함수 안에 cb함수 있네
+function foreach(a, cb) {
+	for (let i = 0; i < arr.length; i++) {
+		cb(i, a[i]);
+	}	
+}
+
+foreach(arr, (index, value) =>
+	console.log(index + ": " + value)
+);
+console.log("-----------------");
+
+function f(index, value) {
+	console.log(index + ": " + value);
+}
+foreach(arr, f);
+
+console.log("-----------------");
+
+foreach([100, "홍길동", 3.14, "임걱정", true], (index, value) => 
+	console.log(index + ": " + value));
+
+	
+
+
+
+
+
+
+
+// ((a, b) => console.log(a / b))(8, 3);
+
+// console.log(foreach(arr, (p1, p2)) {
+// 	function p1 {
+// 		p1 = 
+// 	}	
+// 	for (let i = 0; i < arr.length; i++) {
+// 		cb(i, a[i]);
+// 		};
+// }
+// foreach;
+
+
+
+// play2() 실행 결과;
+// 0: 100
+// 1: 홍길동
+// 2: 3.14
+// 3: 임걱정
+// 4: true
+
+
+</script>
+
+</body>
+</html>
