@@ -23,14 +23,30 @@
 var ta = document.getElementById("ta");
 
 document.getElementById("btn1").onclick = () => {
-	var obj = new Object();
-	obj.name = "홍길동";
-	obj["age"] = 20;
-	obj['tel'] = '111-2222';
-	obj.plus = function(a, b) {return a + b;}; // 함수는 JSON 포맷으로 만들 때 제외된다.
+	// let obj = new Object();
+	// obj.name = "홍길동";
+	// obj["age"] = 20;
+	// obj['tel'] = '111-2222';
+	// obj.plus = function(a, b) {return a + b;}; // 함수는 JSON 포맷으로 만들 때 제외된다.
 
-	ta.value = JSON.stringify(obj);
+	// ta.value = JSON.stringify(obj);
+
+	let obj2 = new Object();
+	obj2.name = "lim";
+	obj2.age = 33;
+	obj2.working = true;
+	obj2.schools = new Array();
+	obj2.schools[0] = new Object();
+	obj2.schools[0].name = "elementary";
+	obj2.schools[0].state = "graduate";
+	obj2.schools[1] = new Object();
+	obj2.schools[1].name = "middle";
+	obj2.schools[1].state = "graduate";
+
+	ta.value = JSON.stringify(obj2);
 };
+
+
 
 </script>
 

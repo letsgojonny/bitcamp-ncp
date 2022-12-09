@@ -15,6 +15,7 @@
 //
 
 //1) 객체를 만들 때 기본 틀(원형 객체)없이 빈 객체를 만들기
+// var obj = new; // 문법 오류!
 var obj = Object.create(null);
 console.log(obj);
 // console.log(obj.toString()); // 예외 발생! 틀 없이 객체를 생성했기 때문에

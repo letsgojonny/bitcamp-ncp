@@ -66,15 +66,18 @@ var print = function (name) {
 
 print("홍길동");
 
-((name) => console.log(name + "님 반가워요!"))("홍길동");
-
-((name) => {
-	console.log(name + "님 반가워요!")
-})("홍길동");
-
+// print 자리에 function이 들어감
 (function(name) {
-	console.log(name + "님 반가워요!")
+	console.log(name + "님 반가워요!");
 })("홍길동");
+
+// function 없애고 => 함수로 교체
+((name) => {
+	console.log(name + "님 반가워요!");
+})("홍길동");
+
+// {}, return, ;, 없애고 간단히
+((name) => console.log(name + "님 반가워요!"))("홍길동");
 
 var x = function(name) {
 	console.log(name + "님 반가워요!");
@@ -82,7 +85,6 @@ var x = function(name) {
 x("홍길동")
 
 console.log("------------------------");
-
 
 function xx(name) {
 	console.log(name + "님 반갑습니다.");
@@ -109,11 +111,10 @@ function plus(a, b) {
 }
 plus(10, 20);
 
-// 익명
+// 바로 호출
 (function (a, b) {
 	console.log(a + b);
 })(10, 20);
-
 
 // 애로우
 ((a, b) => {
@@ -141,12 +142,10 @@ minus(100, 50);
 	console.log(a - b);
 })(100, 50);
 
-function minus(a, b) {
-	console.log(a - b);
-};
-minus(100, 50);
-
 // 애로우
+((a, b) => {
+	console.log(a - b);
+})(100, 50);
 console.log("-------------------");
 
 // 일반
@@ -161,7 +160,7 @@ var multiple = function(a, b) {
 }
 multiple(3, 7);
 
-// 바로 호출
+// 바로 호출	multiple 자리에 함수 넣어줌,,
 (function(a, b) {
 	console.log(a * b);
 })(3, 7);
