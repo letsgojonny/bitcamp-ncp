@@ -36,16 +36,15 @@ obj2.set("working", true);
 
 for (var x of obj2) {
   // x는 배열이다.
-  // x[0]은 key, x[1]은 value 가 들어있다. 
+  // x[0]은 key, x[1]은 value 가 들어 있다.
   console.log(x); // 예) ["name","홍길동"]
   console.log(x[0], "=", x[1]);
 }
 console.log("-----------------")
 
 // destructuring 문법을 사용하여 key와 value를 분해하여 받는다.
-// 훨씬 직관적, 편리함
 for (var [key, value] of obj2) {
-    console.log(key, "=", value);
+  console.log(key, "=", value);
 }
 
 

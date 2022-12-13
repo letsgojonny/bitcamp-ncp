@@ -8,34 +8,45 @@
 <h1>함수 - 애로우(arrow) 함수를 아규먼트로 전달하기</h1>
 <script>
 "use strict"
+// arrow 함수이든 일반 함수이든 결국 같은 함수이다.
+//
+//
+// [Quiz 1]
+// - forEach() 함수 정의를 보고,
+//   다음과 같이 실행 결과가 출력되도록 나머지 코드를 완성하시오.
+// - 출력결과: 
+// 0: 100
+// 1: 홍길동
+// 2: 3.14
+// 3: 임꺽정
+// 4: true
 
-
-// [Quiz]
-
-let arr = [100, "홍길동", 3.14, "임걱정", true]
-
-// cb는 콜백함수, 함수 안에 cb함수 있네
-function foreach(a, cb) {
-	for (let i = 0; i < arr.length; i++) {
+function forEach(a, cb) {
+	for (let i = 0; i < a.length; i++) {
 		cb(i, a[i]);
-	}	
+	}
 }
 
-foreach(arr, (index, value) =>
-	console.log(index + ": " + value)
-);
-console.log("-----------------");
-
+let arr = [100, "홍길동", 3.14, "임꺽정", true];
 function f(index, value) {
 	console.log(index + ": " + value);
 }
-foreach(arr, f);
+forEach(arr, f);
+console.log("------------------------");
 
-console.log("-----------------");
+forEach(
+	[100, "홍길동", 3.14, "임꺽정", true], 
+	function(index, value) {
+		console.log(index + ": " + value);
+	}
+);
+console.log("------------------------");
 
-foreach([100, "홍길동", 3.14, "임걱정", true], (index, value) => 
-	console.log(index + ": " + value));
-
+forEach(
+	[100, "홍길동", 3.14, "임꺽정", true], 
+	(index, value) => console.log(index + ": " + value)
+);
+console.log("------------------------");
 
 </script>
 

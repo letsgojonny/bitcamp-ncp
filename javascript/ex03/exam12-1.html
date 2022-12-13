@@ -15,13 +15,13 @@
 //
 //
 
-// 일반함수 정의
+// 일반함수정의
 function f0() {
 	 return "안녕";
 }
 console.log(f0());
 
-// 익명함수 정의
+// 익명함수정의
 var f1 = function() {
 	return "안녕";
 };
@@ -30,7 +30,7 @@ console.log(f1());
 // 애로우(arrow ) 함수 : 초간단 함수 정의 문법
 // 1) function 키워드를 제거한다.
 // 2) 대신 파라미터 블록과 코드 블록 사이에 화살표를 추가한다.
-// 3) 다른 언어에서는 람다(lambda) 라고 부른다.
+// 3) 다른 언어에서는 람다(lambda)라고 부른다.
 var f2 = () => {
 	return "안녕";
 };
@@ -42,159 +42,44 @@ console.log(f2());
 // (한 문장 밖에 없으니까 가능한 한 줄로 표현하라!)
 var f3 = () => "안녕";
 console.log(f3());
-console.log("-----------------");
+console.log("-------------------------");
 
-// 익명함수 정의 후 바로 호출하는 방법
+// 익명 함수 정의 후 바로 호출하는 방법
 console.log((function() {
-	return "안녕"
+	return "안녕";
 })());
 
 // 애로우 함수 정의 후 바로 호출하는 방법
 console.log((() => "안녕")());
-console.log("-----------------");
+console.log("-------------------------");
 
 console.log((function(a, b) {
 	return a + b;
-})(100,200));
+})(100, 200));
 
 console.log(((a, b) => a + b)(111, 222));
-console.log("-----------------");
+console.log("-------------------------");
 
-var print = function (name) {
-	console.log(name + "님 반가워요!");
-};
+((name) => console.log(name + "님 반가워요!"))("홍길동");
 
-print("홍길동");
-
-// print 자리에 function이 들어감
-(function(name) {
-	console.log(name + "님 반가워요!");
-})("홍길동");
-
-// function 없애고 => 함수로 교체
 ((name) => {
 	console.log(name + "님 반가워요!");
 })("홍길동");
 
-// {}, return, ;, 없애고 간단히
-((name) => console.log(name + "님 반가워요!"))("홍길동");
+(function(name) {
+	console.log(name + "님 반가워요!");
+})("홍길동");
 
 var x = function(name) {
 	console.log(name + "님 반가워요!");
-}
-x("홍길동")
-
-console.log("------------------------");
-
-function xx(name) {
-	console.log(name + "님 반갑습니다.");
-}
-xx("홍길동");
-
-// 익명함수
-(function(name) {
-	console.log(name + "님 반갑습니다.");
-})("홍길동");
-
-// 애로우함수
-((name) => {
-	console.log(name + "님 반갑습니다.");
-})("홍길동");
-
-((name) => console.log(name + "님 반갑습니다."))("홍길동");
-
-console.log("-------------------");
-
-// 일반
-function plus(a, b) {
-	console.log(a + b);
-}
-plus(10, 20);
-
-// 바로 호출
-(function (a, b) {
-	console.log(a + b);
-})(10, 20);
-
-// 애로우
-((a, b) => {
-	console.log(a + b);
-})(10, 20);
-
-// 애로우 최소화
-((a, b) => console.log(a + b))(10, 20);
-console.log("-------------------");
-
-// 일반
-function minus(a, b) {
-	console.log(a - b);
 };
-minus(100, 50);
+x("홍길동");
 
-// 익명
-var minus = function (a, b) {
-	console.log(a - b);
-}
-minus(100, 50);
-
-// 바로 호출
-(function (a, b) {
-	console.log(a - b);
-})(100, 50);
-
-// 애로우
-((a, b) => {
-	console.log(a - b);
-})(100, 50);
-console.log("-------------------");
-
-// 일반
-function multiple(a, b) {
-	console.log(a * b);
+function x2(name) {
+	console.log(name + "님 반가워요!");
 };
-multiple(3, 7);
-
-// 익명
-var multiple = function(a, b) {
-	console.log(a * b);
-}
-multiple(3, 7);
-
-// 바로 호출	multiple 자리에 함수 넣어줌,,
-(function(a, b) {
-	console.log(a * b);
-})(3, 7);
-
-// 애로우 
-((a, b) => {
-	console.log(a * b);
-})(3, 7);
-
-// 애로우 최소화
-((a, b) => console.log(a * b))(3, 7);
-console.log("-------------------");
-
-function divide(a, b) {
-	console.log((a / b).toFixed(2));
-};
-divide(8, 3);
-
-var divide = function (a, b) {
-	console.log((a / b).toFixed(3));
-};
-divide(8, 3);
-
-(function (a, b) {
-	console.log(a / b);
-})(8, 3);
-
-((a, b) => {
-	console.log(a / b);
-})(8, 3);
-
-((a, b) => console.log(a / b))(8, 3);
-
-
+x2("홍길동");
+console.log("--------------------");
 
 
 </script>

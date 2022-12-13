@@ -16,22 +16,21 @@
 //
 
 function f0() {
-	 console.log("값을 리턴하지 않는다.1");
+	 console.log("값을 리턴하지 않는다.");
 }
 f0();
 
 var f1 = function() {
-	console.log("값을 리턴하지 않는다.2");
+	console.log("값을 리턴하지 않는다.");
 };
 f1();
 
 var f2 = () => {
-	console.log("값을 리턴하지 않는다.3");
+	console.log("값을 리턴하지 않는다.");
 };
 f2();
 
-// 왜 두 번 출력되지???????
-var f3 = () => console.log("값을 리턴하지 않는다.4");
+var f3 = () => console.log("값을 리턴하지 않는다.");
 f3(); // OK
 
 // 만약에 arrow 함수가 값을 리턴하지 않는다면?

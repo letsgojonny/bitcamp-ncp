@@ -28,7 +28,6 @@ tag1.onclick = function() {
   var xhr = new XMLHttpRequest();
   xhr.open("GET", "exam07.json", false);
   xhr.send();
-  
 
   // 서버에서 보낸 JSON 형식의 데이터를 자바스크립트 객체로 변환한다.
   var titleList = JSON.parse(xhr.responseText);
@@ -39,7 +38,6 @@ tag1.onclick = function() {
     li.innerHTML = titleList[i];
     ul.appendChild(li);
   }
-  
 };
 
 </script>
