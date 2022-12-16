@@ -23,20 +23,21 @@ var ta = document.querySelector("#ta");
 
 document.querySelector("#btn1").onclick = () => {
 
-    //1) AJAX 객체 준비 
+    // 1) AJAX 객체 준비 
+    // 함수 안에서 생성하는 이유 : 매번 새롭게 준비 : 요즘 시대 메모리 널널
     var xhr = new XMLHttpRequest();
-    
-    //2) 서버에 소켓 연결(동기 방식으로 요청)
+
+    // 2) 서버에 소켓 연결(동기 방식으로 요청)
     // => 1번 파라미터: HTTP 요청 method. ex) GET, POST, HEAD ...
-    // => 2번 파라미터: URL
-    // => 3번 파라미터: 비동기 여부
-    xhr.open("GET", "test1", false);
+    // => 2번 파라미터: 요청 URL
+    // => 3번 파라미터: false --> 동기 
+    xhr.open("GET", "http://localhost:3000/exam01-1", false);
     
-    //3) 서버에 HTTP 요청을 보낸다.
+    // 3) 서버에 HTTP(규칙에 따라) 요청을 보낸다.
     // => 동기 방식으로 연결되었을 경우 서버에서 응답할 때까지 리턴하지 않는다.
     xhr.send();
     
-    //4) 서버가 응답한 콘텐트를 꺼낸다.
+    // 4) 서버가 응답한 콘텐트(payload=message-body)를 꺼낸다.
     ta.value = xhr.responseText;
 };
 

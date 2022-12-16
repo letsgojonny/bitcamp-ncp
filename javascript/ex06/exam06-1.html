@@ -44,12 +44,12 @@ function f1() {
 document.querySelector("#link3").onclick = function() {
   alert("OK!");
   return false; // false를 리턴하면 a 태그의 기본 동작을 취소한다.
-}
+};
 
 document.querySelector("#link4").onclick = function(e) {
   e.preventDefault(); // a 태그의 기본 동작을 비활성화시킨다. 리스너 호출이 끝난 후 서버에 요청하지 않는다.
   alert("OK!");
-}
+};
 
 document.querySelector("#link5").addEventListener("click", function() {
   alert("OK!");

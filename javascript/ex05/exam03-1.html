@@ -42,7 +42,9 @@ document.querySelector("#btn1").onclick = function() {
   // => 이 메서드를 사용하면 개발자가 임의로 추가한 프로퍼티 값도 바꿀 수 있다.
   //    즉 원래 태그 객체에 없던 프로퍼티 값도 설정할 수 있다.
   e.setAttribute("href", "http://www.google.com");
+  console.log(e.getAttribute('href'));
 };
+
 
 </script>
 </body>
