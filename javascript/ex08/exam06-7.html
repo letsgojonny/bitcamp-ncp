@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>비동기작업</title>
+</head>
+<body>
+<h1>Promise - 예외처리: Method Chaining III</h1>
+<script>
+const promise = new Promise((resolve, reject) => {
+  resolve();
+  reject();
+  // throw '오류 발생!!!';
+})
+.catch(() => console.log("catched! - 1"))
+.then(() => console.log("fulfilled! - 1"))
+.then(() => console.log("fulfilled! - 2"))
+.catch(() => console.log("catched! - 2"));
+
+
+// 오류가 발생하면,
+// then()이 리턴한 promise를 계속 따라가면서 예외 핸들러를 찾아 호출한다.
+// 
+
+// 오류가 없다면,
+// .then() 끝까지 전달
+// 예외의 경우 .catch() 처음 만나면 전달 끝.. 그리고 then으로 
+
+console.log("끝!");
+
+</script>
+</body>
+</html>

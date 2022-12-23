@@ -5,18 +5,16 @@
 <title>비동기작업</title>
 </head>
 <body>
-<h1>Promise - 비동기 작업에서 발생한 예외처리 II</h1>
+<h1>Promise - 비동기 작업에서 발생한 예외처리</h1>
 <script>
 const promise = new Promise((resolve, reject) => {
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4) {
-      try {
-        console.log(xhr.responseText);
-        throw '오류 발생!';
-      } catch(err) {
-        reject(err);
-      }
+      console.log(xhr.responseText);
+
+      // #btn 태그가 없기 때문에 다음 코드는 예외를 발생시킬 것이다.
+      document.getElementById("#btn").onclick = () => {};
     }
   };
   xhr.open("GET", "http://localhost:3000/hello", true); 
@@ -26,9 +24,10 @@ const promise = new Promise((resolve, reject) => {
 
 console.log("끝!");
 
-// executor에서 비동기 작업을 실행하는 중에 오류가 발생했을 때,
-// 명시적으로 reject() 호출하여 오류가 발생했음을 통지해야 한다.
-
+// executo에서 비동기 작업을 실행하는 중에 오류가 발생했을 때,
+// 오류 핸들러가 호출되지 않는다.
+// 해결책?
+// 다음 예제!
 </script>
 </body>
 </html>

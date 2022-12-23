@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>비동기작업</title>
+</head>
+<body>
+<h1>Promise - Promise(executor)의 작업 결과 받기 II</h1>
+<script>
+new Promise((resolve, reject) => {
+  resolve("결과!");
+})
+
+.then((result) => console.log("1:", result))
+.then((result) => console.log("2:", result)) 
+.then((result) => console.log("3:", result)) 
+// exam03-3이랑 뭔 차이?
+// result를 .then에 넘겨주지 않음..
+// exam03-3은 console.log("return 받은 값 상관 없이 출력 가능한 콘텐트")
+
+
+console.log("끝!");
+
+</script>
+</body>
+</html>

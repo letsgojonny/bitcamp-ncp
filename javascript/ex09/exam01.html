@@ -5,7 +5,7 @@
 <title>ex07</title>
 </head>
 <body>
-<h1>fetch() 사용하기</h1>
+<h1>XMLHttpRequest 사용하기</h1>
 <table border="1">
 <thead>
     <tr><th>번호</th><th>제목</th><th>작성자</th><th>조회수</th></tr>
@@ -16,15 +16,10 @@
 <script>
 "use strict"
 var tbody = document.querySelector("tbody");
-
-let promise = fetch("http://localhost:3000/boards");
-let promise2 = promise.then((response) => {
-    return response.text(); // 응답에서 텍스트를 추출할 promise 객체
-});
-
-// 위에서 response.text가 가공한 결과를 (text) 이 받음
-promise2.then((text) => {
-    var arr = JSON.parse(text);
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var arr = JSON.parse(xhr.responseText);
             for (var b of arr) {
                 var tr = document.createElement("tr");
                 tr.innerHTML = "<td>" + b.no + "</td>" + 
@@ -33,8 +28,10 @@ promise2.then((text) => {
                     "<td>" + b.viewCnt + "</td>";
                 tbody.appendChild(tr);
             }
-});
-
+        }
+    };
+    xhr.open("GET", "http://localhost:3000/boards", true);
+    xhr.send();
 
 </script>
 </body>
