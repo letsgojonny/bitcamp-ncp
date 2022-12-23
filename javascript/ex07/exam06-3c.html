@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>ex07</title>
+    <link rel="stylesheet" href="node_modules/jquery-ui/dist/themes/base/jquery-ui.css">
+</head>
+
+<body>
+    <h1>UI 컴포넌트를 다루는 방법 - JavaScript로 설정하기 III</h1>
+
+    <div id="btn1">버튼</div>
+
+    <!-- node_modules에 설치한 jquery 사용 -->
+    <!-- 기본으로 사용할 jQuery 라이브러리 -->
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>    
+    <!-- 추가할 interface 메소드 링크를 넣어 호출 가능!! -->
+    <script src="node_modules/jquery-ui/dist/jquery-ui.js"></script>
+    <script>
+        "use strict"
+        $("#btn1").button();
+
+    </script>
+</body>
+
+</html>
