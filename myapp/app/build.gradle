@@ -19,13 +19,12 @@ eclipse {
     }
 
     // => eclipse IDE 설정하기
-    jdt { 
+    jdt {  
       sourceCompatibility = 17
       targetCompatibility = 17
       javaRuntimeName = "JavaSE-17"
     }
 }
-
 
 repositories {
     mavenCentral()
@@ -33,7 +32,6 @@ repositories {
 
 dependencies {
     testImplementation 'junit:junit:4.13.2'
-
     implementation 'com.google.guava:guava:31.1-jre'
 }
 
