@@ -4,16 +4,16 @@ package com.eomcs.oop.ex02;
 //1) 성적 데이터를 저장할 사용자 정의 데이터 타입을 만든다.
 //2) 리팩토링: 메서드 추출(extract method), static nested class
 //3) 리팩토링: 메서드 추출(extract method) = 한 개의 메서드는 한 개의 기능을 수행해야 한다.
-//4) GRASP(General Responsibility Assignment Software Patterns) 패턴 
+//4) GRASP(General Responsibility Assignment Software Patterns) 패턴
 //     => Information Expert: 데이터를 다룰 때는 그 데이터를 갖고 있는 객체에게 묻는다.
 //   리팩토링: 메서드 이동(Move Method)
 //     => 메서드를 관련된 클래스로 이동시킨다. => 코드의 이해가 쉽다.
 //5) 인스턴스 메서드: 인스턴스 주소를 받는 더 쉬운 문법
-// 
+//
 public class Exam0150 {
 
   static class Score {
-    String name; 
+    String name;
     int kor;
     int eng;
     int math;
@@ -32,15 +32,15 @@ public class Exam0150 {
     // - 그래서 자바는 "인스턴스 메서드"라는 것을 제공한다.
     //
 
-    // 인스턴스 메서드
+    // 인스턴스 메서드 = non-static 메서드
     // - 메서드가 호출할 때 인스턴스의 주소를 파라미터로 넘기지 않는다.
     // - 메서드를 호출할 때(연산자를 사용할 때), 메서드 앞에 인스턴스 주소를 적는다.
     // - 이렇게 전달된 인스턴스 주소는 메서드에 내장된 this라는 변수에 자동 복사된다.
     // - 그래서 파라미터 대신 this를 사용하면 된다.
     // - 인스턴스 메서드는 static을 붙이지 않는다.
     void compute() {
-      // 인스턴스 메서드를 호출할 때 넘겨준 인스턴스를 주소는
-      // this 라면 내장 변수(built-in)에 보관된다.
+      // 인스턴스 메서드를 호출할 때 넘겨준 인스턴스 주소는
+      // this 라는 내장 변수(built-in)에 자동 보관된다.
       this.sum = this.kor + this.eng + this.math;
       this.aver = (float) this.sum / 3;
     }
@@ -87,10 +87,11 @@ public class Exam0150 {
   }
 
   static void printScore(Score s) {
-    System.out.printf("%s: %d, %d, %d, %d, %.1f\n", 
+    System.out.printf("%s: %d, %d, %d, %d, %.1f\n",
         s.name, s.kor, s.eng, s.math, s.sum, s.aver);
   }
 }
+
 
 //클래스 메서드 vs 인스턴스 메서드
 //1) 클래스 메서드(스태틱 메서드)
@@ -101,7 +102,7 @@ public class Exam0150 {
 //
 //- 다음과 같이 레퍼런스를 통해서도 호출할 수 있다.
 //   레퍼런스.메서드명();
-//그러나 가능한 레퍼런스를 사용하여 클래스 메서드를 호출하지 말라! 
+//그러나 가능한 레퍼런스를 사용하여 클래스 메서드를 호출하지 말라!
 //다른 개발자가 인스턴스 메서드인 줄 알고 헷갈려 한다.
 //
 //2) 인스턴스 메서드(논스태틱 메서드)

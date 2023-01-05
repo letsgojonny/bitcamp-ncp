@@ -20,6 +20,7 @@ public class Exam0210 {
     result = divide(result, 3);
 
     System.out.printf("result = %d\n", result);
+
   }
 
   static int plus(int a, int b) {

@@ -1,8 +1,7 @@
 package com.eomcs.oop.ex02;
 
-// 다른 패키지에서도 사용할 수 있도록 public 으로 공개한다.
-public class Score {
-  String name; 
+class Score {
+  String name;
   int kor;
   int eng;
   int math;

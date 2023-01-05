@@ -8,9 +8,6 @@ public class Exam0350 {
     System.out.println(12.375f);
     System.out.println(-12.375f);
     System.out.println(12.375);
-    System.out.println(75678.37);
-    System.out.println(11.23356f);
-    System.out.println(75678.37 + 11.23356); // 75689.60356
   }
 }
 
