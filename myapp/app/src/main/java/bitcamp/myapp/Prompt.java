@@ -14,8 +14,8 @@ public class Prompt {
     return Integer.parseInt(inputString(title));
   }
 
-  static void close () {
+  // Prompt 클래스를 다 사용한 후에 자원을 해제시킬 수 있는 메서드를 추가한다.
+  static void close() {
     scanner.close();
   }
-
 }
