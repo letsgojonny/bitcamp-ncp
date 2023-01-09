@@ -1,13 +1,13 @@
-// 클래스 변수의 응용 : 상수 변수를 import 하기 
+// 클래스 변수의 응용 : 상수 변수를 import 하기
 //
 package com.eomcs.oop.ex03;
 
 // Member 클래스를 외부의 다른 클래스에서도 사용한다면,
 // nested class 로 선언하지 많고 패키지 멤버로 분리하라.
 //
-// 패키지 멤버의 스태틱 필드를 상요할 때는 다음과 같이 import로 
+// 패키지 멤버의 스태틱 필드를 상요할 때는 다음과 같이 import로
 // 그 변수의 소속을 미리 밝힐 수 있다.
-// => 스태틱 변수의 소속 클래스를 미리 밝혀두면 
+// => 스태틱 변수의 소속 클래스를 미리 밝혀두면
 //    클래스 이름 없이 스태틱 변수를 바로 사용할 수 있다.
 import static com.eomcs.oop.ex03.Member.GUEST;
 import static com.eomcs.oop.ex03.Member.MANAGER;
