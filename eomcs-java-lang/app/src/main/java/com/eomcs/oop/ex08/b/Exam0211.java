@@ -10,6 +10,8 @@ public class Exam0211 {
     obj.defaultVar = 100; // OK! 이 클래스는 A 클래스와 같은 패키지에 소속되어 있다.
     obj.protectedVar = 100; // OK! 비록 이 클래스가 자식클래스는 아니지만 같은 패키지에 소속되어 있다.
     obj.publicVar = 100; // OK! 모두 다 접근 가능!
+
+    System.out.println(obj.protectedVar);
   }
 }
 
