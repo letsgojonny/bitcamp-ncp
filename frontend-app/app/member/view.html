@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<h1>회원정보</h1>
+<form>
+<table border="1">
+  <tbody>
+    <tr>
+      <th>번호</th>
+      <td><input type="text" name="no" id="f-no" readonly></td>
+    </tr>
+    <tr>
+      <th>이름</th>
+      <td><input type="text" name="name" id="f-name"></td>
+    </tr>
+    <tr>
+      <th>전화</th>
+      <td><input type="text" name="tel" id="f-tel"></td>
+    </tr>
+    <tr>
+      <th>우편</th>
+      <td><input type="text" name="postno" id="f-postno"></td>
+    </tr>
+    <tr>
+      <th>주소</th>
+      <td><input type="text" name="basicaddress" id="f-basicaddress"></td>
+    </tr>
+    <tr>
+      <th>재직</th>
+      <td><input type="text" name="working" id="f-working"></td>
+    </tr>
+    <tr>
+      <th>성별</th>
+      <td><input type="text" name="gender" id="f-gender"></td>
+    </tr>
+    <tr>
+      <th>레벨</th>
+      <td><input type="text" name="level" id="f-level"></td>
+    </tr>
+    <tr>
+      <th>가입일</th>
+      <td><span id="f-createddate"></span></td>
+    </tr>
+    
+  </tbody>
+</table>
+<button id="update-btn" type="button">변경</button>
+<button id="delete-btn" type="button">삭제</button>
+<button id="list-btn" type="button">목록</button>
+</form>
+
+<script>
+  
+// location.href --> http://localhost:5500/app/board/view.html?no=20
+// values[0] --> "http://localhost:5500/app/board/view.html"
+// values[1] --> "no=20"
+var values = location.href.split('?');
+if (values.length != 2) {
+  alert("옳바른 페이지 주소가 아닙니다");
+  throw "no 파라미터 값이 누락되었습니다.";
+}
+
+// values[1] = "no=20"
+// values2[0] --> "no"
+// values2[1] --> "20"
+var values2 = values[1].split("=");
+if (values2.length != 2 || values2[0] != "no") {
+  alert("옳바른 페이지 주소가 아닙니다");
+  throw "no 파라미터 값이 누락되었습니다.";
+}
+
+var no = parseInt(values2[1]);
+if (isNaN(no)) {
+  alert("페이지 번호가 옳지 않습니다");
+  throw "no 파라미터 값이 아닙니다.";
+}
+
+fetch(`http://localhost:8080/members/${no}`)
+  .then((response) => response.json())
+  .then((obj) => {
+    if (obj.status == "failure") {
+      alert("서버 요청 오류!");
+      console.log(obj.data);
+      return;
+    }
+    document.querySelector("#f-no").value = obj.data.no;
+    document.querySelector("#f-name").value = obj.data.name;
+    document.querySelector("#f-tel").value = obj.data.tel;
+    document.querySelector("#f-postno").value = obj.data.postNo;
+    document.querySelector("#f-basicaddress").value = obj.data.basicAddress;
+    document.querySelector("#f-working").value = obj.data.working;
+    document.querySelector("#f-gender").value = obj.data.gender;
+    document.querySelector("#f-level").value = obj.data.level;
+    document.querySelector("#f-createddate").innerHTML = obj.data.createdDate;
+  })
+  .catch((err) => {
+    alert("서버 요청 오류!");
+    console.log(err)
+  });
+
+document.querySelector('#update-btn').onclick = (e) => {
+  var name = encodeURIComponent(document.querySelector('#f-name').value);
+  var tel = encodeURIComponent(document.querySelector('#f-tel').value);
+  var postNo = encodeURIComponent(document.querySelector('#f-postno').value);
+  var basicAddress = encodeURIComponent(document.querySelector('#f-basicaddress').value);
+  var working = document.querySelector('#f-working').value;
+  var gender = document.querySelector('#f-gender').value;
+  var level = document.querySelector('#f-level').value;
+  var createdDate = encodeURIComponent(document.querySelector('#f-createddate').value);
+
+
+  fetch(`http://localhost:8080/members/${no}`, {
+    method: 'PUT',
+    headers: {
+      'Content-type': 'application/x-www-form-urlencoded'
+    },
+    body: `name=${name}&tel=${tel}&postno=${postNo}&basicaddress=${basicAddress}&working=${working}&gender=${gender}&level=${level}&createddate=${createdDate}`
+  })
+  .then((response) => response.json())
+  .then((obj) => {
+    if (obj.status == "failure") {
+      alert("회원정보 변경 오류!\n" + obj.data);
+      return;
+    }
+
+    location.href = "list.html";
+  })
+  .catch((err) => {
+    alert("서버 요청 오류!");
+    console.log(err);
+  });
+
+
+};
+
+document.querySelector('#delete-btn').onclick = (e) => {
+
+  fetch(`http://localhost:8080/members/${no}`, {
+  method: 'DELETE',
+  headers: {
+      'Content-type': 'application/x-www-form-urlencoded'
+    },
+})
+.then((response) => response.json())
+.then((obj) => {
+  if (obj.status == "failure") {
+    alert("서버 요청 오류!\n" + obj.data);
+    return;
+  }
+  location.href = "list.html";
+  })
+  .catch((err) => {
+    alert("서버 요청 오류!");
+    console.log(err);
+  });
+};
+
+
+document.querySelector('#list-btn').onclick = (e) => {
+  location.href = "list.html";
+};
+
+</script>
+</body>
+</html>
