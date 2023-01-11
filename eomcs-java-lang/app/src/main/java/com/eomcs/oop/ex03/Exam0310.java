@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Exam0310 {
 
   static class Math {
-    // 다음 메서드와 같이 인스턴스 변수를 사용하지 않고 
+    // 다음 메서드와 같이 인스턴스 변수를 사용하지 않고
     // 파라미터 값을 가지고 작업하는 경우에 보통 클래스 메서드로 정의한다.
     public static int abs(int value) {
       if (value < 0)
@@ -27,7 +27,7 @@ public class Exam0310 {
 
     // 만약 abs() 메서드가 인스턴스 메서드라면,
     // 다음과 같이 인스턴스를 만든 후에 호출해야 한다.
-    // abs()는 인스턴스 변수를 사용하지도 않는데 
+    // abs()는 인스턴스 변수를 사용하지도 않는데
     // 이렇게 인스턴스를 생성해야 한다면 얼마나 낭비적인가!
     //
     //    Math m = new Math();
