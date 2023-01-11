@@ -7,16 +7,15 @@
   <title>Document</title>
 </head>
 <body>
-  <h1>회원 목록</h1>
-  <a href="form.html">회원</a>
+  <h1>강사 목록</h1>
+  <a href="form.html">강사</a>
   <table border = "1">
     <thead>
       <tr>
         <th>번호</th>
         <th>이름</th>
         <th>전화</th>
-        <th>성별</th>
-        <th>레벨</th>
+        <th>최종학력</th>
       </tr>
     </thead>
     <tbody>
@@ -27,26 +26,25 @@
   <script>
     var tbody = document.querySelector("tbody");
 
-    function getLevelTitle(level) {
-      switch (level) {
-        case 0: return "비전공자";
-        case 1: return "준전공자";
-        case 2: return "전공자";
+    function getFinalEducationTitle(finalEducation) {
+      switch (finalEducation) {
+        case 0: return "학사";
+        case 1: return "석사";
+        case 2: return "박사";
         default: return ""
       }
     }
   
-    fetch('http://localhost:8080/members')
+    fetch('http://localhost:8080/teachers')
     .then((response) => {return response.json();})
     .then((obj) => {
       var html = '';
-      for (var m of obj.data) {
+      for (var t of obj.data) {
         html += `<tr>
-          <td>${m.no}</td>
-          <td><a href="view.html?no=${m.no}">${m.name} </a></td>
-          <td>${m.tel}</td>
-          <td>${m.gender}</td>
-          <td>${getLevelTitle(m.level)}</td>
+          <td>${t.no}</td>
+          <td><a href="view.html?no=${t.no}">${t.name} </a></td>
+          <td>${t.tel}</td>
+          <td>${getFinalEducationTitle(t.finalEducation)}</td>
           </tr>\n`;
       }
       tbody.innerHTML = html;

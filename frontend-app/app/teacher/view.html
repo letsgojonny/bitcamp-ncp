@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>강사정보</h1>
+  <form>
+    <table border="1">
+      <tbody>
+        <tr>
+          <th>번호</th>
+          <td><input type="text" name="no" id="f-no" readonly></td>
+        </tr>
+        <tr>
+          <th>이름</th>
+          <td><input type="text" name="name" id="f-name"></td>
+        </tr>
+        <tr>
+          <th>전화</th>
+          <td><input type="text" name="tel" id="f-tel"></td>
+        </tr>
+        <tr>
+          <th>이메일</th>
+          <td><input type="text" name="email" id="f-email"></td>
+        </tr>
+        <tr>
+          <th>최종학력</th>
+          <td>
+            <select name="finalEducation" id="f-finalEducation">
+              <option value="0">학사</option>
+              <option value="1">석사</option>
+              <option value="2">박사</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <th>대학교</th>
+          <td>
+            <input type="text" name="university" id="f-university">
+          </td>
+        </tr>
+        <tr>
+          <th>전공</th>
+          <td>
+            <input type="text" name="major" id="f-major">
+          </td>
+        </tr>
+        <tr>
+          <th>페이</th>
+          <td>
+            <input type="text" name="pay" id="f-pay"> 만원/시간
+          </td>
+        </tr>
+        <tr>
+          <th>가입일</th>
+          <td><span id="f-createddate"></span></td>
+        </tr>
+      </tbody>
+    </table>
+    <button id="update-btn" type="button">변경</button>
+    <button id="delete-btn" type="button">삭제</button>
+    <button id="list-btn" type="button">목록</button>
+  </form>
+
+  <script>
+
+    // location.href --> http://localhost:5500/app/board/view.html?no=20
+    // values[0] --> "http://localhost:5500/app/board/view.html"
+    // values[1] --> "no=20"
+    var values = location.href.split('?');
+    if (values.length != 2) {
+      alert("옳바른 페이지 주소가 아닙니다");
+      throw "no 파라미터 값이 누락되었습니다.";
+    }
+
+    // values[1] = "no=20"
+    // values2[0] --> "no"
+    // values2[1] --> "20"
+    var values2 = values[1].split("=");
+    if (values2.length != 2 || values2[0] != "no") {
+      alert("옳바른 페이지 주소가 아닙니다");
+      throw "no 파라미터 값이 누락되었습니다.";
+    }
+
+    var no = parseInt(values2[1]);
+    if (isNaN(no)) {
+      alert("회원 번호가 옳지 않습니다");
+      throw "no 파라미터 값이 아닙니다.";
+    }
+
+    fetch(`http://localhost:8080/teachers/${no}`)
+      .then((response) => response.json())
+      .then((obj) => {
+        if (obj.status == "failure") {
+          alert("서버 요청 오류!");
+          console.log(obj.data);
+          return;
+        }
+        document.querySelector("#f-no").value = obj.data.no;
+        document.querySelector("#f-name").value = obj.data.name;
+        document.querySelector("#f-tel").value = obj.data.tel;
+        document.querySelector("#f-email").value = obj.data.email;
+        document.querySelector("#f-finalEducation").value = obj.data.finalEducation;
+        document.querySelector("#f-university").value = obj.data.university;
+        document.querySelector("#f-major").value = obj.data.major;
+        document.querySelector("#f-pay").value = obj.data.pay;
+        document.querySelector("#f-createddate").innerHTML = obj.data.createdDate;
+      })
+      .catch((err) => {
+        alert("서버 요청 오류!");
+        console.log(err)
+      });
+
+    document.querySelector('#update-btn').onclick = (e) => {
+      var name = encodeURIComponent(document.querySelector('#f-name').value);
+      var tel = document.querySelector('#f-tel').value;
+      var email = encodeURIComponent(document.querySelector('#f-email').value);
+      var finalEducation = document.querySelector('#f-finalEducation').value;
+      var university = encodeURIComponent(document.querySelector('#f-university').value);
+      var major = encodeURIComponent(document.querySelector('#f-major').value);
+      var pay = document.querySelector('#f-pay').value;
+
+      console.log(`name=${name}&tel=${tel}&email=${email}&finalEducation=${finalEducation}` +
+        `&university=${university}&major=${major}&pay=${pay}`);
+
+      fetch(`http://localhost:8080/teachers/${no}`, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/x-www-form-urlencoded'
+        },
+        body: `name=${name}&tel=${tel}&email=${email}&finalEducation=${finalEducation}` +
+        `&university=${university}&major=${major}&pay=${pay}`
+      })
+        .then((response) => response.json())
+        .then((obj) => {
+          if (obj.status == "failure") {
+            alert("강사정보 변경 오류!\n" + obj.data);
+            return;
+          }
+          location.href = "list.html";
+        })
+        .catch((err) => {
+          alert("서버 요청 오류!");
+          console.log(err);
+        });
+    };
+
+    document.querySelector('#delete-btn').onclick = (e) => {
+
+      fetch(`http://localhost:8080/teachers/${no}`, {
+        method: 'DELETE'
+      })
+        .then((response) => response.json())
+        .then((obj) => {
+          if (obj.status == "failure") {
+            alert("회원 삭제 오류!\n" + obj.data);
+            return;
+          }
+          location.href = "list.html";
+        })
+        .catch((err) => {
+          alert("서버 요청 오류!");
+          console.log(err);
+        });
+    };
+
+    document.querySelector('#list-btn').onclick = (e) => {
+      location.href = "list.html";
+    };
+
+  </script>
+</body>
+
+</html>

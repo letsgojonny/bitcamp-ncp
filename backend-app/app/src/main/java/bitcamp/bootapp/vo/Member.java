@@ -1,13 +1,12 @@
 package bitcamp.bootapp.vo;
 
-// 회원 데이터를 담을 메모리를 설계한다.
+// 강사 데이터를 담을 메모리를 설계한다.
 public class Member {
   private int no;
   private String name;
   private String tel;
   private String postNo;
   private String basicAddress;
-  private String detailAddress;
   private boolean working;
   private char gender;
   private byte level;
@@ -42,12 +41,6 @@ public class Member {
   }
   public void setBasicAddress(String basicAddress) {
     this.basicAddress = basicAddress;
-  }
-  public String getDetailAddress() {
-    return detailAddress;
-  }
-  public void setDetailAddress(String detailAddress) {
-    this.detailAddress = detailAddress;
   }
   public boolean isWorking() {
     return working;

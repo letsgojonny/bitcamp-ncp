@@ -1,90 +1,101 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+
 <body>
   <h1>새 회원</h1>
   <form>
-  <a href="form.html">새 회원</a>
-  <table border = "1">
-    <thead>
-      <tr>
-        <th>번호</th>
-        <td><input type="text" name="no" id="f-no"></td>
-      </tr>
-      <tr>
-        <th>이름</th>
-        <td><input type="text" name="name" id="f-name"></td>
-      </tr>
-      <tr>
-        <th>전화</th>
-        <td><input type="text" name="tel" id="f-tel"></td>
-      </tr>
-      <tr>
-        <th>우편</th>
-        <td><input type="text" name="postno" id="f-postno"></td>
-      </tr>
-      <tr>
-        <th>주소</th>
-        <td><input type="text" name="basicaddress" id="f-basicaddress"></td>
-      </tr>
-      <tr>
-        <th>재직</th>
-        <td><input type="text" name="working" id="f-working"></td>
-      </tr>
-      <tr>
-        <th>성별</th>
-        <td><input type="text" name="gender" id="f-gender"></td>
-      </tr>
-      <tr>
-        <th>레벨</th>
-        <td><input type="text" name="level" id="f-level"></td>
-      </tr>
-      
-    </tbody>
-  </table>
-  <button id="add-btn" type="button">등록</button>
-  <button id="cancel-btn" type="button">취소</button>
-</form>
+    <a href="form.html">회원 등록</a>
+    <table border="1">
+      <thead>
+        <tbody>
+        <tr>
+          <th>이름</th>
+          <td><input type="text" name="name" id="f-name"></td>
+        </tr>
+        <tr>
+          <th>전화</th>
+          <td><input type="text" name="tel" id="f-tel"></td>
+        </tr>
+        <tr>
+          <th>우편</th>
+          <td><input type="text" name="postno" id="f-postno"></td>
+        </tr>
+        <tr>
+          <th>주소</th>
+          <td><input type="text" name="basicaddress" id="f-basicaddress"></td>
+        </tr>
+        <tr>
+          <th>재직 여부</th>
+          <td>
+            <input type="checkbox" name="working" value="true" id="f-working"> 재직중
+          </td>
+        </tr>
+        <tr>
+          <th>성별</th>
+          <td>
+            <input type="radio" name="gender" value="W" id="f-gender-w" checked> 여성
+            <input type="radio" name="gender" value="M" id="f-gender-w"> 남성
+          </td>
+        </tr>
+        <tr>
+          <th>레벨</th>
+          <td>
+            <select name="level" id="f-level">
+              <option value="0">비전공자</option>
+              <option value="1">준전공자</option>
+              <option value="2">전공자</option>
+            </select>
+          </td>
+        </tr>
+        </tbody>
+    </table>
+    <button id="add-btn" type="button">등록</button>
+    <button id="cancel-btn" type="button">취소</button>
+  </form>
 
-<script>
-document.querySelector('#add-btn').onclick = (e) => {
-  var no = document.querySelector('#f-no').value;
-  var name = encodeURIComponent(document.querySelector('#f-name').value);
-  var tel = encodeURIComponent(document.querySelector('#f-tel').value);
-  var postno = encodeURIComponent(document.querySelector('#f-postno').value);
-  var basicaddress = encodeURIComponent(document.querySelector('#f-basicaddress').value);
-  var working = document.querySelector('#f-working').value;
-  var gender = document.querySelector('#f-gender').value;
-  var level = encodeURIComponent(document.querySelector('#f-level').value);
+  <script>
+    document.querySelector('#add-btn').onclick = (e) => {
+      var name = encodeURIComponent(document.querySelector('#f-name').value);
+      var tel = document.querySelector('#f-tel').value;
+      var postNo = document.querySelector('#f-postno').value;
+      var basicAddress = encodeURIComponent(document.querySelector('#f-basicaddress').value);
+      var working = document.querySelector('#f-working').checked;
+      var gender = document.querySelector('#f-gender-w').checked ? 'W' : 'M';
+      var level = document.querySelector('#f-level').value;
 
-  // console.log(`title=${title}content=${content}password=${password}`);
-  fetch('http://localhost:8080/members', {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/x-www-form-urlencoded'
-    },
-    body: `no=${no}&name=${name}&tel=${tel}&postno=${postno}&basicaddress=${basicaddress}&working=${working}&gender=${gender}&level=${level}`
-  })
-  .then((response) => {return response.json();})
-  .then((obj) => {
-    location.href = "list.html";
-  })
-  .catch((err) => {
-    alert("서버 요청 오류!");
-    console.log(err);
-  });
-};
+      console.log(`name=${name}&tel=${tel}&postno=${postNo}&basicaddress=${basicAddress}` +
+        `&working=${working}&gender=${gender}&level=${level}`);
 
-document.querySelector('#cancel-btn').onclick = (e) => {
-  location.href = "list.html";
-};
+      fetch('http://localhost:8080/members', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/x-www-form-urlencoded'
+        },
+        body: `name=${name}&tel=${tel}&postno=${postNo}&basicaddress=${basicAddress}&working=${working}&gender=${gender}&level=${level}`
+      })
+        .then((response) => { return response.json(); })
+        .then((obj) => {
+          location.href = "list.html";
+        })
+        .catch((err) => {
+          alert("서버 요청 오류!");
+          console.log(err);
+        });
+    };
 
-</script>
+    document.querySelector('#cancel-btn').onclick = (e) => {
+      location.href = "list.html";
+    };
+
+  </script>
 
 </body>
+
 </html>

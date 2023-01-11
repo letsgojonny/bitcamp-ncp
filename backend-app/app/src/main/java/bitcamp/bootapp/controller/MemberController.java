@@ -9,12 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import bitcamp.bootapp.dao.MemberDao;
 import bitcamp.bootapp.vo.Member;
 
-@CrossOrigin(origins = {"http://192.168.0.36:5500", "http://localhost:5500"})
+@CrossOrigin(origins = {"http://192.168.0.36:5500", "http://localhost:5500", "http://*"})
 @RestController
 public class MemberController {
 
@@ -22,17 +21,19 @@ public class MemberController {
 
   @PostMapping("/members")
   public Object addMember(
-      @RequestParam(required = false) int no,
-      @RequestParam(required = false) String name,
-      @RequestParam(required = false) String tel,
-      @RequestParam(required = false) String postno,
-      @RequestParam(required = false) String basicaddress,
-      @RequestParam(required = false) boolean working,
-      @RequestParam(required = false) char gender,
-      @RequestParam(required = false) byte level) {
+      String name,  // ..&name=xxxx&..
+      String tel,   // ..&tel=xxxx&..
+      String postno,
+      String basicaddress,
+      boolean working,  // ..&working=xxx&.. => "true"=true/"false"=false, 파라미터 없으면 false,
+      // "on"=true/"off"=false, "1"=true/"0"=false, 그 밖의 문자열은 변환 오류 발생!!
+      char gender,      // ..&gender=M&.. => 문자 1개의 문자열 변환, null 또는 그 밖의 문자열은 변환 오류 발생!
+      byte level        // ..&level=1&.. => Byte.parseByte("1") => 1, null 또는 byte 범위를 초과하는 숫자는 변환 오류 발생!
+      ) {
+    System.out.printf("%s,%s,%s,%s,%b,%c,%d\n",
+        name,tel,postno,basicaddress,working,gender,level);
 
     Member m = new Member();
-    m.setNo(no);
     m.setName(name);
     m.setTel(tel);
     m.setPostNo(postno);
@@ -47,7 +48,6 @@ public class MemberController {
     // 응답 결과를 담을 맵 객체 준비
     Map<String,Object> contentMap = new HashMap<>();
     contentMap.put("status", "success");
-
     return contentMap;
   }
 
@@ -83,38 +83,28 @@ public class MemberController {
     return contentMap;
   }
 
-  @PutMapping("/members/{memberNo}")
+  @PutMapping("/members/{no}")
   public Object updateMember(
-      @PathVariable int memberNo,
-      @RequestParam(required = false) String name,
-      @RequestParam(required = false) String tel,
-      @RequestParam(required = false) String postno,
-      @RequestParam(required = false) String basicaddress,
-      @RequestParam(required = false) boolean working,
-      @RequestParam(required = false) char gender,
-      @RequestParam(required = false) byte level) {
+      //      @PathVariable int no,
+      Member member) {
+
+    System.out.printf("%d,%s,%s,%s,%s,%b,%c,%d\n",
+        member.getNo(),member.getName(),member.getTel(),member.getPostNo(),member.getBasicAddress(),
+        member.isWorking(),member.getGender(), member.getLevel());
 
     Map<String,Object> contentMap = new HashMap<>();
 
-    Member old = this.memberDao.findByNo(memberNo);
+
+    Member old = this.memberDao.findByNo(member.getNo());
     if (old == null) {
       contentMap.put("status", "failure");
       contentMap.put("data", "멤버를 찾을 수 없습니다.");
       return contentMap;
     }
 
-    Member m = new Member();
-    m.setNo(memberNo);
-    m.setName(name);
-    m.setTel(tel);
-    m.setPostNo(postno);
-    m.setBasicAddress(basicaddress);
-    m.setWorking(working);
-    m.setGender(gender);
-    m.setLevel(level);
-    m.setCreatedDate(old.getCreatedDate());
+    member.setCreatedDate(old.getCreatedDate());
 
-    this.memberDao.update(m);
+    this.memberDao.update(member);
 
     // 응답 결과를 담을 맵 객체 준비
     contentMap.put("status", "success");
@@ -124,6 +114,7 @@ public class MemberController {
 
   @DeleteMapping("/members/{memberNo}")
   public Object deleteMember(
+      // 낱개로 받을 때는 @PathVariable 애노테이션을 생략하면 안된다.
       @PathVariable int memberNo) {
 
     Member m = this.memberDao.findByNo(memberNo);
