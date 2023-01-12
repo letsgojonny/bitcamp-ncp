@@ -14,8 +14,8 @@ public class Exam0510 {
     static float f;
     static double d;
     static boolean bool;
-    static String str;
-    static Date date;
+    static String str;  // reference 주소
+    static Date date;   // reference 주소
   }
 
   public static void main(String[] args) {
@@ -26,13 +26,13 @@ public class Exam0510 {
     // => 논리(boolean) : false = 0
     // => 레퍼런스: null = 0
     //
-    System.out.printf("%d, %d, %d, %d, %c, %.1f, %.1f, %b, %s, %s\n", 
+    System.out.printf("%d, %d, %d, %d, %c, %.1f, %.1f, %b, %s, %s\n",
         A.b, A.s, A.i, A.l, A.c, A.f, A.d, A.bool, A.str, A.date);
 
     // 로컬 변수는 자동으로 초기화되지 않는다.
     // 사용하기 전에 반드시 초기기화시켜야 한다.
     // 다음과 같이 초기화시키지 않은 상태에서 사용하면 컴파일 오류가 발생한다.
-    // => 어떤 값으로 초기화시키나요? 
+    // => 어떤 값으로 초기화시키나요?
     //    변수를 만든 후 처음에 어떤 값으로 시작할 지 개발자가 결정한다.
     //
     //    int x;

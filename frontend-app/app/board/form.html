@@ -7,28 +7,26 @@
   <title>Document</title>
 </head>
 <body>
-  <h1>새 게시글</h1>
-  <form>
-  <a href="form.html">새 글</a>
-  <table border = "1">
-    <thead>
-      <tbody>
-      <tr>
-        <th>제목</th>
-        <td><input type="text" name="title" id="f-title"></td>
-      </tr>
-      <tr>
-        <th>내용</th>
-        <td><textarea name="content" rows="10" cols="50" id="f-content"></textarea></td>
-      </tr>
-      <tr>
-        <th>암호</th>
-        <td><input type="password" name="password" id="f-password"></td>
-      </tr>
-    </tbody>
-  </table>
-  <button id="add-btn" type="button">등록</button>
-  <button id="cancel-btn" type="button">취소</button>
+<h1>새 게시글</h1>
+<form>
+<table border="1">
+  <tbody>
+    <tr>
+      <th>제목</th>
+      <td><input type="text" name="title" id="f-title"></td>
+    </tr>
+    <tr>
+      <th>내용</th>
+      <td><textarea name="content" rows="10" cols="50" id="f-content"></textarea></td>
+    </tr>
+    <tr>
+      <th>암호</th>
+      <td><input type="password" name="password" id="f-password"></td>
+    </tr>
+  </tbody>
+</table>
+<button id="add-btn" type="button">등록</button>
+<button id="cancel-btn" type="button">취소</button>
 </form>
 
 <script>
@@ -37,7 +35,7 @@ document.querySelector('#add-btn').onclick = (e) => {
   var content = encodeURIComponent(document.querySelector('#f-content').value);
   var password = document.querySelector('#f-password').value;
 
-  // console.log(`title=${title}content=${content}password=${password}`);
+  // console.log(`title=${title}&content=${content}&password=${password}`);
   fetch('http://localhost:8080/boards', {
     method: 'POST',
     headers: {
@@ -60,6 +58,5 @@ document.querySelector('#cancel-btn').onclick = (e) => {
 };
 
 </script>
-
 </body>
 </html>

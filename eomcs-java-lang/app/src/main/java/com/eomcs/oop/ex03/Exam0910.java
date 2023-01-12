@@ -16,6 +16,7 @@ public class Exam0910 {
     int bright; // 밝기 (0% ~ 100%)
     int contrast; // 명암 (0% ~ 100%)
     int widthRes; // 해상도 너비
+
     int heightRes; // 해상도 높이
 
     void display() {

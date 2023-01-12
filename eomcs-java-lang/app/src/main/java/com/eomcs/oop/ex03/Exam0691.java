@@ -4,18 +4,22 @@ package com.eomcs.oop.ex03;
 public class Exam0691 {
 
   static class A {
-    static int a = 7;
+    
+    static int a;
 
     static {
+      a = 7;
       System.out.println("A.static{}");
       a += B.b;
     }
   }
 
   static class B {
-    static int b = 22;
-
+    
+    static int b;
+    
     static {
+      b = 22;
       System.out.println("B.static{}");
       b += A.a;
     }
