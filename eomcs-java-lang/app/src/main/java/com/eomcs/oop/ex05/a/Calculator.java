@@ -4,6 +4,7 @@ public class Calculator {
 
   public int result;
 
+
   public void plus(int value) {
     this.result += value;
   }
