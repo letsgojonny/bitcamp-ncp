@@ -14,7 +14,7 @@ import com.eomcs.oop.ex05.j.Truck;
 //    => 서브클래스들의 공통 분모를 추출하여 수퍼클래스를 정의하는 방법을 말한다.
 //    => 그래서 이런 상속을 "일반화/표준화(generalization)"이라 부른다.
 //
-// Sedan 클래스와 Truck 클래스의 공통 분모를 추출하여 
+// Sedan 클래스와 Truck 클래스의 공통 분모를 추출하여
 // Car라는 클래스를 정의하고,
 // 두 클래스는 이렇게 새로 만든 Car 클래스를 상속 받도록 한다.
 public class Exam01 {
@@ -27,7 +27,7 @@ public class Exam01 {
     Sedan s = new Sedan();
     Truck t = new Truck();
 
-    s.doSunroof(true);
+    s.doSunroof(false);
     t.dump();
   }
 

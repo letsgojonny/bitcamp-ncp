@@ -9,5 +9,8 @@ public class Exam01 {
     c1.capacity = 5;
 
     Car c2 = new Car("소나타", "비트자동차",  5);
+
+    System.out.printf("%s", c1.maker);
+    System.out.println(c2);
   }
 }
