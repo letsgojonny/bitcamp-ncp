@@ -34,7 +34,7 @@ eclipse {
 
     // => eclipse 프로젝트 이름 설정하기
     project {
-        name = "backend-app"
+        name = "bitcamp.bootapp"
     }
 
     // => eclipse IDE 설정하기
