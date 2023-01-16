@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>병원 관리</title>
+
+    <!-- Custom fonts for this template -->
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <link
+      href="../theme/vendor/fontawesome-free/css/all.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet"
+    />
+
+    <!-- Custom styles for this template -->
+    <link href="../theme/css/sb-admin-2.min.css" rel="stylesheet" />
+
+    <!-- Custom styles for this page -->
+    <link
+      href="../theme/vendor/datatables/dataTables.bootstrap4.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <ul
+        class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+        id="accordionSidebar"
+      >
+        <!-- Sidebar - Brand -->
+        <a
+          class="sidebar-brand d-flex align-items-center justify-content-center"
+          href="../../index.html"
+        >
+        <div class="sidebar-brand-icon ">
+          <i><img src ="../../img/hospital.jpg" width="60"></i>
+        </div>
+          <div class="sidebar-brand-text mx-3">
+            Hospital Management <sup></sup>
+          </div>
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0" />
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+          <a class="nav-link" href="../../index.html">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a
+          >
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider" />
+
+        <!-- Heading -->
+        <div class="sidebar-heading">Menu</div>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+          <a
+            class="nav-link collapsed"
+            href="#"
+            data-toggle="collapse"
+            data-target="#collapseTwo"
+            aria-expanded="true"
+            aria-controls="collapseTwo"
+          >
+            <i class="fas fa-fw fa-table"></i>
+            <span>PATIENT</span>
+          </a>
+          <div
+            id="collapseTwo"
+            class="collapse"
+            aria-labelledby="headingTwo"
+            data-parent="#accordionSidebar"
+          >
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Menus</h6>
+              <a class="collapse-item" href="patientsForm.html">환자 등록</a>
+              <a class="collapse-item" href="patientsList.html">환자 목록</a>
+            </div>
+          </div>
+        </li>
+
+        <!-- Nav Item - Utilities Collapse Menu -->
+        <li class="nav-item">
+          <a
+            class="nav-link collapsed"
+            href="#"
+            data-toggle="collapse"
+            data-target="#collapseUtilities"
+            aria-expanded="true"
+            aria-controls="collapseUtilities"
+          >
+            <i class="fas fa-fw fa-table"></i>
+            <span>STAFF</span>
+          </a>
+          <div
+            id="collapseUtilities"
+            class="collapse"
+            aria-labelledby="headingUtilities"
+            data-parent="#accordionSidebar"
+          >
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Menus</h6>
+              <a class="collapse-item" href="../staff/staffForm.html"
+                >직원 등록</a
+              >
+              <a class="collapse-item" href="../staff/staffList.html"
+                >직원 목록</a
+              >
+            </div>
+          </div>
+        </li>
+
+        <!-- Nav Item - Utilities Collapse Menu -->
+        <li class="nav-item">
+          <a
+            class="nav-link collapsed"
+            href="#"
+            data-toggle="collapse"
+            data-target="#collapsePages"
+            aria-expanded="true"
+            aria-controls="collapseUtilities"
+          >
+            <i class="fas fa-fw fa-table"></i>
+            <span>BOARD</span>
+          </a>
+          <div
+            id="collapsePages"
+            class="collapse"
+            aria-labelledby="headingUtilities"
+            data-parent="#accordionSidebar"
+          >
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Menus</h6>
+              <a class="collapse-item" href="../board/boardForm.html"
+                >게시글 등록</a
+              >
+              <a class="collapse-item" href="../board/boardList.html"
+                >게시글 목록</a
+              >
+            </div>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a
+            class="nav-link collapsed"
+            href="#"
+            data-toggle="collapse"
+            data-target="#collapseone"
+            aria-expanded="true"
+            aria-controls="collapseone"
+          >
+            <i class="fas fa-fw fa-table"></i>
+            <span>FACILITY</span>
+          </a>
+          <div
+            id="collapseone"
+            class="collapse"
+            aria-labelledby="headingTwo"
+            data-parent="#accordionSidebar"
+          >
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Menus</h6>
+              <a class="collapse-item" href="../facilities/facilitiesForm.html"
+                >장비 등록</a
+              >
+              <a class="collapse-item" href="../facilities/facilitiesList.html"
+                >장비 목록</a
+              >
+            </div>
+          </div>
+        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider" />
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+          <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+      </ul>
+      <!-- End of Sidebar -->
+
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+          <!-- Topbar -->
+          <nav
+            class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
+          >
+            <!-- Sidebar Toggle (Topbar) -->
+            <form class="form-inline">
+              <button
+                id="sidebarToggleTop"
+                class="btn btn-link d-md-none rounded-circle mr-3"
+              >
+                <i class="fa fa-bars"></i>
+              </button>
+            </form>
+
+            <!-- Topbar Search -->
+            <form
+              class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+            >
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control bg-light border-0 small"
+                  placeholder="Search for..."
+                  aria-label="Search"
+                  aria-describedby="basic-addon2"
+                />
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="button">
+                    <i class="fas fa-search fa-sm"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+
+            <!-- Topbar Navbar -->
+            <ul class="navbar-nav ml-auto">
+              <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+              <li class="nav-item dropdown no-arrow d-sm-none">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="searchDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <i class="fas fa-search fa-fw"></i>
+                </a>
+                <!-- Dropdown - Messages -->
+                <div
+                  class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                  aria-labelledby="searchDropdown"
+                >
+                  <form class="form-inline mr-auto w-100 navbar-search">
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        class="form-control bg-light border-0 small"
+                        placeholder="Search for..."
+                        aria-label="Search"
+                        aria-describedby="basic-addon2"
+                      />
+                      <div class="input-group-append">
+                        <button class="btn btn-primary" type="button">
+                          <i class="fas fa-search fa-sm"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </li>
+
+              <!-- Dropdown - User Information -->
+            </ul>
+          </nav>
+          <!-- End of Topbar -->
+
+          <!-- Begin Page Content -->
+          <div class="container-fluid">
+            <div
+              class="col-lg-5"
+              style="margin: auto auto; border: 1px solid ghostwhite"
+            >
+              <div class="p-1">
+                <!-- Page Heading -->
+                <div class="text-center">
+                  <h1 class="h4 text-gray-900 mb-4">환자 등록</h1>
+                </div>
+
+                <form class="user">
+
+                  <div class="form-group row">이름
+                    <div class="col-sm-3 mb-3 mb-sm-1"
+                         style="margin-top: -10px; margin-left: 33px">
+                      <input type="text" id="name"
+                            class="form-control form-control-user"/>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">생년월일
+                    <div
+                      class="col-sm-5 mb-3 mb-sm-1"
+                      style="margin-top: -10px"
+                    >
+                      <input type="text"
+                        class="form-control form-control-user"
+                        id="birthDate" />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    성별
+                    <div
+                      class="col-sm-5 mb-3 mb-sm-1"
+                      style="margin-left: 33px"
+                    >
+                      <input
+                        type="radio"
+                        name="gender"
+                        value="W"
+                        id="gender-w"
+                        checked
+                      />
+                      여성
+                      <input
+                        type="radio"
+                        name="gender"
+                        value="M"
+                        id="gender-m"
+                      />
+                      남성
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    전화번호
+                    <div
+                      class="col-sm-5 mb-3 mb-sm-1"
+                      style="margin-top: -10px"
+                    >
+                      <input
+                        type="email"
+                        class="form-control form-control-user"
+                        id="tel"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    기본주소
+                    <div
+                      class="col-sm-12 mb-3 mb-sm-0"
+                      style="margin-top: -35px; margin-left: 63px"
+                    >
+                      <input
+                        type="text"
+                        class="form-control form-control-user"
+                        id="basicAddress"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    상세주소
+                    <div
+                      class="col-sm-12 mb-3 mb-sm-0"
+                      style="margin-top: -35px; margin-left: 63px"
+                    >
+                      <input
+                        type="text"
+                        class="form-control form-control-user"
+                        id="detailAddress"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    증상
+                    <div
+                      class="col-sm-12 mb-3 mb-sm-0"
+                      style="margin-top: -35px; margin-left: 63px"
+                    >
+                      <input
+                        type="text"
+                        class="form-control form-control-user"
+                        id="symptome"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    체온
+                    <div
+                      class="col-sm-3 mb-3 mb-sm-0"
+                      style="margin-top: -10px; margin-left: 33px"
+                    >
+                      <input
+                        type="text"
+                        class="form-control form-control-user"
+                        id="bodyHeat"
+                        placeholder="&nbsp; / ℃"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    혈압
+                    <div
+                      class="col-sm-3 mb-3 mb-sm-0"
+                      style="margin-top: -10px; margin-left: 33px"
+                    >
+                      <input
+                        type="text"
+                        class="form-control form-control-user"
+                        id="bloodPressure"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    키
+                    <div
+                      class="col-sm-3 mb-3 mb-sm-0"
+                      style="margin-top: -10px; margin-left: 46px"
+                    >
+                      <input
+                        type="text"
+                        class="form-control form-control-user"
+                        id="height"
+                        placeholder="&nbsp; / cm"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    몸무게
+                    <div
+                      class="col-sm-3 mb-3 mb-sm-0"
+                      style="margin-top: -10px; margin-left: 13px"
+                    >
+                      <input
+                        type="text"
+                        class="form-control form-control-user"
+                        id="weight"
+                        placeholder="&nbsp; / kg"
+                      />
+                    </div>
+                  </div>
+                  혈액형
+                  <div
+                    class="form-group row"
+                    style="
+                      width: 100px;
+                      margin-top: -20px;
+                      margin-bottom: 30px;
+                      margin-left: 63px;
+                    "
+                  >
+                    <select class="form-select" id="bloodType" >
+                      <option value="1" selected>A형</option>
+                      <option value="2">B형</option>
+                      <option value="3">O형</option>
+                      <option value="4">AB형</option>
+                    </select>
+                  </div>
+
+                  <div
+                    class="input-group mb-2"
+                    style="
+                      margin-top: 17px;
+                      width: 300px;
+                      height: 50px;
+                      color: dimgrey;
+                    "
+                  >
+                    보험 여부
+                    <input
+                      class="form-check-input mt-0"
+                      type="checkbox"
+                      value="true"
+                      id="insurance"
+                      aria-label="Checkbox for following text input"
+                      style="width: 30px; height: 30px; margin-left: 80px"
+                    />
+                  </div>
+                  <div
+                    class="input-group mb-2"
+                    style="
+                      margin-top: 17px;
+                      width: 300px;
+                      height: 50px;
+                      color: dimgrey;
+                    "
+                  >
+                    입원 여부
+                    <input
+                      class="form-check-input mt-0"
+                      type="checkbox"
+                      value="true"
+                      id="hospitalized"
+                      aria-label="Checkbox for following text input"
+                      style="width: 30px; height: 30px; margin-left: 80px"
+                    />
+                  </div>
+                  <div
+                    class="input-group mb-2"
+                    style="
+                      margin-top: 17px;
+                      width: 300px;
+                      height: 50px;
+                      color: dimgrey;
+                    "
+                  >
+                    최근 14일간 해외 여행 여부
+                    <input
+                      class="form-check-input mt-0"
+                      type="checkbox"
+                      value="true"
+                      id="oversea"
+                      aria-label="Checkbox for following text input"
+                      style="width: 30px; height: 30px; margin-left: 210px"
+                    />
+                  </div>
+                </form>
+              
+              <div style="margin: 0px auto; width: 125px">
+                <button type="button" class="btn btn-primary" id="add-btn">
+                  등록
+                </button>
+                <button type="button" class="btn btn-secondary" id="cancel-btn">
+                  취소
+                </button>
+              </div>
+            
+            <!-- Footer -->
+            <!-- <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2020</span>
+                    </div>
+                </div>
+            </footer> -->
+            <!-- End of Footer -->
+          </div>
+          <!-- End of Content Wrapper -->
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+          <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Bootstrap core JavaScript-->
+        <script src="../theme/vendor/jquery/jquery.min.js"></script>
+        <script src="../theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="../theme/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="../theme/js/sb-admin-2.min.js"></script>
+
+        <!-- Page level plugins -->
+        <script src="../theme/vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="../theme/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+        <!-- Page level custom scripts -->
+        <script src="../theme/js/demo/datatables-demo.js"></script>
+
+        <script>
+          document.querySelector('#add-btn').onclick = (e) => {
+            var name = encodeURIComponent(
+              document.querySelector('#name').value
+            );
+            var tel = document.querySelector('#tel').value;
+            var basicAddress = encodeURIComponent(
+              document.querySelector('#basicAddress').value
+            );
+            var detailAddress = encodeURIComponent(
+              document.querySelector('#detailAddress').value
+            );
+            var symptome = encodeURIComponent(
+              document.querySelector('#symptome').value
+            );
+            var bloodType = document.querySelector('#bloodType').value;
+            var oversea = document.querySelector('#oversea').checked;
+            var bodyHeat = encodeURIComponent(
+              document.querySelector('#bodyHeat').value
+            );
+            var bloodPressure = document.querySelector('#bloodPressure').value;
+            var height = document.querySelector('#height').value;
+            var weight = document.querySelector('#weight').value;
+            var insurance = document.querySelector('#insurance').checked;
+            var hospitalized = document.querySelector('#hospitalized').checked;
+            var gender = document.querySelector('#gender-w').checked
+              ? 'W'
+              : 'M';
+            var birthDate = document.querySelector('#birthDate').value;
+            // console.log(`name=${name}&tel=${tel}&email=${email}&degree=${degree}&school=${school}` +
+            //   `&major=${major}&wage=${wage}`);
+
+            fetch('http://localhost:8080/patients', {
+              method: 'POST',
+              headers: {
+                'Content-type': 'application/x-www-form-urlencoded',
+              },
+              body:
+                `name=${name}&tel=${tel}&basicAddress=${basicAddress}&detailAddress=${detailAddress}&symptome=${symptome}&insurance=${insurance}` +
+                `&bloodType=${bloodType}&oversea=${oversea}&bodyHeat=${bodyHeat}&bloodPressure=${bloodPressure}&height=${height}&weight=${weight}` +
+                `&hospitalized=${hospitalized}&gender=${gender}&birthDate=${birthDate}`,
+            })
+              .then((response) => {
+                return response.json();
+              })
+              .then((obj) => {
+                location.href = 'patientsList.html';
+              })
+              .catch((err) => {
+                alert('서버 요청 오류!');
+                console.log(err);
+              });
+          };
+
+          document.querySelector('#cancel-btn').onclick = (e) => {
+            location.href = 'patientsList.html';
+          };
+        </script>
+      </div>
+    </div>
+  </body>
+</html>

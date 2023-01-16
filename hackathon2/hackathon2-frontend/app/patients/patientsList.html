@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>병원 관리</title>
+
+    <!-- Custom fonts for this template -->
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <link
+      href="../theme/vendor/fontawesome-free/css/all.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet"
+    />
+
+    <!-- Custom styles for this template -->
+    <link href="../theme/css/sb-admin-2.min.css" rel="stylesheet" />
+
+    <!-- Custom styles for this page -->
+    <link
+      href="../theme/vendor/datatables/dataTables.bootstrap4.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <ul
+        class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+        id="accordionSidebar"
+      >
+        <!-- Sidebar - Brand -->
+        <a
+          class="sidebar-brand d-flex align-items-center justify-content-center"
+          href="../../index.html"
+        >
+        <div class="sidebar-brand-icon ">
+          <i><img src ="../../img/hospital.jpg" width="60"></i>
+        </div>
+          <div class="sidebar-brand-text mx-3">
+            Hospital Management <sup></sup>
+          </div>
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0" />
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+          <a class="nav-link" href="../../index.html">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a
+          >
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider" />
+
+        <!-- Heading -->
+        <div class="sidebar-heading">Menu</div>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+          <a
+            class="nav-link collapsed"
+            href="#"
+            data-toggle="collapse"
+            data-target="#collapseTwo"
+            aria-expanded="true"
+            aria-controls="collapseTwo"
+          >
+            <i class="fas fa-fw fa-table"></i>
+            <span>PATIENT</span>
+          </a>
+          <div
+            id="collapseTwo"
+            class="collapse"
+            aria-labelledby="headingTwo"
+            data-parent="#accordionSidebar"
+          >
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Menus</h6>
+              <a class="collapse-item" href="patientsForm.html">환자 등록</a>
+              <a class="collapse-item" href="patientsList.html">환자 목록</a>
+            </div>
+          </div>
+        </li>
+
+        <!-- Nav Item - Utilities Collapse Menu -->
+        <li class="nav-item">
+          <a
+            class="nav-link collapsed"
+            href="#"
+            data-toggle="collapse"
+            data-target="#collapseUtilities"
+            aria-expanded="true"
+            aria-controls="collapseUtilities"
+          >
+            <i class="fas fa-fw fa-table"></i>
+            <span>STAFF</span>
+          </a>
+          <div
+            id="collapseUtilities"
+            class="collapse"
+            aria-labelledby="headingUtilities"
+            data-parent="#accordionSidebar"
+          >
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Menus</h6>
+              <a class="collapse-item" href="../staff/staffForm.html"
+                >직원 등록</a
+              >
+              <a class="collapse-item" href="../staff/staffList.html"
+                >직원 목록</a
+              >
+            </div>
+          </div>
+        </li>
+
+        <!-- Nav Item - Utilities Collapse Menu -->
+        <li class="nav-item">
+          <a
+            class="nav-link collapsed"
+            href="#"
+            data-toggle="collapse"
+            data-target="#collapsePages"
+            aria-expanded="true"
+            aria-controls="collapseUtilities"
+          >
+            <i class="fas fa-fw fa-table"></i>
+            <span>BOARD</span>
+          </a>
+          <div
+            id="collapsePages"
+            class="collapse"
+            aria-labelledby="headingUtilities"
+            data-parent="#accordionSidebar"
+          >
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Menus</h6>
+              <a class="collapse-item" href="../board/boardForm.html"
+                >게시글 등록</a
+              >
+              <a class="collapse-item" href="../board/boardList.html"
+                >게시글 목록</a
+              >
+            </div>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a
+            class="nav-link collapsed"
+            href="#"
+            data-toggle="collapse"
+            data-target="#collapseone"
+            aria-expanded="true"
+            aria-controls="collapseone"
+          >
+            <i class="fas fa-fw fa-table"></i>
+            <span>FACILITY</span>
+          </a>
+          <div
+            id="collapseone"
+            class="collapse"
+            aria-labelledby="headingTwo"
+            data-parent="#accordionSidebar"
+          >
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Menus</h6>
+              <a class="collapse-item" href="../facilities/facilitiesForm.html"
+                >장비 등록</a
+              >
+              <a class="collapse-item" href="../facilities/facilitiesList.html"
+                >장비 목록</a
+              >
+            </div>
+          </div>
+        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider" />
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+          <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+      </ul>
+      <!-- End of Sidebar -->
+
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+          <!-- Topbar -->
+          <nav
+            class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
+          >
+            <!-- Sidebar Toggle (Topbar) -->
+            <form class="form-inline">
+              <button
+                id="sidebarToggleTop"
+                class="btn btn-link d-md-none rounded-circle mr-3"
+              >
+                <i class="fa fa-bars"></i>
+              </button>
+            </form>
+
+            <!-- Topbar Search -->
+            <form
+              class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+            >
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control bg-light border-0 small"
+                  placeholder="Search for..."
+                  aria-label="Search"
+                  aria-describedby="basic-addon2"
+                />
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="button">
+                    <i class="fas fa-search fa-sm"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+
+            <!-- Topbar Navbar -->
+            <ul class="navbar-nav ml-auto">
+              <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+              <li class="nav-item dropdown no-arrow d-sm-none">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="searchDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <i class="fas fa-search fa-fw"></i>
+                </a>
+                <!-- Dropdown - Messages -->
+                <div
+                  class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                  aria-labelledby="searchDropdown"
+                >
+                  <form class="form-inline mr-auto w-100 navbar-search">
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        class="form-control bg-light border-0 small"
+                        placeholder="Search for..."
+                        aria-label="Search"
+                        aria-describedby="basic-addon2"
+                      />
+                      <div class="input-group-append">
+                        <button class="btn btn-primary" type="button">
+                          <i class="fas fa-search fa-sm"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </li>
+            </ul>
+          </nav>
+          <!-- End of Topbar -->
+
+          <!-- Begin Page Content -->
+          <div class="container-fluid">
+            <!-- Page Heading -->
+            <h1 class="h3 mb-2 text-gray-800">환자</h1>
+            <p class="mb-4">환자 목록 조회</p>
+
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+              <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                  Patient Tables
+                </h6>
+              </div>
+              <div class="card-body">
+                <input type="text" style="width: 150px; float: right; border-color: white;" placeholder="Search.." id="searchbar" onkeyup="if(window.event.keyCode==13){search()}">
+                <div class="table-responsive">
+                  <table
+                    class="table table-bordered"
+                    id="dataTable"
+                    width="100%"
+                    cellspacing="0"
+                  >
+                    <thead>
+                      <tr>
+                        <th style="width: 70px">환자번호</th>
+                        <th>이름</th>
+                        <th>생년월일</th>
+                        <th>성별</th>
+                        <th>전화</th>
+                        <th style="width: 80px">혈액형</th>
+                        <th style="width: 80px">체온</th>
+                        <th>혈압</th>
+                        <th>등록일</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- 정보 들어가는 곳 -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Copyright &copy; Your Website 2020</span>
+            </div>
+          </div>
+        </footer>
+        <!-- End of Footer -->
+      </div>
+      <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="../theme/vendor/jquery/jquery.min.js"></script>
+    <script src="../theme/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="../theme/vendor/jquery-easing/jquery.easing.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="../theme/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="../theme/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="../theme/vendor/datatables/dataTables.bootstrap4.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="../theme/js/demo/datatables-demo.js"></script>
+
+    <script>
+      var tbody = document.querySelector('tbody');
+      
+      function search() {
+      var searches = document.querySelector('#searchbar').value;
+
+      fetch(`http://localhost:8080/patientss/${searches}`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((obj) => {
+
+          console.log(obj);
+          var html = '';
+          
+              html += `<tr>
+                <td>${obj.data.no}</td>
+                <td><a href="patientsView.html?no=${obj.data.no}">${obj.data.name} </a></td>
+                <td>${obj.data.birthDate}</td>
+                <td>${obj.data.gender}</td>
+                <td>${obj.data.tel}</td>
+                <td>${getBloodTitle(obj.data.bloodType)}</td>
+                <td>${obj.data.bodyHeat} ℃</td>
+                <td>${obj.data.bloodPressure} mmHg</td>
+                <td>${obj.data.createdDate}</td>
+                </tr>\n`;
+          
+          tbody.innerHTML = html;
+        })
+        .catch((err) => {
+          alert('서버 요청 오류!');
+          console.log(err);
+        });
+
+    }
+      
+
+      function getBloodTitle(bloodType) {
+        switch (bloodType) {
+          case 1:
+            return 'A형';
+          case 2:
+            return 'B형';
+          case 3:
+            return 'O형';
+          case 4:
+            return 'AB형';
+          default:
+            return '';
+        }
+      }
+
+      fetch('http://localhost:8080/patients')
+        .then((response) => {
+          return response.json();
+        })
+        .then((obj) => {
+          var html = '';
+          for (var p of obj.data) {
+            html += `<tr>
+                <td>${p.no}</td>
+                <td><a href="patientsView.html?no=${p.no}">${p.name} </a></td>
+                <td>${p.birthDate}</td>
+                <td>${p.gender}</td>
+                <td>${p.tel}</td>
+                <td>${getBloodTitle(p.bloodType)}</td>
+                <td>${p.bodyHeat} ℃</td>
+                <td>${p.bloodPressure} mmHg</td>
+                <td>${p.createdDate}</td>
+                </tr>\n`;
+          }
+          tbody.innerHTML = html;
+        })
+        .catch((err) => {
+          alert('서버 요청 오류!');
+          console.log(err);
+        });
+    </script>
+  </body>
+</html>
