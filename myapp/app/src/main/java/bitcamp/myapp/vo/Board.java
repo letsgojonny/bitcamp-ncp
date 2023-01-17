@@ -1,12 +1,13 @@
 package bitcamp.myapp.vo;
 
 public class Board {
-  int no;
-  String title;
-  String content;
-  String password;
-  String createdDate;
-  int viewCount;
+  private int no;
+  private String title;
+  private String content;
+  private String password;
+  private String createdDate;
+  private int viewCount;
+
   public int getNo() {
     return no;
   }
@@ -43,4 +44,6 @@ public class Board {
   public void setViewCount(int viewCount) {
     this.viewCount = viewCount;
   }
+
+
 }
