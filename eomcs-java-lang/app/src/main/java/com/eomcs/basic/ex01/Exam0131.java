@@ -1,4 +1,4 @@
-// Object 클래스 - equals() 오버라이딩 
+// Object 클래스 - equals() 오버라이딩
 package com.eomcs.basic.ex01;
 
 import java.util.Objects;
@@ -40,6 +40,7 @@ public class Exam0131 {
     int gender;
     boolean working;
 
+
     @Override
     public boolean equals(Object obj) {
       if (this == obj)
@@ -53,9 +54,7 @@ public class Exam0131 {
           && Objects.equals(name, other.name) && Objects.equals(tel, other.tel)
           && working == other.working;
     }
-
   }
-
 }
 
 

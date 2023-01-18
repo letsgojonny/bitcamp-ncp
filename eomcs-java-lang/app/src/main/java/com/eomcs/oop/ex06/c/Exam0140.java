@@ -44,7 +44,7 @@ public class Exam0140 {
     //    obj.working = true; // A4의 working : obj의 클래스에서 먼저 필드를 찾기 때문이다.
     obj.working = "취업";
 
-    obj.print(); // A4의 print() 호출 : A4에서 상속 받은 print()를 재정의 했기 때문이다. 
+    obj.print(); // A4의 print() 호출 : A4에서 상속 받은 print()를 재정의 했기 때문이다.
 
   }
 }

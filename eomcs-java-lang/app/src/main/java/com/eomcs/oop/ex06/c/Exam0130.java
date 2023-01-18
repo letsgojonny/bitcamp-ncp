@@ -13,6 +13,9 @@ public class Exam0130 {
       System.out.printf("  => this.name(%s)\n", this.name);
       System.out.printf("  => this.tel(%s)\n", this.tel);
       System.out.printf("  => this.working(%s)\n", this.working);
+      // 인스턴스 필드를 찾을 때:
+      // this => 메서드가 소속된 클래스의 필드부터 찾아 올라간다.
+      // super => 메서드가 소속된 클래스의 수퍼 클래스 필드부터 찾아 올라간다.
     }
   }
 
@@ -21,6 +24,13 @@ public class Exam0130 {
     // - 필드 오버라이딩은 메서드와 달리 변수의 타입이 달라도 된다.
     //
     String working;
+
+    void print2() {
+      System.out.println("A.print():");
+      System.out.printf("  => this.name(%s)\n", this.name);
+      System.out.printf("  => this.tel(%s)\n", this.tel);
+      System.out.printf("  => this.working(%s)\n", this.working);
+    }
   }
 
 
@@ -32,11 +42,14 @@ public class Exam0130 {
     obj.working = "취업";
 
     obj.print();
-    // A의 print() 호출 
+    // A의 print() 호출
     // - A4 가 오버라이딩 한 필드를 사용하지 않는다.
     // - 필드 오버라이딩은 그냥 새 필드를 추가한 것과 같다.
     // - 가능한 수퍼 클래스의 필드와 같은 이름을 가진 필드를 만들지 말라!
 
+    System.out.println("--------------------");
+
+    obj.print2();
 
   }
 }
