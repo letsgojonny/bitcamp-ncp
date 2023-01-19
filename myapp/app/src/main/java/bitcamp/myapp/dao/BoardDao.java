@@ -13,14 +13,6 @@ public class BoardDao extends ObjectDao {
   public Board findByNo(int no) {
     Board b = new Board();
     b.setNo(no);
-    //
-    //    int index = this.indexOf(b);
-    //
-    //    if (index < 0) {
-    //      return null;
-    //    } else {
-    //      return (Board) this.get(index);
-    //    }
 
     return (Board) this.get(this.indexOf(b));
   }
@@ -28,7 +20,7 @@ public class BoardDao extends ObjectDao {
   @Override // 컴파일러에게 오버라이딩을 제대로 했는지 검사해 달라고 표시함
   protected int indexOf(Object obj) {
     for (int i = 0; i < this.size(); i++) {
-      if (((Board)this.objects[i]).getNo() == ((Board)obj).getNo()) {
+      if (((Board)get(i)).getNo() == ((Board)obj).getNo()) {
         return i;
       }
     }
