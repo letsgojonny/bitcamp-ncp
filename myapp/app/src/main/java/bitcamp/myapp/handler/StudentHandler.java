@@ -6,14 +6,14 @@ import bitcamp.myapp.vo.Student;
 
 public class StudentHandler {
 
-  private StudentDao memberDao = new StudentDao();
+  private StudentDao studentDao = new StudentDao();
   private String title;
 
   public StudentHandler(String title) {
     this.title = title;
   }
 
-  private void inputMember() {
+  private void inputStudent() {
     Student m = new Student();
     m.setName(Prompt.inputString("이름? "));
     m.setTel(Prompt.inputString("전화? "));
@@ -24,28 +24,27 @@ public class StudentHandler {
     m.setGender(Prompt.inputInt("0. 남자\n1. 여자\n성별? ") == 0 ? 'M' : 'W');
     m.setLevel((byte) Prompt.inputInt("0. 비전공자\n1. 준전공자\n2. 전공자\n전공? "));
 
-    this.memberDao.insert(m);
+    this.studentDao.insert(m);
   }
 
-  private void printMembers() {
+  private void printStudents() {
 
-    Object[] members = this.memberDao.findAll();
+    Student[] students = this.studentDao.findAll();
 
     System.out.println("번호\t이름\t전화\t재직\t전공");
 
-    for (Object obj : members) {
-      Student m = (Student) obj;
+    for (Student s : students) {
       System.out.printf("%d\t%s\t%s\t%s\t%s\n",
-          m.getNo(), m.getName(), m.getTel(),
-          m.isWorking() ? "예" : "아니오",
-              getLevelText(m.getLevel()));
+          s.getNo(), s.getName(), s.getTel(),
+          s.isWorking() ? "예" : "아니오",
+              getLevelText(s.getLevel()));
     }
   }
 
-  private void printMember() {
-    int memberNo = Prompt.inputInt("회원번호? ");
+  private void printStudent() {
+    int studentNo = Prompt.inputInt("회원번호? ");
 
-    Student m = this.memberDao.findByNo(memberNo);
+    Student m = this.studentDao.findByNo(studentNo);
 
     System.out.printf("    이름: %s\n", m.getName());
     System.out.printf("    전화: %s\n", m.getTel());
@@ -68,10 +67,10 @@ public class StudentHandler {
     }
   }
 
-  private void modifyMember() {
-    int memberNo = Prompt.inputInt("회원번호? ");
+  private void modifyStudent() {
+    int studentNo = Prompt.inputInt("회원번호? ");
 
-    Student old = this.memberDao.findByNo(memberNo);
+    Student old = this.studentDao.findByNo(studentNo);
 
     if (old == null) {
       System.out.println("해당 번호의 회원이 없습니다.");
@@ -99,7 +98,7 @@ public class StudentHandler {
 
     String str = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
     if (str.equalsIgnoreCase("Y")) {
-      this.memberDao.update(m);
+      this.studentDao.update(m);
       System.out.println("변경했습니다.");
     } else {
       System.out.println("변경 취소했습니다.");
@@ -107,10 +106,10 @@ public class StudentHandler {
 
   }
 
-  private void deleteMember() {
-    int memberNo = Prompt.inputInt("회원번호? ");
+  private void deleteStudent() {
+    int studentNo = Prompt.inputInt("회원번호? ");
 
-    Student m = this.memberDao.findByNo(memberNo);
+    Student m = this.studentDao.findByNo(studentNo);
 
     if (m == null) {
       System.out.println("해당 번호의 회원이 없습니다.");
@@ -123,22 +122,21 @@ public class StudentHandler {
       return;
     }
 
-    memberDao.delete(m);
+    studentDao.delete(m);
 
     System.out.println("삭제했습니다.");
 
   }
 
-  private void searchMember() {
+  private void searchStudent() {
 
-    Object[] members = this.memberDao.findAll();
+    Student[] students = this.studentDao.findAll();
 
     String name = Prompt.inputString("이름? ");
 
     System.out.println("번호\t이름\t전화\t재직\t전공");
 
-    for (Object obj : members) {
-      Student m = (Student) obj;
+    for (Student m : students) {
       if (m.getName().equalsIgnoreCase(name)) {
         System.out.printf("%d\t%s\t%s\t%s\t%s\n",
             m.getNo(), m.getName(), m.getTel(),
@@ -165,12 +163,12 @@ public class StudentHandler {
 
         switch (menuNo) {
           case 0: return;
-          case 1: this.inputMember(); break;
-          case 2: this.printMembers(); break;
-          case 3: this.printMember(); break;
-          case 4: this.modifyMember(); break;
-          case 5: this.deleteMember(); break;
-          case 6: this.searchMember(); break;
+          case 1: this.inputStudent(); break;
+          case 2: this.printStudents(); break;
+          case 3: this.printStudent(); break;
+          case 4: this.modifyStudent(); break;
+          case 5: this.deleteStudent(); break;
+          case 6: this.searchStudent(); break;
           default:
             System.out.println("잘못된 메뉴 번호 입니다.");
         }

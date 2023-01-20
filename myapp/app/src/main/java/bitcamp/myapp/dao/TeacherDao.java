@@ -2,36 +2,49 @@
 package bitcamp.myapp.dao;
 
 import java.sql.Date;
+import bitcamp.myapp.util.LinkedList;
 import bitcamp.myapp.vo.Teacher;
 
-public class TeacherDao extends ObjectDao {
+public class TeacherDao {
+
+  LinkedList list = new LinkedList();
 
   int lastNo;
+
+  public void insert(Teacher teacher) {
+    teacher.setNo(++lastNo);
+    teacher.setCreatedDate(new Date(System.currentTimeMillis()).toString());
+
+    list.add(teacher);
+  }
+
+  public Teacher[] findAll() {
+    Teacher[] teachers = new Teacher[list.size()];
+    Object[] arr = list.toArray();
+    for (int i = 0; i < teachers.length; i++) {
+      teachers[i] = (Teacher) arr[i];
+    }
+    return teachers;
+  }
 
   public Teacher findByNo(int no) {
     Teacher t = new Teacher();
     t.setNo(no);
-    return (Teacher) this.get(this.indexOf(t));
 
-  }
-
-  @Override
-  protected int indexOf(Object obj) {
-    for (int i = 0; i < this.size(); i++) {
-      if (((Teacher) this.objects[i]).getNo() == ((Teacher) obj).getNo()) {
-        return i;
-      }
+    int index = list.indexOf(t);
+    if (index == -1) {
+      return null;
     }
-    return -1;
+
+    return (Teacher) list.get(index);
   }
 
-  @Override
-  public void insert(Object object) {
-    Teacher t = (Teacher) object;
-    t.setNo(++lastNo);
-    t.setCreatedDate(new Date(System.currentTimeMillis()).toString());
-
-    super.insert(object);
+  public void update(Teacher t) {
+    int index = list.indexOf(t);
+    list.set(index, t);
+  }
+  public boolean delete(Teacher t) {
+    return list.remove(t);
   }
 }
 
