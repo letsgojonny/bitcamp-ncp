@@ -8,5 +8,5 @@ public interface List {
   Object set(int index, Object value);
   boolean remove(Object value);
   int indexOf(Object value);
-
+  int size();
 }

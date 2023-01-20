@@ -1,14 +1,18 @@
 package bitcamp.myapp.dao;
 
 import java.sql.Date;
-import bitcamp.myapp.util.ArrayList;
+import bitcamp.myapp.util.List;
 import bitcamp.myapp.vo.Student;
 
 public class StudentDao {
 
-  ArrayList list = new ArrayList();
+  List list;
 
   int lastNo;
+
+  public StudentDao(List list) {
+    this.list = list;
+  }
 
   public void insert(Student student) {
     student.setNo(++lastNo);
