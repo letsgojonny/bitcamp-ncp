@@ -1,12 +1,12 @@
 package bitcamp.myapp.dao;
 
 import java.sql.Date;
-import bitcamp.myapp.util.LinkedList;
+import bitcamp.myapp.util.ArrayList;
 import bitcamp.myapp.vo.Student;
 
 public class StudentDao {
 
-  LinkedList list = new LinkedList();
+  ArrayList list = new ArrayList();
 
   int lastNo;
 
