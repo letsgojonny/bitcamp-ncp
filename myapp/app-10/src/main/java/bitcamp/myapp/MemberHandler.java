@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class MemberHandler {
 
-  // 모든 인스턴스가 공유하는 데이터를 스태틱 필드로 만든다
+  // 모든 인스턴스가 공유하는 데이터를 스태틱 필드로 만든다.
   // 특히 데이터를 조회하는 용으로 사용하는 final 변수는 스태틱 필드로 만들어야 한다.
   static final int SIZE = 100;
 
@@ -12,7 +12,7 @@ public class MemberHandler {
   Member[] members = new Member[SIZE];
   String title;
 
-  // 인스턴스를 만들 때 프롬프트 제목을 반드시 입력하도록 강제한다
+  // 인스턴스를 만들 때 프롬프트 제목을 반드시 입력하도록 강제한다.
   MemberHandler(String title) {
     this.title = title;
   }
@@ -62,14 +62,12 @@ public class MemberHandler {
     System.out.printf("상세주소: %s\n", m.detailAddress);
     System.out.printf("재직여부: %s\n", m.working ? "예" : "아니오");
     System.out.printf("    성별: %s\n", m.gender == 'M' ? "남자" : "여자");
-    // 이태릭체 = 스태틱 메서드
-    //
     System.out.printf("    전공: %s\n", getLevelText(m.level));
     System.out.printf("  등록일: %s\n", m.createdDate);
   }
 
   // 인스턴스 멤버(필드나 메서드)를 사용하지 않기 때문에
-  // 그냥 스태틱 메서드로 두어라!!
+  // 그냥 스태틱 메서드로 두어라!
   static String getLevelText(int level) {
     switch (level) {
       case 0: return "비전공자";
@@ -176,8 +174,6 @@ public class MemberHandler {
     }
   }
 
-
-
   void service() {
     while (true) {
       System.out.printf("[%s]\n", this.title);
@@ -203,6 +199,4 @@ public class MemberHandler {
       }
     }
   }
-
-
 }

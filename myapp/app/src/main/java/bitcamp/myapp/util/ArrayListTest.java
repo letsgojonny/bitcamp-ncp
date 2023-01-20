@@ -62,13 +62,13 @@ public class ArrayListTest {
     System.out.println(list.remove(new Member(5, "ddd", "444")));
 
 
-    //    list.modify(2,  new Member(3, "cccx", "3333x"));
+    //    list.set(2,  new Member(3, "cccx", "3333x"));
     //    print(list);
-    //    list.modify(0,  new Member(1, "aaax", "1111x"));
+    //    list.set(0,  new Member(1, "aaax", "1111x"));
     //    print(list);
-    //    list.modify(3,  new Member(4, "dddx", "4444x"));
+    //    list.set(3,  new Member(4, "dddx", "4444x"));
     //    print(list);
-    //    list.modify(4,  new Member(4, "dddx", "4444x"));
+    //    list.set(4,  new Member(4, "dddx", "4444x"));
     //    print(list);
   }
 
