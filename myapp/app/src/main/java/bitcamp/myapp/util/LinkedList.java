@@ -120,6 +120,7 @@ public class LinkedList implements List {
     return -1;
   }
 
+  @Override
   public int size() {
     return this.size;
   }
@@ -138,6 +139,13 @@ public class LinkedList implements List {
       i++;
     }
     return cursor.value;
+  }
+
+  @Override
+  public Iterator iterator() {
+    // 이 LinkedList 객체에서 데이터를 꺼내주는 일을 할
+    // Iterator 구현체를 만들어 리턴한다.
+    return new ListIterator(this);
   }
 }
 

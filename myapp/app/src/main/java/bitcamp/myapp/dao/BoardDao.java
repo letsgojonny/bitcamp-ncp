@@ -1,6 +1,7 @@
 package bitcamp.myapp.dao;
 
 import java.sql.Date;
+import bitcamp.myapp.util.Iterator;
 import bitcamp.myapp.util.List;
 import bitcamp.myapp.vo.Board;
 
@@ -28,9 +29,10 @@ public class BoardDao {
 
   public Board[] findAll() {
     Board[] boards = new Board[list.size()];
-    Object[] arr = list.toArray();
-    for (int i = 0; i < boards.length; i++) {
-      boards[i] = (Board) arr[i];
+    Iterator i = list.iterator();
+    int index = 0;
+    while (i.hasNext()) {
+      boards[index++] = (Board) i.next();
     }
     return boards;
   }
