@@ -6,10 +6,10 @@ public class Exam0210 {
   // => 특정 클래스 안에서만 사용되는 클래스가 있다면 중첩 클래스로 선언하라.
   // => 즉 노출 범위를 좁히는 것이 유지보수에 좋다.
   //
-  // 1) static nested class 
+  // 1) static nested class
   // => 바깥 클래스의 인스턴스에 종속되지 않는 클래스.
   // => top level class 와 동일하게 사용한다.
-  static class A {} 
+  static class A {}
 
   // => 다른 스태틱 멤버
   static int a; // 스태틱 필드 = 클래스 필드
@@ -19,9 +19,9 @@ public class Exam0210 {
   // 2) non-static nested class = inner class
   // => 바깥 클래스의 인스턴스에 종속되는 클래스.
   //    중첩 클래스에서 바깥 클래스의 인스턴스 멤버를 사용한다는 뜻이다.
-  //    바깥 클래스의 인스턴스 없이 작업할 수 없는 경우 
+  //    바깥 클래스의 인스턴스 없이 작업할 수 없는 경우
   //    중첩 클래스를 non-static nested class 로 정의한다.
-  // => 바깥 클래스의 인스턴스 없이 생성할 수 없다. 
+  // => 바깥 클래스의 인스턴스 없이 생성할 수 없다.
   class B {}
 
   // => 다른 인스턴스 멤버
@@ -35,8 +35,8 @@ public class Exam0210 {
     // => 특정 메서드 안에서만 사용되는 클래스.
     class C {}
 
-    // 4) anonymous class 
-    // => 클래스의 이름이 없다. 
+    // 4) anonymous class
+    // => 클래스의 이름이 없다.
     //    이름이 없으니, new 명령으로 따로 인스턴스를 생성할 수 없다.
     // => 문법 = 클래스를 정의 하는 문법 + 인스턴스를 만드는 문법
     //    즉, 클래스를 정의하는 동시에 인스턴스를 생성해야 한다.
@@ -50,6 +50,7 @@ public class Exam0210 {
     // => 주의!
     //      new extends 수퍼클래스 implements 인터페이스 {익명 클래스 정의} <== 이런 문법은 없다.
     //      수퍼 클래스를 지정하거나 인터페이스를 지정하거나 둘 중 하나만 해야 한다.
+    //      new
 
     Object obj = new Object() {
       // Object 클래스를 상속 받은 익명 클래스를 만들고,
@@ -57,7 +58,7 @@ public class Exam0210 {
       public void m1() {
         System.out.println("Hello!");
       }
-    }; 
+    };
   }
 }
 

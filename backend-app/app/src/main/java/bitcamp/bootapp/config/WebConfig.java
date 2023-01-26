@@ -1,10 +1,9 @@
 package bitcamp.bootapp.config;
 
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@Configuration
+//@Configuration
 // - 이 클래스는 설정에 관련된 일을 하는 클래스임을 선언한다.
 //   즉, 스프링 컴포넌트로 표시하는 것이다.
 // - Spring IoC 컨테이너는 이 클래스의 인스턴스를 자동 생성한다.
@@ -34,7 +33,4 @@ public class WebConfig implements WebMvcConfigurer {
     .allowedOrigins("http://localhost:5500", "http://192.168.0.36:5500", "http://127.0.0.1:5500")
     .allowedMethods("*");
   }
-
-
-
 }
