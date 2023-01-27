@@ -1,13 +1,13 @@
 package bitcamp.myapp.handler;
 
+import java.util.ArrayList;
 import bitcamp.myapp.dao.TeacherDao;
-import bitcamp.myapp.util.ArrayList;
 import bitcamp.myapp.util.Prompt;
 import bitcamp.myapp.vo.Teacher;
 
 public class TeacherHandler {
 
-  private TeacherDao teacherDao = new TeacherDao(new ArrayList());
+  private TeacherDao teacherDao = new TeacherDao(new ArrayList<Teacher>());
   private String title;
 
   public TeacherHandler(String title) {

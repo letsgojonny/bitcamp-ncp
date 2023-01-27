@@ -39,5 +39,6 @@ public class Exam0440 {
       }
     });
 
+    m1(() -> System.out.println("하하하"));
   }
 }

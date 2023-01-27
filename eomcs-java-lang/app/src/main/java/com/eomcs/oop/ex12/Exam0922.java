@@ -14,5 +14,6 @@ public class Exam0922 {
     names.add("안중근");
 
     names.forEach(item -> System.out.println(item));
+
   }
 }

@@ -50,6 +50,7 @@ public class Exam0530 {
 
     // 리턴 타입 int ===> double
     Calculator1 c1 = MyCalculator::plus; // OK!
+
     // 위 문장은 다음 문장과 같다.
     //    Calculator1 c1 = new Calculator1() {
     //      @Override
@@ -93,7 +94,7 @@ public class Exam0530 {
     //    Calculator5 c5 = new Calculator5() {
     //      @Override
     //      public Object compute(int a, int b) {
-    //        return MyCalculator.plus(a, b); // OK! 
+    //        return MyCalculator.plus(a, b); // OK!
     //        //이유? plus()가 리턴한 int 값이 오토박싱 되기 때문이다.
     //      }
     //    };
