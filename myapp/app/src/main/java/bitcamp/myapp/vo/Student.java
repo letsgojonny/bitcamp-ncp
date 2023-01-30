@@ -6,8 +6,14 @@ public class Student extends Member {
   private String basicAddress;
   private String detailAddress;
   private boolean working;
-  private  char gender;
+  private char gender;
   private byte level;
+
+  @Override
+  public String toString() {
+    return "Student [postNo=" + postNo + ", basicAddress=" + basicAddress + ", detailAddress="
+        + detailAddress + ", working=" + working + ", gender=" + gender + ", level=" + level + "]";
+  }
 
   public String getPostNo() {
     return postNo;
@@ -45,4 +51,19 @@ public class Student extends Member {
   public void setLevel(byte level) {
     this.level = level;
   }
+  //
+  //  public void setWorking(String working) {
+  //    // TODO Auto-generated method stub
+  //
+  //  }
+  //
+  //  public void setGender(String gender) {
+  //    // TODO Auto-generated method stub
+  //
+  //  }
+  //
+  //  public void setLevel(String level) {
+  //    // TODO Auto-generated method stub
+  //
+  //  }
 }
