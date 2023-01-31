@@ -2,8 +2,8 @@ package bitcamp.myapp.handler;
 
 import java.util.LinkedList;
 import bitcamp.myapp.dao.BoardDao;
-import bitcamp.myapp.util.Prompt;
 import bitcamp.myapp.vo.Board;
+import bitcamp.util.Prompt;
 
 public class BoardHandler {
 
@@ -115,6 +115,7 @@ public class BoardHandler {
 
   private void searchBoard() {
     Board[] boards = this.boardDao.findAll();
+
     String keyword = Prompt.inputString("검색어? ");
     System.out.println("번호\t제목\t작성일\t조회수");
 
@@ -129,8 +130,7 @@ public class BoardHandler {
 
   public void service() {
 
-
-    boardDao.load("board.data");
+    boardDao.load("board.csv");
 
     while (true) {
       System.out.printf("[%s]\n", this.title);
@@ -145,7 +145,7 @@ public class BoardHandler {
 
       switch (menuNo) {
         case 0:
-          boardDao.save("board.data");
+          boardDao.save("board.csv");
           return;
         case 1: this.inputBoard(); break;
         case 2: this.printBoards(); break;

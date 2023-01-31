@@ -2,19 +2,19 @@ package bitcamp.myapp.handler;
 
 import java.util.ArrayList;
 import bitcamp.myapp.dao.StudentDao;
-import bitcamp.myapp.util.Prompt;
 import bitcamp.myapp.vo.Student;
+import bitcamp.util.Prompt;
 
 public class StudentHandler {
 
-  private StudentDao studentDao = new StudentDao(new ArrayList<Student>());
+  private StudentDao memberDao = new StudentDao(new ArrayList<Student>());
   private String title;
 
   public StudentHandler(String title) {
     this.title = title;
   }
 
-  private void inputStudent() {
+  private void inputMember() {
     Student m = new Student();
     m.setName(Prompt.inputString("이름? "));
     m.setTel(Prompt.inputString("전화? "));
@@ -25,27 +25,27 @@ public class StudentHandler {
     m.setGender(Prompt.inputInt("0. 남자\n1. 여자\n성별? ") == 0 ? 'M' : 'W');
     m.setLevel((byte) Prompt.inputInt("0. 비전공자\n1. 준전공자\n2. 전공자\n전공? "));
 
-    this.studentDao.insert(m);
+    this.memberDao.insert(m);
   }
 
-  private void printStudents() {
+  private void printMembers() {
 
-    Student[] students = this.studentDao.findAll();
+    Student[] members = this.memberDao.findAll();
 
     System.out.println("번호\t이름\t전화\t재직\t전공");
 
-    for (Student s : students) {
+    for (Student m : members) {
       System.out.printf("%d\t%s\t%s\t%s\t%s\n",
-          s.getNo(), s.getName(), s.getTel(),
-          s.isWorking() ? "예" : "아니오",
-              getLevelText(s.getLevel()));
+          m.getNo(), m.getName(), m.getTel(),
+          m.isWorking() ? "예" : "아니오",
+              getLevelText(m.getLevel()));
     }
   }
 
-  private void printStudent() {
-    int studentNo = Prompt.inputInt("회원번호? ");
+  private void printMember() {
+    int memberNo = Prompt.inputInt("회원번호? ");
 
-    Student m = this.studentDao.findByNo(studentNo);
+    Student m = this.memberDao.findByNo(memberNo);
 
     System.out.printf("    이름: %s\n", m.getName());
     System.out.printf("    전화: %s\n", m.getTel());
@@ -68,10 +68,10 @@ public class StudentHandler {
     }
   }
 
-  private void modifyStudent() {
-    int studentNo = Prompt.inputInt("회원번호? ");
+  private void modifyMember() {
+    int memberNo = Prompt.inputInt("회원번호? ");
 
-    Student old = this.studentDao.findByNo(studentNo);
+    Student old = this.memberDao.findByNo(memberNo);
 
     if (old == null) {
       System.out.println("해당 번호의 회원이 없습니다.");
@@ -99,7 +99,7 @@ public class StudentHandler {
 
     String str = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
     if (str.equalsIgnoreCase("Y")) {
-      this.studentDao.update(m);
+      this.memberDao.update(m);
       System.out.println("변경했습니다.");
     } else {
       System.out.println("변경 취소했습니다.");
@@ -107,10 +107,10 @@ public class StudentHandler {
 
   }
 
-  private void deleteStudent() {
-    int studentNo = Prompt.inputInt("회원번호? ");
+  private void deleteMember() {
+    int memberNo = Prompt.inputInt("회원번호? ");
 
-    Student m = this.studentDao.findByNo(studentNo);
+    Student m = this.memberDao.findByNo(memberNo);
 
     if (m == null) {
       System.out.println("해당 번호의 회원이 없습니다.");
@@ -123,21 +123,21 @@ public class StudentHandler {
       return;
     }
 
-    studentDao.delete(m);
+    memberDao.delete(m);
 
     System.out.println("삭제했습니다.");
 
   }
 
-  private void searchStudent() {
+  private void searchMember() {
 
-    Student[] students = this.studentDao.findAll();
+    Student[] members = this.memberDao.findAll();
 
     String name = Prompt.inputString("이름? ");
 
     System.out.println("번호\t이름\t전화\t재직\t전공");
 
-    for (Student m : students) {
+    for (Student m : members) {
       if (m.getName().equalsIgnoreCase(name)) {
         System.out.printf("%d\t%s\t%s\t%s\t%s\n",
             m.getNo(), m.getName(), m.getTel(),
@@ -149,7 +149,7 @@ public class StudentHandler {
 
   public void service() {
 
-    studentDao.load("student.data");
+    memberDao.load("student.csv");
 
     while (true) {
       System.out.printf("[%s]\n", this.title);
@@ -164,17 +164,22 @@ public class StudentHandler {
       int menuNo;
       try {
         menuNo = Prompt.inputInt(String.format("%s> ", this.title));
+      } catch (Exception e) {
+        System.out.println("메뉴 번호가 옳지 않습니다.");
+        continue;
+      }
 
+      try {
         switch (menuNo) {
           case 0:
-            studentDao.save("student.data");
+            memberDao.save("student.csv");
             return;
-          case 1: this.inputStudent(); break;
-          case 2: this.printStudents(); break;
-          case 3: this.printStudent(); break;
-          case 4: this.modifyStudent(); break;
-          case 5: this.deleteStudent(); break;
-          case 6: this.searchStudent(); break;
+          case 1: this.inputMember(); break;
+          case 2: this.printMembers(); break;
+          case 3: this.printMember(); break;
+          case 4: this.modifyMember(); break;
+          case 5: this.deleteMember(); break;
+          case 6: this.searchMember(); break;
           default:
             System.out.println("잘못된 메뉴 번호 입니다.");
         }
