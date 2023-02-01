@@ -6,6 +6,8 @@ import java.io.FileWriter;
 import java.sql.Date;
 import java.util.Iterator;
 import java.util.List;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import bitcamp.myapp.vo.Teacher;
 
 public class TeacherDao {
@@ -58,23 +60,7 @@ public class TeacherDao {
   public void save(String filename) {
     try (FileWriter out = new FileWriter(filename)) {
 
-      list.forEach(obj -> {
-        try {
-          out.write(String.format("%d,%s,%s,%s,%d,%s,%s,%d,%s\n",
-              obj.getNo(),
-              obj.getName(),
-              obj.getTel(),
-              obj.getEmail(),
-              obj.getDegree(),
-              obj.getSchool(),
-              obj.getMajor(),
-              obj.getWage(),
-              obj.getCreatedDate()));
-        } catch (Exception e) {
-          System.out.println("데이터 출력 중 오류 발생");
-          e.printStackTrace();
-        }
-      });
+      out.write(new Gson().toJson(list));
 
     } catch (Exception e) {
       e.printStackTrace();
@@ -88,25 +74,8 @@ public class TeacherDao {
 
     try (BufferedReader in = new BufferedReader(new FileReader(filename))) {
 
-      while (true) {
-        String str = in.readLine();
-        if (str == null) {
-          break;
-        }
-        String[] values = str.split(",");
-        Teacher obj = new Teacher();
-
-        obj.setNo(Integer.parseInt(values[0]));
-        obj.setName(values[1]);
-        obj.setTel(values[2]);
-        obj.setEmail(values[3]);
-        obj.setDegree(Integer.parseInt(values[4]));
-        obj.setSchool(values[5]);
-        obj.setMajor(values[6]);
-        obj.setWage(Integer.parseInt(values[7]));
-        obj.setCreatedDate(values[8]);
-        list.add(obj);
-      }
+      TypeToken<List<Teacher>> collectionType = new TypeToken<>() {};
+      list = new Gson().fromJson(in, collectionType);
 
       if (list.size() > 0) {
         lastNo = list.get(list.size() - 1).getNo();

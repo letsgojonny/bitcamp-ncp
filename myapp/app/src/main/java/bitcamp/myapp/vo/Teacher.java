@@ -10,6 +10,42 @@ public class Teacher extends Member implements java.io.Serializable {
   private String major;
   private int wage;
 
+
+  public static Teacher create(String csv) {
+    try {
+      String[] values = csv.split(",");
+      Teacher obj = new Teacher();
+
+      obj.setNo(Integer.parseInt(values[0]));
+      obj.setName(values[1]);
+      obj.setTel(values[2]);
+      obj.setEmail(values[3]);
+      obj.setDegree(Integer.parseInt(values[4]));
+      obj.setSchool(values[5]);
+      obj.setMajor(values[6]);
+      obj.setWage(Integer.parseInt(values[7]));
+      obj.setCreatedDate(values[8]);
+
+      return obj;
+    } catch (Exception e) {
+      throw new RuntimeException("객체 생성 오류!", e);
+    }
+  }
+
+
+  public String toCsvString() {
+    return String.format("%d,%s,%s,%s,%d,%s,%s,%d,%s",
+        this.getNo(),
+        this.getName(),
+        this.getTel(),
+        this.getEmail(),
+        this.getDegree(),
+        this.getSchool(),
+        this.getMajor(),
+        this.getWage(),
+        this.getCreatedDate());
+  }
+
   public String getEmail() {
     return email;
   }
