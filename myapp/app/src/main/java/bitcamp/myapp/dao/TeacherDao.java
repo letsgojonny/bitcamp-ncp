@@ -1,11 +1,11 @@
 package bitcamp.myapp.dao;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.sql.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Scanner;
 import bitcamp.myapp.vo.Teacher;
 
 public class TeacherDao {
@@ -54,20 +54,28 @@ public class TeacherDao {
     return list.remove(t);
   }
 
+
   public void save(String filename) {
     try (FileWriter out = new FileWriter(filename)) {
-      for (Teacher t : list) {
-        out.write(String.format("%d,%s,%s,%s,%d,%s,%s,%d,%s\n",
-            t.getNo(),
-            t.getName(),
-            t.getTel(),
-            t.getEmail(),
-            t.getDegree(),
-            t.getSchool(),
-            t.getMajor(),
-            t.getWage(),
-            t.getCreatedDate()));
-      }
+
+      list.forEach(obj -> {
+        try {
+          out.write(String.format("%d,%s,%s,%s,%d,%s,%s,%d,%s\n",
+              obj.getNo(),
+              obj.getName(),
+              obj.getTel(),
+              obj.getEmail(),
+              obj.getDegree(),
+              obj.getSchool(),
+              obj.getMajor(),
+              obj.getWage(),
+              obj.getCreatedDate()));
+        } catch (Exception e) {
+          System.out.println("데이터 출력 중 오류 발생");
+          e.printStackTrace();
+        }
+      });
+
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -77,33 +85,37 @@ public class TeacherDao {
     if (list.size() > 0) {
       return;
     }
-    try (Scanner in = new Scanner(new FileReader(filename))) {
+
+    try (BufferedReader in = new BufferedReader(new FileReader(filename))) {
+
       while (true) {
-        try {
-          String[] values = in.nextLine().split(",");
-          Teacher t = new Teacher();
-          t.setNo(Integer.parseInt(values[0]));
-          t.setName(values[1]);
-          t.setTel(values[2]);
-          t.setEmail(values[3]);
-          t.setDegree(Integer.parseInt(values[4]));
-          t.setSchool(values[5]);
-          t.setMajor(values[6]);
-          t.setWage(Integer.parseInt(values[7]));
-          t.setCreatedDate(values[8]);
-          list.add(t);
-        } catch (Exception e) {
+        String str = in.readLine();
+        if (str == null) {
           break;
         }
+        String[] values = str.split(",");
+        Teacher obj = new Teacher();
+
+        obj.setNo(Integer.parseInt(values[0]));
+        obj.setName(values[1]);
+        obj.setTel(values[2]);
+        obj.setEmail(values[3]);
+        obj.setDegree(Integer.parseInt(values[4]));
+        obj.setSchool(values[5]);
+        obj.setMajor(values[6]);
+        obj.setWage(Integer.parseInt(values[7]));
+        obj.setCreatedDate(values[8]);
+        list.add(obj);
       }
+
       if (list.size() > 0) {
         lastNo = list.get(list.size() - 1).getNo();
       }
-    } catch (Exception e) {
+    }
+    catch (Exception e) {
       e.printStackTrace();
     }
   }
-
 }
 
 

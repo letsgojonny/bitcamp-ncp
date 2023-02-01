@@ -1,11 +1,11 @@
 package bitcamp.myapp.dao;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.sql.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Scanner;
 import bitcamp.myapp.vo.Board;
 
 public class BoardDao {
@@ -56,15 +56,22 @@ public class BoardDao {
 
   public void save(String filename) {
     try (FileWriter out = new FileWriter(filename)) {
-      for (Board b : list) {
-        out.write(String.format("%d,%s,%s,%s,%d,%s\n",
-            b.getNo(),
-            b.getTitle(),
-            b.getContent(),
-            b.getPassword(),
-            b.getViewCount(),
-            b.getCreatedDate()));
-      }
+
+      list.forEach(b -> {
+        try {
+          out.write(String.format("%d,%s,%s,%s,%d,%s\n",
+              b.getNo(),
+              b.getTitle(),
+              b.getContent(),
+              b.getPassword(),
+              b.getViewCount(),
+              b.getCreatedDate()));
+        } catch (Exception e) {
+          System.out.println("데이터 출력 중 오류 발생");
+          e.printStackTrace();
+        }
+      });
+
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -74,22 +81,27 @@ public class BoardDao {
     if (list.size() > 0) {
       return;
     }
-    try (Scanner in = new Scanner(new FileReader(filename))) {
+
+    try (BufferedReader in = new BufferedReader(new FileReader(filename))) {
+
       while (true) {
-        try {
-          String[] values = in.nextLine().split(",");
-          Board b = new Board();
-          b.setNo(Integer.parseInt(values[0]));
-          b.setTitle(values[1]);
-          b.setContent(values[2]);
-          b.setPassword(values[3]);
-          b.setViewCount(Integer.parseInt(values[4]));
-          b.setCreatedDate(values[5]);
-          list.add(b);
-        } catch (Exception e) {
+        String str = in.readLine();
+        if (str == null) {
           break;
         }
+        String[] values = str.split(",");
+
+        Board b = new Board();
+        b.setNo(Integer.parseInt(values[0]));
+        b.setTitle(values[1]);
+        b.setContent(values[2]);
+        b.setPassword(values[3]);
+        b.setViewCount(Integer.parseInt(values[4]));
+        b.setCreatedDate(values[5]);
+
+        list.add(b);
       }
+
       if (list.size() > 0) {
         lastNo = list.get(list.size() - 1).getNo();
       }
