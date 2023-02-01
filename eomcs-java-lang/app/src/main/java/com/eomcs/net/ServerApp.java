@@ -38,7 +38,7 @@ public class ServerApp {
         case "-" : result = a - b; break;
         case "*" : result = a * b; break;
         case "/" : result = a / b; break;
-        default: return ;
+        default: out.println("연산자 똑바로 입력하세요");
 
       }
       System.out.printf("계산 결과 나왔습니다.\n %d %s %d = %d\n", a, c, b, result);
@@ -46,7 +46,7 @@ public class ServerApp {
 
     } catch (Exception e) {
       e.printStackTrace();
-      System.out.println("연산자를 제대로 입력하세요");
+      //      System.out.println("연산자를 제대로 입력하세요");
     }
 
     //
