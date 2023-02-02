@@ -9,8 +9,6 @@ public class CalcServer {
 
   public static void main(String[] args) throws Exception {
 
-    //    Scanner keyScan = new Scanner(System.in);
-
     System.out.println("서버 실행 중...");
 
     ServerSocket serverSocket = new ServerSocket(8888);
@@ -44,22 +42,22 @@ public class CalcServer {
         case "+" : result = a + b; break;
         case "-" : result = a - b; break;
         case "*" : result = a * b; break;
-        case "/" : result = a / b; break;
-        default: 
+        case "/" :
+          if (b != 0) {
+            result = a / b; break;
+          } else {
+            break;
+          }
+        default:
           failed = "Cannot Calculate";
           out.println(failed);
           System.out.println("계산 불가요");
       }
-      //      if (c != "+" || c != "-" || c != "*" || c != "/") {
-      //        System.out.println("연산자 똑바로 입력 바람!!");
-      //      } else {
       System.out.printf("계산 결과 나왔습니다.\n %d %s %d = %d\n", a, c, b, result);
       out.println(result);
-      //      }
     }
     //      if (c != "+" || c != "-" || c != "*" || c != "/") {
     //        result = a + b;
-    //      } 
     //      } else if (c == "-") {
     //        result = a - b;
     //      } else if (c == "*") {
@@ -67,22 +65,15 @@ public class CalcServer {
     //      } else if (c == "/") {
     //        result = a / b;
     //      } else {
-    //        out.println("연산자 똑바로 입력하세요");         
+    //        out.println("연산자 똑바로 입력하세요");
     //      }
 
     //      break;
     //      }
-    //    } catch (Exception e) {
-    //      e.printStackTrace();
-    //      //      System.out.println("연산자를 제대로 입력하세요");
-    //    }
 
-    //
-    //
     socket.close();
     serverSocket.close();
 
     System.out.println("계산 종료!!");
   }
-  //    keyScan.close();
 }

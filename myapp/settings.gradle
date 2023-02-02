@@ -8,4 +8,7 @@
  */
 
 rootProject.name = 'myapp'
-include('app')
+// include('app')
+include('app-common')
+include('app-client')
+include('app-server')

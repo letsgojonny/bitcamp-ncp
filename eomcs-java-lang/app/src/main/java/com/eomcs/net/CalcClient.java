@@ -11,7 +11,7 @@ public class CalcClient {
 
     System.out.println("client 실행 중...");
 
-    Socket socket = new Socket("127.0.0.1", 8888);
+    Socket socket = new Socket("192.168.0.30", 8888);
     System.out.println("server에 연결되었음!!");
 
     PrintStream out = new PrintStream(socket.getOutputStream());
