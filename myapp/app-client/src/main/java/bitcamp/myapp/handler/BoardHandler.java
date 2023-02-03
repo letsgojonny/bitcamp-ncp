@@ -68,6 +68,7 @@ public class BoardHandler {
     b.setTitle(Prompt.inputString(String.format("제목(%s)? ", old.getTitle())));
     b.setContent(Prompt.inputString(String.format("내용(%s)? ", old.getContent())));
     b.setPassword(Prompt.inputString("암호? "));
+    b.setViewCount(old.getViewCount());
 
     if (!old.getPassword().equals(b.getPassword())) {
       System.out.println("암호가 맞지 않습니다!");
@@ -112,6 +113,21 @@ public class BoardHandler {
 
   }
 
+  private void searchBoard() {
+    Board[] boards = this.boardDao.findAll();
+
+    String keyword = Prompt.inputString("검색어? ");
+    System.out.println("번호\t제목\t작성일\t조회수");
+
+    for (Board b : boards) {
+      if (b.getTitle().indexOf(keyword) != -1 ||
+          b.getContent().indexOf(keyword) != -1) {
+        System.out.printf("%d\t%s\t%s\t%d\n",
+            b.getNo(), b.getTitle(), b.getCreatedDate(), b.getViewCount());
+      }
+    }
+  }
+
   public void service() {
 
     while (true) {
@@ -121,6 +137,7 @@ public class BoardHandler {
       System.out.println("3. 조회");
       System.out.println("4. 변경");
       System.out.println("5. 삭제");
+      System.out.println("6. 검색");
       System.out.println("0. 이전");
       int menuNo = Prompt.inputInt(String.format("%s> ", this.title));
 
@@ -131,6 +148,7 @@ public class BoardHandler {
         case 3: this.printBoard(); break;
         case 4: this.modifyBoard(); break;
         case 5: this.deleteBoard(); break;
+        case 6: this.searchBoard(); break;
         default:
           System.out.println("잘못된 메뉴 번호 입니다.");
       }

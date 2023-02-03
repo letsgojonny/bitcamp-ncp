@@ -72,22 +72,19 @@ public class LocalStudentDao implements StudentDao {
   }
 
   public void load(String filename) {
-    if (list.size() > 0) {
+    if (list.size() > 0) { // 중복 로딩 방지!
       return;
     }
 
     try (BufferedReader in = new BufferedReader(new FileReader(filename))) {
 
-      TypeToken<List<Student>> collectionType = new TypeToken<>() {};
-      list = new Gson().fromJson(in, collectionType);
-
+      list = new Gson().fromJson(in, new TypeToken<List<Student>>() {});
 
       if (list.size() > 0) {
         lastNo = list.get(list.size() - 1).getNo();
       }
 
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       e.printStackTrace();
     }
   }

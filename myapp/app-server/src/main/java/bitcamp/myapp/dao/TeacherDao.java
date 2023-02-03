@@ -13,6 +13,7 @@ import bitcamp.myapp.vo.Teacher;
 public class TeacherDao {
 
   List<Teacher> list;
+
   int lastNo;
 
   public TeacherDao(List<Teacher> list) {
@@ -56,7 +57,6 @@ public class TeacherDao {
     return list.remove(t);
   }
 
-
   public void save(String filename) {
     try (FileWriter out = new FileWriter(filename)) {
 
@@ -68,23 +68,23 @@ public class TeacherDao {
   }
 
   public void load(String filename) {
-    if (list.size() > 0) {
+    if (list.size() > 0) { // 중복 로딩 방지!
       return;
     }
 
     try (BufferedReader in = new BufferedReader(new FileReader(filename))) {
 
-      TypeToken<List<Teacher>> collectionType = new TypeToken<>() {};
-      list = new Gson().fromJson(in, collectionType);
+      list = new Gson().fromJson(in, new TypeToken<List<Teacher>>() {});
 
       if (list.size() > 0) {
         lastNo = list.get(list.size() - 1).getNo();
       }
-    }
-    catch (Exception e) {
+
+    } catch (Exception e) {
       e.printStackTrace();
     }
   }
+
 }
 
 

@@ -15,7 +15,6 @@ public class StudentServlet {
   }
 
   private void onInsert(DataInputStream in, DataOutputStream out) throws Exception {
-    // 클라이언트가 보낸 JSON 데이터를 읽어서 Student 객체로 만든다.
     Student b = new Gson().fromJson(in.readUTF(), Student.class);
     this.studentDao.insert(b);
     out.writeUTF("200");
@@ -28,9 +27,9 @@ public class StudentServlet {
   }
 
   private void onFindByNo(DataInputStream in, DataOutputStream out) throws Exception {
-    int studentNo = new Gson().fromJson(in.readUTF(), int.class);
+    int boardNo = new Gson().fromJson(in.readUTF(), int.class);
 
-    Student b = this.studentDao.findByNo(studentNo);
+    Student b = this.studentDao.findByNo(boardNo);
     if (b == null) {
       out.writeUTF("400");
       return;
@@ -40,22 +39,22 @@ public class StudentServlet {
   }
 
   private void onUpdate(DataInputStream in, DataOutputStream out) throws Exception{
-    Student student = new Gson().fromJson(in.readUTF(), Student.class);
+    Student board = new Gson().fromJson(in.readUTF(), Student.class);
 
-    Student old = this.studentDao.findByNo(student.getNo());
+    Student old = this.studentDao.findByNo(board.getNo());
     if (old == null) {
       out.writeUTF("400");
       return;
     }
-    this.studentDao.update(student);
+    this.studentDao.update(board);
     out.writeUTF("200");
     out.writeUTF("success");
   }
 
   private void onDelete(DataInputStream in, DataOutputStream out) throws Exception {
-    Student student = new Gson().fromJson(in.readUTF(), Student.class);
+    Student board = new Gson().fromJson(in.readUTF(), Student.class);
 
-    Student b = this.studentDao.findByNo(student.getNo());
+    Student b = this.studentDao.findByNo(board.getNo());
     if (b == null) {
       out.writeUTF("400");
       return;
@@ -77,7 +76,6 @@ public class StudentServlet {
         case "findByNo": this.onFindByNo(in, out); break;
         case "update": this.onUpdate(in, out); break;
         case "delete": this.onDelete(in, out); break;
-        //        case "search": this.onSearch(in, out); break;
         default:
           System.out.println("잘못된 메뉴 번호 입니다.");
       }
@@ -86,4 +84,3 @@ public class StudentServlet {
     }
   }
 }
-

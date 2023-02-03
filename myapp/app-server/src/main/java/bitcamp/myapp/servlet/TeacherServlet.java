@@ -15,9 +15,8 @@ public class TeacherServlet {
   }
 
   private void onInsert(DataInputStream in, DataOutputStream out) throws Exception {
-    // 클라이언트가 보낸 JSON 데이터를 읽어서 Teacher 객체로 만든다.
-    Teacher t = new Gson().fromJson(in.readUTF(), Teacher.class);
-    this.teacherDao.insert(t);
+    Teacher b = new Gson().fromJson(in.readUTF(), Teacher.class);
+    this.teacherDao.insert(b);
     out.writeUTF("200");
     out.writeUTF("success");
   }
@@ -30,13 +29,13 @@ public class TeacherServlet {
   private void onFindByNo(DataInputStream in, DataOutputStream out) throws Exception {
     int teacherNo = new Gson().fromJson(in.readUTF(), int.class);
 
-    Teacher t = this.teacherDao.findByNo(teacherNo);
-    if (t == null) {
+    Teacher b = this.teacherDao.findByNo(teacherNo);
+    if (b == null) {
       out.writeUTF("400");
       return;
     }
     out.writeUTF("200");
-    out.writeUTF(new Gson().toJson(t));
+    out.writeUTF(new Gson().toJson(b));
   }
 
   private void onUpdate(DataInputStream in, DataOutputStream out) throws Exception{
@@ -55,13 +54,13 @@ public class TeacherServlet {
   private void onDelete(DataInputStream in, DataOutputStream out) throws Exception {
     Teacher teacher = new Gson().fromJson(in.readUTF(), Teacher.class);
 
-    Teacher t = this.teacherDao.findByNo(teacher.getNo());
-    if (t == null) {
+    Teacher b = this.teacherDao.findByNo(teacher.getNo());
+    if (b == null) {
       out.writeUTF("400");
       return;
     }
 
-    this.teacherDao.delete(t);
+    this.teacherDao.delete(b);
     out.writeUTF("200");
     out.writeUTF("success");
   }

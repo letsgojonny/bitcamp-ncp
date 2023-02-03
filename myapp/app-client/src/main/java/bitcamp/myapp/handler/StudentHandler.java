@@ -6,12 +6,12 @@ import bitcamp.util.Prompt;
 
 public class StudentHandler {
 
-  private StudentDao studentDao;
+  private StudentDao memberDao;
   private String title;
 
-  public StudentHandler(String title, StudentDao studentDao) {
+  public StudentHandler(String title, StudentDao memberDao) {
     this.title = title;
-    this.studentDao = studentDao;
+    this.memberDao = memberDao;
   }
 
   private void inputMember() {
@@ -25,12 +25,12 @@ public class StudentHandler {
     m.setGender(Prompt.inputInt("0. 남자\n1. 여자\n성별? ") == 0 ? 'M' : 'W');
     m.setLevel((byte) Prompt.inputInt("0. 비전공자\n1. 준전공자\n2. 전공자\n전공? "));
 
-    this.studentDao.insert(m);
+    this.memberDao.insert(m);
   }
 
   private void printMembers() {
 
-    Student[] members = this.studentDao.findAll();
+    Student[] members = this.memberDao.findAll();
 
     System.out.println("번호\t이름\t전화\t재직\t전공");
 
@@ -45,7 +45,7 @@ public class StudentHandler {
   private void printMember() {
     int memberNo = Prompt.inputInt("회원번호? ");
 
-    Student m = this.studentDao.findByNo(memberNo);
+    Student m = this.memberDao.findByNo(memberNo);
 
     System.out.printf("    이름: %s\n", m.getName());
     System.out.printf("    전화: %s\n", m.getTel());
@@ -71,7 +71,7 @@ public class StudentHandler {
   private void modifyMember() {
     int memberNo = Prompt.inputInt("회원번호? ");
 
-    Student old = this.studentDao.findByNo(memberNo);
+    Student old = this.memberDao.findByNo(memberNo);
 
     if (old == null) {
       System.out.println("해당 번호의 회원이 없습니다.");
@@ -99,7 +99,7 @@ public class StudentHandler {
 
     String str = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
     if (str.equalsIgnoreCase("Y")) {
-      this.studentDao.update(m);
+      this.memberDao.update(m);
       System.out.println("변경했습니다.");
     } else {
       System.out.println("변경 취소했습니다.");
@@ -110,7 +110,7 @@ public class StudentHandler {
   private void deleteMember() {
     int memberNo = Prompt.inputInt("회원번호? ");
 
-    Student m = this.studentDao.findByNo(memberNo);
+    Student m = this.memberDao.findByNo(memberNo);
 
     if (m == null) {
       System.out.println("해당 번호의 회원이 없습니다.");
@@ -123,7 +123,7 @@ public class StudentHandler {
       return;
     }
 
-    studentDao.delete(m);
+    memberDao.delete(m);
 
     System.out.println("삭제했습니다.");
 
@@ -131,7 +131,7 @@ public class StudentHandler {
 
   private void searchMember() {
 
-    Student[] members = this.studentDao.findAll();
+    Student[] members = this.memberDao.findAll();
 
     String name = Prompt.inputString("이름? ");
 
@@ -148,7 +148,6 @@ public class StudentHandler {
   }
 
   public void service() {
-
 
     while (true) {
       System.out.printf("[%s]\n", this.title);
@@ -170,8 +169,7 @@ public class StudentHandler {
 
       try {
         switch (menuNo) {
-          case 0:
-            return;
+          case 0: return;
           case 1: this.inputMember(); break;
           case 2: this.printMembers(); break;
           case 3: this.printMember(); break;

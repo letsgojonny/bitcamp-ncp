@@ -2,6 +2,7 @@ package bitcamp.myapp;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -18,6 +19,14 @@ import bitcamp.myapp.vo.Teacher;
 
 public class ServerApp {
 
+  BoardDao boardDao = new BoardDao(new LinkedList<Board>());
+  StudentDao studentDao = new StudentDao(new ArrayList<Student>());
+  TeacherDao teacherDao = new TeacherDao(new ArrayList<Teacher>());
+
+  StudentServlet studentServlet = new StudentServlet(studentDao);
+  TeacherServlet teacherServlet = new TeacherServlet(teacherDao);
+  BoardServlet boardServlet = new BoardServlet(boardDao);
+
   public static void main(String[] args) {
     new ServerApp().service(8888);
     System.out.println("서버 종료!");
@@ -25,49 +34,50 @@ public class ServerApp {
 
   void service(int port) {
     System.out.println("서버 실행 중...");
+    try (ServerSocket serverSocket = new ServerSocket(port)) {
 
-    try (ServerSocket serverSocket = new ServerSocket(port);
-        Socket socket = serverSocket.accept();
-        DataInputStream in = new DataInputStream(socket.getInputStream());
-        DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
-
-      BoardDao boardDao = new BoardDao(new LinkedList<Board>());
       boardDao.load("board.json");
-
-      StudentDao studentDao = new StudentDao(new ArrayList<Student>());
       studentDao.load("student.json");
-
-      TeacherDao teacherDao = new TeacherDao(new ArrayList<Teacher>());
       teacherDao.load("teacher.json");
 
-      StudentServlet studentServlet = new StudentServlet(studentDao);
-      TeacherServlet teacherServlet = new TeacherServlet(teacherDao);
-      BoardServlet boardServlet = new BoardServlet(boardDao);
-
       while (true) {
-        String dataName = in.readUTF();
-        switch (dataName) {
-          case "board":
-            boardServlet.service(in, out);
-            boardDao.save("board.json");
-            break;
-          case "student":
-            studentServlet.service(in, out);
-            studentDao.save("student.json");
-            break;
-          case "teacher":
-            teacherServlet.service(in, out);
-            teacherDao.save("teacher.json");
-            break;
-        }
+        Socket socket = serverSocket.accept();
+        new Thread(() -> processRequest(socket)).start();
       }
-
     } catch (Exception e) {
       System.out.println("서버 오류 발생!");
       e.printStackTrace();
     }
   }
 
+
+  void processRequest(Socket socket) {
+    try (Socket socket2 = socket;
+        DataInputStream in = new DataInputStream(socket.getInputStream());
+        DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
+
+      InetAddress address = socket.getInetAddress();
+      System.out.printf("%s 가 연결합\n", address.getHostAddress());
+
+      String dataName = in.readUTF();
+      switch (dataName) {
+        case "board":
+          boardServlet.service(in, out);
+          boardDao.save("board.json");
+          break;
+        case "student":
+          studentServlet.service(in, out);
+          studentDao.save("student.json");
+          break;
+        case "teacher":
+          teacherServlet.service(in, out);
+          teacherDao.save("teacher.json");
+          break;
+      }
+    } catch (Exception e) {
+      System.out.println("실행 오류");
+    }
+  }
 }
 
 
