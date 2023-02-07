@@ -10,13 +10,14 @@ create table test1 (
   no int not null,
   name varchar(20) not null,
   tel varchar(20) not null,
-  fax varchar(20),
+  fax varchar(20), 
   pstno varchar(5),
   addr varchar(200)
 );
 
 /* PK 컬럼 지정 */
 alter table test1
+
   add constraint test1_pk primary key (no);
 
 /* 자동 증가 컬럼 지정 */
@@ -124,7 +125,7 @@ update test1 set fax='1212' where name='xxx';
 
 delete from test1 where no=1;
 
-rollback; /* 지금까지 작업한 insert, update, delete은 최소된다.*/
+rollback; /* 지금까지 작업한 insert, update, delete은 취소된다.*/
 
 
 
@@ -140,4 +141,4 @@ update test1 set fax='1212' where name='xxx';
 
 delete from test1 where no=1;
 
-rollback; /* 막지막 commit 이후에 수행한 insert, update, delete은 최소된다.*/
+rollback; /* 막지막 commit 이후에 수행한 insert, update, delete은 취소된다.*/
