@@ -3,8 +3,9 @@
 => 기법
 1) CROSS 조인(=Cartesian product)
 2) NATURAL 조인
-3) JOIN ~ ON
-4) OUTER JOIN
+3) JOIN ~ USING(컬럼명)
+4) JOIN ~ ON
+5) OUTER JOIN
 */
 
 /* cross join : 두 테이블의 데이터를 1:1로 모두 연결한다.*/
@@ -174,8 +175,6 @@ from memb m join stnt s on m.mno=s.mno;
     select에서 추출하는 방법 */
 select m.mno, name, work
 from memb m left outer join stnt s on m.mno=s.mno;
-
-
 
 /* 여러 테이블의 데이터를 연결하기
     => 다음의 결과가 출력될 수 있도록 수강 신청 데이터를 출력하시오!

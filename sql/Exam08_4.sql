@@ -117,6 +117,20 @@ from lect l
  */
 
 
+select
+    l.lno,
+    l.titl,
+    r.rno,
+    r.loc,
+    r.name
+from lect l 
+    right outer join room r on l.rno=r.rno;
+/* 오른쪽 테이블인 room를 기준으로 lect 데이터를 연결한다.
+ * 만약 room와 일치하는 데이터가 lect에 없더라도
+ * room 데이터를 출력한다!
+ */
+
+
 /* 요구사항:
    모든 멤버의 번호와 이름을 출력하라!
    단 학생의 경우 재직여부도 출력하라!*/
