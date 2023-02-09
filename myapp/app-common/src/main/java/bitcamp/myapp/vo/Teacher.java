@@ -46,6 +46,13 @@ public class Teacher extends Member implements java.io.Serializable {
         this.getCreatedDate());
   }
 
+  @Override
+  public String toString() {
+    return "Teacher [email=" + email + ", degree=" + degree + ", school=" + school + ", major="
+        + major + ", wage=" + wage + "]";
+  }
+
+
   public String getEmail() {
     return email;
   }

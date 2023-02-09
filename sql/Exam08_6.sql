@@ -3,13 +3,27 @@
 --   다음의 결과가 출력될 수 있도록 수강 신청 데이터를 출력하시오!
 --   수강신청번호, 강의명, 학생명, 재직여부, 수강신청일, 강의실명, 매니저명, 직위 
 
-lect_appl.lano, lect.titl, memb.name(학생명), stnt.work, lect_appl.rdt, room.name, memb.name(매니저), mgr.posi
 
 select 
-  la.lano, 
-  l.titl, m.name(학생명), s.work, la.rdt, r.name, m.name(매니저), mgr.posi
-from lect_appl la
-left outer join lect l, memb m, stnt s, room r, mgr mgr;
+  la.lano,
+  l.titl,
+  m.name,
+  s.work,
+  date_format(la.rdt, '%Y-%m%d') reg_dt,
+  r.name,
+  m2.name,
+  mg.posi
+from 
+  lect_appl la
+  join lect l on la.lno=l.lno
+  join memb m on m.mno=la.mno
+  join stnt s on s.mno=la.mno
+  left outer join room r on r.rno=l.rno
+  left outer join memb m2 on m2.mno=l.mno
+  left outer join mgr mg on mg.mno=l.mno
+
+  order by lano asc;
+
 
 select
   la.lano,
@@ -17,43 +31,20 @@ select
   m.name,
   s.work,
   date_format(la.rdt, '%Y-%m%d') reg_dt,
-  m2.name
---   m2.posi
+  m2.name,
+  mr.posi
 from 
   lect_appl la
   join lect l on la.lno=l.lno
   join memb m on m.mno=la.mno
-  join stnt s on s.mno=m.mno
+  join stnt s on s.mno=la.mno
 
-  left outer join room r on r.rno=l.rno;
-  join mgr m2 on m2.mno=l.mno;
+  left outer join room r on r.rno=l.rno
+  left outer join memb m2 on m2.mno=l.mno
+  left outer join mgr mr on l.mno=mr.mno
+
+  order by lano asc;
   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

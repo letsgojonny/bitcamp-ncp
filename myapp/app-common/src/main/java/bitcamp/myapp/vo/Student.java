@@ -52,6 +52,14 @@ public class Student extends Member implements java.io.Serializable {
         this.getLevel());
   }
 
+  @Override
+  public String toString() {
+    return "Student [postNo=" + postNo + ", basicAddress=" + basicAddress + ", detailAddress="
+        + detailAddress + ", working=" + working + ", gender=" + gender + ", level=" + level + "]";
+  }
+
+
+
   public String getPostNo() {
     return postNo;
   }
