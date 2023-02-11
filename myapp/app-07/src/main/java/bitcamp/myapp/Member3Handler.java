@@ -2,7 +2,7 @@ package bitcamp.myapp;
 
 import java.sql.Date;
 
-public class MemberHandler {
+public class Member3Handler {
 
   static final int SIZE = 100;
   static int count = 0;
