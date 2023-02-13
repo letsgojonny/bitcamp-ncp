@@ -1,9 +1,10 @@
-package bitcamp.myapp.dao;
+package bitcamp.myapp.dao.impl;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.Board;
 
 public class JdbcBoardDao implements BoardDao {
