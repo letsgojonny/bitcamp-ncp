@@ -1,5 +1,6 @@
 package bitcamp.myapp.handler;
 
+import java.util.List;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.Board;
 import bitcamp.util.StreamTool;
@@ -22,14 +23,12 @@ public class BoardHandler {
 
     this.boardDao.insert(b);
 
-    streamTool.println("입력했습니다.").send();
+    streamTool.println("입력했습니다!").send();
   }
 
   private void printBoards(StreamTool streamTool) throws Exception {
+    List<Board> boards = this.boardDao.findAll();
     streamTool.println("번호\t제목\t작성일\t조회수");
-
-    Board[] boards = this.boardDao.findAll();
-
     for (Board b : boards) {
       streamTool.printf("%d\t%s\t%s\t%d\n",
           b.getNo(), b.getTitle(), b.getCreatedDate(), b.getViewCount());
@@ -42,12 +41,19 @@ public class BoardHandler {
 
     Board b = this.boardDao.findByNo(boardNo);
 
-    streamTool.printf("    제목: %s\n", b.getTitle())
+    if (b == null) {
+      streamTool.println("해당 번호의 게시글 없습니다.").send();
+      return;
+    }
+
+    this.boardDao.increaseViewCount(boardNo);
+
+    streamTool
+    .printf("    제목: %s\n", b.getTitle())
     .printf("    내용: %s\n", b.getContent())
     .printf("  등록일: %s\n", b.getCreatedDate())
     .printf("  조회수: %d\n", b.getViewCount())
     .send();
-    b.setViewCount(b.getViewCount() + 1);
   }
 
   private void modifyBoard(StreamTool streamTool) throws Exception {
@@ -69,7 +75,12 @@ public class BoardHandler {
     b.setPassword(streamTool.promptString("암호? "));
     b.setViewCount(old.getViewCount());
 
-    String str = streamTool.promptString("정말 변경하시겠습니까?(y/N)");
+    if (!old.getPassword().equals(b.getPassword())) {
+      streamTool.println("암호가 맞지 않습니다!").send();
+      return;
+    }
+
+    String str = streamTool.promptString("정말 변경하시겠습니까?(y/N) ");
     if (str.equalsIgnoreCase("Y")) {
       this.boardDao.update(b);
       streamTool.println("변경했습니다.");
@@ -101,7 +112,7 @@ public class BoardHandler {
       return;
     }
 
-    boardDao.delete(b);
+    this.boardDao.delete(boardNo);
 
     streamTool.println("삭제했습니다.").send();
 
@@ -110,16 +121,12 @@ public class BoardHandler {
   private void searchBoard(StreamTool streamTool) throws Exception {
     String keyword = streamTool.promptString("검색어? ");
 
-    Board[] boards = this.boardDao.findByKeyword(keyword);
+    List<Board> boards = this.boardDao.findByKeyword(keyword);
 
     streamTool.println("번호\t제목\t작성일\t조회수");
-
     for (Board b : boards) {
-      if (b.getTitle().indexOf(keyword) != -1 ||
-          b.getContent().indexOf(keyword) != -1) {
-        streamTool.printf("%d\t%s\t%s\t%d\n",
-            b.getNo(), b.getTitle(), b.getCreatedDate(), b.getViewCount());
-      }
+      streamTool.printf("%d\t%s\t%s\t%d\n",
+          b.getNo(), b.getTitle(), b.getCreatedDate(), b.getViewCount());
     }
     streamTool.send();
   }
@@ -176,6 +183,5 @@ public class BoardHandler {
     .println("6. 검색")
     .println("0. 이전")
     .send();
-
   }
 }

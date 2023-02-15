@@ -32,7 +32,6 @@ public class StreamTool {
   public void send() throws Exception {
     out.writeUTF(stringWriter.toString());
     stringWriter.getBuffer().setLength(0);
-
   }
 
   public StreamTool print(String s) {
@@ -65,6 +64,13 @@ public class StreamTool {
     return this.readInt();
   }
 
-
-
 }
+
+
+
+
+
+
+
+
+

@@ -12,8 +12,7 @@ public class ClientApp {
   }
 
   void execute(String ip, int port) {
-    try (
-        Scanner keyboard = new Scanner(System.in);
+    try (Scanner keyboard = new Scanner(System.in);
         Socket socket = new Socket(ip, port);
         DataInputStream in = new DataInputStream(socket.getInputStream());
         DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
@@ -30,7 +29,7 @@ public class ClientApp {
         }
         System.out.print(response);
       }
-      System.out.println("안녕!!");
+      System.out.println("안녕!");
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -40,6 +39,7 @@ public class ClientApp {
     System.out.printf("%s", title);
     return keyboard.nextLine();
   }
+
 }
 
 

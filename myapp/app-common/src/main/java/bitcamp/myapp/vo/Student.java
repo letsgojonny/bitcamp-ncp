@@ -2,7 +2,6 @@ package bitcamp.myapp.vo;
 
 // 회원 데이터를 담을 메모리를 설계한다.
 public class Student extends Member implements java.io.Serializable {
-
   private static final long serialVersionUID = 1L;
 
   private String postNo;
@@ -13,14 +12,13 @@ public class Student extends Member implements java.io.Serializable {
   private byte level;
 
 
-
-
   @Override
   public String toString() {
     return "Student [postNo=" + postNo + ", basicAddress=" + basicAddress + ", detailAddress="
         + detailAddress + ", working=" + working + ", gender=" + gender + ", level=" + level
         + ", getNo()=" + getNo() + ", getName()=" + getName() + ", getEmail()=" + getEmail()
-        + ", getTel()=" + getTel() + ", getCreatedDate()=" + getCreatedDate() + "]";
+        + ", getPassword()=" + getPassword() + ", getTel()=" + getTel() + ", getCreatedDate()="
+        + getCreatedDate() + "]";
   }
   public String getPostNo() {
     return postNo;
