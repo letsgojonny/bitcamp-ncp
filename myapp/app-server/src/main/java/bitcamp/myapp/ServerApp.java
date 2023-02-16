@@ -7,10 +7,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import bitcamp.myapp.dao.impl.BoardDaoImpl;
-import bitcamp.myapp.dao.impl.MemberDaoImpl;
-import bitcamp.myapp.dao.impl.StudentDaoImpl;
-import bitcamp.myapp.dao.impl.TeacherDaoImpl;
+import bitcamp.myapp.dao.BoardDao;
+import bitcamp.myapp.dao.MemberDao;
+import bitcamp.myapp.dao.StudentDao;
+import bitcamp.myapp.dao.TeacherDao;
 import bitcamp.myapp.handler.BoardHandler;
 import bitcamp.myapp.handler.HelloHandler;
 import bitcamp.myapp.handler.StudentHandler;
@@ -18,6 +18,7 @@ import bitcamp.myapp.handler.TeacherHandler;
 import bitcamp.util.BitcampSqlSessionFactory;
 import bitcamp.util.ConnectionFactory;
 import bitcamp.util.ConnectionPool;
+import bitcamp.util.DaoGenerator;
 import bitcamp.util.StreamTool;
 import bitcamp.util.TransactionManager;
 
@@ -65,10 +66,13 @@ public class ServerApp {
     // 7) BitcampSqlSessionFactory 객체를 이용하여 트랜잭션을 다루는 객체를 준비한다.
     TransactionManager txManager = new TransactionManager(sqlSessionFactory);
 
-    BoardDaoImpl boardDao = new BoardDaoImpl(sqlSessionFactory);
-    MemberDaoImpl memberDao = new MemberDaoImpl(sqlSessionFactory);
-    StudentDaoImpl studentDao = new StudentDaoImpl(sqlSessionFactory);
-    TeacherDaoImpl teacherDao = new TeacherDaoImpl(sqlSessionFactory);
+    // 8) DAO 제너레이터를 이용한 구현체 생성기 준비
+    DaoGenerator daoGenerator = new DaoGenerator(sqlSessionFactory);
+
+    BoardDao boardDao = daoGenerator.getObject(BoardDao.class);
+    MemberDao memberDao = daoGenerator.getObject(MemberDao.class);
+    StudentDao studentDao = daoGenerator.getObject(StudentDao.class);
+    TeacherDao teacherDao = daoGenerator.getObject(TeacherDao.class);
 
     this.studentHandler = new StudentHandler("학생", txManager, memberDao, studentDao);
     this.teacherHandler = new TeacherHandler("강사", txManager, memberDao, teacherDao);
