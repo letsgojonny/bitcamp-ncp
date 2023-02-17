@@ -11,8 +11,6 @@ import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.dao.StudentDao;
 import bitcamp.myapp.dao.TeacherDao;
-import bitcamp.myapp.handler.BoardHandler;
-import bitcamp.myapp.handler.HelloHandler;
 import bitcamp.myapp.handler.StudentHandler;
 import bitcamp.myapp.handler.TeacherHandler;
 import bitcamp.util.BitcampSqlSessionFactory;
@@ -30,8 +28,8 @@ public class ServerApp {
 
   StudentHandler studentHandler;
   TeacherHandler teacherHandler;
-  BoardHandler boardHandler;
-  HelloHandler helloHandler = new HelloHandler();
+  //  BoardHandler boardHandler;
+  //  HelloHandler helloHandler = new HelloHandler();
 
   public static void main(String[] args) {
     try {
@@ -76,7 +74,7 @@ public class ServerApp {
 
     this.studentHandler = new StudentHandler("학생", txManager, memberDao, studentDao);
     this.teacherHandler = new TeacherHandler("강사", txManager, memberDao, teacherDao);
-    this.boardHandler = new BoardHandler("게시판", boardDao);
+    //    this.boardHandler = new BoardHandler("게시판", boardDao);
   }
 
   void execute(int port) {
@@ -130,10 +128,10 @@ public class ServerApp {
             teacherHandler.service(streamTool);
             break;
           case 3:
-            boardHandler.service(streamTool);
+            //            boardHandler.service(streamTool);
             break;
           case 4:
-            helloHandler.service(streamTool);
+            //            helloHandler.service(streamTool);
             break;
           case 9:
             break loop; // loop 라벨이 붙은 while 문을 나간다.
