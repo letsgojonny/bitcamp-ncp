@@ -1,19 +1,15 @@
 package bitcamp.myapp.servlet.board;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.vo.Board;
-import bitcamp.util.BitcampSqlSessionFactory;
-import bitcamp.util.DaoGenerator;
 
 @WebServlet("/board/update")
 public class BoardUpdateServlet extends HttpServlet {
@@ -21,28 +17,15 @@ public class BoardUpdateServlet extends HttpServlet {
 
   private BoardDao boardDao;
 
-  public BoardUpdateServlet() {
-    try {
-      InputStream mybatisConfigInputStream = Resources.getResourceAsStream(
-          "bitcamp/myapp/config/mybatis-config.xml");
-
-      SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
-
-      BitcampSqlSessionFactory sqlSessionFactory = new BitcampSqlSessionFactory(
-          builder.build(mybatisConfigInputStream));
-
-      boardDao = new DaoGenerator(sqlSessionFactory).getObject(BoardDao.class);
-
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+  @Override
+  public void init() {
+    ServletContext ctx = getServletContext();
+    boardDao = (BoardDao) ctx.getAttribute("boardDao");
   }
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    request.setCharacterEncoding("UTF-8");
-
     Board board = new Board();
     board.setNo(Integer.parseInt(request.getParameter("no")));
     board.setTitle(request.getParameter("title"));
