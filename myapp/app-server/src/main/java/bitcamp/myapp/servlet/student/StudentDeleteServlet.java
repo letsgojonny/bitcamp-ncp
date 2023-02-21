@@ -1,7 +1,6 @@
 package bitcamp.myapp.servlet.student;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,37 +33,15 @@ public class StudentDeleteServlet extends HttpServlet {
 
     int studentNo = Integer.parseInt(request.getParameter("no"));
 
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-
-    out.println("<!DOCTYPE html>");
-    out.println("<html>");
-    out.println("<head>");
-    out.println("<meta charset='UTF-8'>");
-    out.println("<title>비트캠프 - NCP 1기</title>");
-    out.println("</head>");
-    out.println("<body>");
-    out.println("<h1>학생</h1>");
-
     txManager.startTransaction();
-    try {
-      if (studentDao.delete(studentNo) == 1 &&
-          memberDao.delete(studentNo) == 1) {
-        txManager.commit();
-        out.println("<p>삭제했습니다.</p>");
+    if (studentDao.delete(studentNo) == 1 &&
+        memberDao.delete(studentNo) == 1) {
+      txManager.commit();
 
-      } else {
-        out.println("<p>해당 번호의 학생이 없습니다.</p>");
-      }
-    } catch (Exception e) {
+    } else {
       txManager.rollback();
-      out.println("<p>삭제 실패입니다.</p>");
-      e.printStackTrace();
+      request.setAttribute("error", "error");
     }
-
-    out.println("</body>");
-    out.println("</html>");
-
-    response.setHeader("Refresh", "1;url=list");
+    request.getRequestDispatcher("/student/delete.jsp").forward(request, response);
   }
 }

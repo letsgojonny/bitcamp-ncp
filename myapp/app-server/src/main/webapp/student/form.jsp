@@ -7,8 +7,8 @@
 <title>비트캠프 - NCP 1기</title>
 </head>
 <body>
-<h1>학생(JSP)</h1>
-<form action='insert.jsp' method='post'>
+<h1>학생(JSP + MVC2)</h1>
+<form action='insert' method='post'>
 <table border='1'>
 <tr>
   <th>이름</th>
@@ -76,7 +76,7 @@
 
 <script>
 document.querySelector('#btn-cancel').onclick = function() {
-  location.href = 'list.jsp';
+  location.href = 'list';
 }
 </script>
 

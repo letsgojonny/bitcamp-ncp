@@ -1,7 +1,6 @@
 package bitcamp.myapp.servlet.teacher;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,39 +42,21 @@ public class TeacherUpdateServlet extends HttpServlet {
     teacher.setMajor(request.getParameter("major"));
     teacher.setWage(Integer.parseInt(request.getParameter("wage")));
 
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-
-    out.println("<!DOCTYPE html>");
-    out.println("<html>");
-    out.println("<head>");
-    out.println("<meta charset='UTF-8'>");
-    out.println("<title>비트캠프 - NCP 1기</title>");
-    out.println("</head>");
-    out.println("<body>");
-    out.println("<h1>강사</h1>");
-
-
     txManager.startTransaction();
     try {
       if (memberDao.update(teacher) == 1 &&
           teacherDao.update(teacher) == 1) {
         txManager.commit();
-        out.println("<p>변경했습니다.</p>");
 
       } else {
-        out.println("<p>해당 번호의 강사가 없습니다.</p>");
+        request.setAttribute("error", "data");
       }
     } catch (Exception e) {
       txManager.rollback();
-      out.println("<p>변경 실패입니다.</p>");
       e.printStackTrace();
+      request.setAttribute("error", "other");
     }
-
-    out.println("</body>");
-    out.println("</html>");
-
-    response.setHeader("Refresh", "1;url=list");
+    request.getRequestDispatcher("/teacher/update.jsp").forward(request, response);
   }
 
 }
