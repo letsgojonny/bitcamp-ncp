@@ -17,19 +17,6 @@ public void init() {
   studentDao = (StudentDao) ctx.getAttribute("studentDao");
 }
 %>
-<% 
-    Student student = new Student();
-    student.setName(request.getParameter("name"));
-    student.setEmail(request.getParameter("email"));
-    student.setPassword(request.getParameter("password"));
-    student.setTel(request.getParameter("tel"));
-    student.setPostNo(request.getParameter("postNo"));
-    student.setBasicAddress(request.getParameter("basicAddress"));
-    student.setDetailAddress(request.getParameter("detailAddress"));
-    student.setWorking(request.getParameter("working") != null);
-    student.setGender(request.getParameter("gender").charAt(0));
-    student.setLevel(Byte.parseByte(request.getParameter("level")));
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,23 +27,30 @@ public void init() {
 <body>
 <h1>학생(JSP)</h1>
 <% 
+    int studentNo = Integer.parseInt(request.getParameter("no"));
     txManager.startTransaction();
     try {
-      memberDao.insert(student);
-      studentDao.insert(student);
-      txManager.commit();
+      if (studentDao.delete(studentNo) == 1 &&
+          memberDao.delete(studentNo) == 1) {
+        txManager.commit();
 %>
-  <p>입력 했습니다.</p>
+    <p>삭제했습니다.</p>
 <% 
+      } else {
+%>
+    <p>해당 번호의 학생이 없습니다.</p>
+<% 
+      }
     } catch (Exception e) {
       txManager.rollback();
-%>
-  <p>입력 실패입니다.</p>
-<% 
       e.printStackTrace();
+%>
+  <p>삭제 실패입니다.</p>
+<% 
     }
 %>
 </body>
 </html>
+
 
 

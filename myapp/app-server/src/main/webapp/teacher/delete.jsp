@@ -17,18 +17,6 @@ public void init() {
   teacherDao = (TeacherDao) ctx.getAttribute("teacherDao");
 }
 %>
-<% 
-    Teacher teacher = new Teacher();
-    teacher.setName(request.getParameter("name"));
-    teacher.setEmail(request.getParameter("email"));
-    teacher.setPassword(request.getParameter("password"));
-    teacher.setTel(request.getParameter("tel"));
-    teacher.setDegree(Integer.parseInt(request.getParameter("degree")));
-    teacher.setSchool(request.getParameter("school"));
-    teacher.setMajor(request.getParameter("major"));
-    teacher.setWage(Integer.parseInt(request.getParameter("wage")));
-%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,23 +27,31 @@ public void init() {
 <body>
 <h1>강사(JSP)</h1>
 <% 
+    int teacherNo = Integer.parseInt(request.getParameter("no"));
     txManager.startTransaction();
     try {
-      memberDao.insert(teacher);
-      teacherDao.insert(teacher);
-      txManager.commit();
+      if (teacherDao.delete(teacherNo) == 1 &&
+          memberDao.delete(teacherNo) == 1) {
+        txManager.commit();
 %>
-  <p>입력 했습니다.</p>
+    <p>삭제했습니다.</p>
 <% 
+      } else {
+%>
+    <p>해당 번호의 회원이 없습니다.</p>
+<% 
+      }
     } catch (Exception e) {
       txManager.rollback();
 %>
-  <p>입력 실패입니다.</p>
+  <p>삭제 실패입니다.</p>
 <% 
       e.printStackTrace();
     }
 %>
 </body>
 </html>
+
+
 
 

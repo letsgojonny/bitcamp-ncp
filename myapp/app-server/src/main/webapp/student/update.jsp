@@ -19,6 +19,7 @@ public void init() {
 %>
 <% 
     Student student = new Student();
+    student.setNo(Integer.parseInt(request.getParameter("no")));
     student.setName(request.getParameter("name"));
     student.setEmail(request.getParameter("email"));
     student.setPassword(request.getParameter("password"));
@@ -30,6 +31,7 @@ public void init() {
     student.setGender(request.getParameter("gender").charAt(0));
     student.setLevel(Byte.parseByte(request.getParameter("level")));
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,16 +44,21 @@ public void init() {
 <% 
     txManager.startTransaction();
     try {
-      memberDao.insert(student);
-      studentDao.insert(student);
-      txManager.commit();
+      if (memberDao.update(student) == 1 &&
+          studentDao.update(student) == 1) {
+        txManager.commit();
 %>
-  <p>입력 했습니다.</p>
+    <p>변경했습니다.</p>
 <% 
+      } else {
+%>
+    <p>해당 번호의 학생이 없습니다.</p>
+<% 
+      }
     } catch (Exception e) {
       txManager.rollback();
 %>
-  <p>입력 실패입니다.</p>
+  <p>변경 실패입니다.</p>
 <% 
       e.printStackTrace();
     }

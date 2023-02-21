@@ -19,6 +19,7 @@ public void init() {
 %>
 <% 
     Teacher teacher = new Teacher();
+    teacher.setNo(Integer.parseInt(request.getParameter("no")));
     teacher.setName(request.getParameter("name"));
     teacher.setEmail(request.getParameter("email"));
     teacher.setPassword(request.getParameter("password"));
@@ -28,7 +29,6 @@ public void init() {
     teacher.setMajor(request.getParameter("major"));
     teacher.setWage(Integer.parseInt(request.getParameter("wage")));
 %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,25 +37,31 @@ public void init() {
 <title>비트캠프 - NCP 1기</title>
 </head>
 <body>
-<h1>강사(JSP)</h1>
+<h1>강사</h1>
 <% 
     txManager.startTransaction();
     try {
-      memberDao.insert(teacher);
-      teacherDao.insert(teacher);
-      txManager.commit();
+      if (memberDao.update(teacher) == 1 &&
+          teacherDao.update(teacher) == 1) {
+        txManager.commit();
 %>
-  <p>입력 했습니다.</p>
+    <p>변경했습니다.</p>
 <% 
+      } else {
+%>
+    <p>해당 번호의 강사가 없습니다.</p>
+<% 
+      }
     } catch (Exception e) {
       txManager.rollback();
 %>
-  <p>입력 실패입니다.</p>
+  <p>변경 실패입니다.</p>
 <% 
       e.printStackTrace();
     }
 %>
 </body>
 </html>
+
 
 
