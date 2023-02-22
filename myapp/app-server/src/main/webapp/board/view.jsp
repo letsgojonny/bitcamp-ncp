@@ -32,9 +32,9 @@
     <th>내용</th>
     <td><textarea name='content' rows='10' cols='60'>${board.content}</textarea></td>
   </tr>
-  <tr>
-    <th>암호</th>
-    <td><input type='password' name='password'></td>
+    <tr>
+    <th>작성자</th>
+    <td>${board.writer.name}</td>
   </tr>
   <tr>
     <th>등록일</th>
