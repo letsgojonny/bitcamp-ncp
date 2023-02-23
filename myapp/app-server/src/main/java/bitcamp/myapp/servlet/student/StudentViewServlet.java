@@ -27,8 +27,7 @@ public class StudentViewServlet extends HttpServlet {
       throws ServletException, IOException {
 
     int studentNo = Integer.parseInt(request.getParameter("no"));
-    Student student = studentDao.findByNo(studentNo);
-
+    Student student = this.studentDao.findByNo(studentNo);
     if (student != null) {
       request.setAttribute("student", student);
     }

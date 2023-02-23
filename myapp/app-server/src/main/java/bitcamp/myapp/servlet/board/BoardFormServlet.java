@@ -18,3 +18,11 @@ public class BoardFormServlet extends HttpServlet {
     request.getRequestDispatcher("/board/form.jsp").forward(request, response);
   }
 }
+
+
+
+
+
+
+
+

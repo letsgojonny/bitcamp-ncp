@@ -7,7 +7,7 @@ public interface MemberDao {
 
   void insert(Member m);
 
-  List<Member> findAll(String keyword);
+  List<Member> findAll();
 
   Member findByNo(int no);
 

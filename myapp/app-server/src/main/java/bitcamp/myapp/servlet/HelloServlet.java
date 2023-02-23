@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-// 이 클래스를 서블릿 컨테이너에 등록한다
+// 이 클래스를 서블릿 컨테이너에 등록한다.
 // 클라이언트에서 /hello URL로 요청을 했을 때 이 클래스를 실행한다.
 @WebServlet("/hello")
 public class HelloServlet extends HttpServlet {
@@ -16,6 +16,12 @@ public class HelloServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    System.out.println("HelloServlet.service() 호출됨333");
+    System.out.println("HelloServlet.service() 호출됨3333!");
   }
 }
+
+
+
+
+
+

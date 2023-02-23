@@ -16,29 +16,23 @@
 <tr>
   <th>번호</th> <th>이름</th> <th>전화</th> <th>재직</th> <th>전공</th>
 </tr>
-
-<c:forEach items="${students}" var="s">
-
+<c:forEach items="${students}" var="student">
   <tr>
-      <td>${s.no}</td> 
-      <td><a href='view?no=${s.no}'>${s.name}</a></td> 
-      <td>${s.tel}</td> 
-      <td>${s.working ? "예" : "아니오"}</td> 
-
-    <c:choose>
-      <c:when test="${s.level == 0}">
-        <td>비전공자</td>
-      </c:when>
-      <c:when test="${s.level == 1}">
-        <td>준전공자</td>
-      </c:when>
-      <c:otherwise>
-        <td>전공자</td>
-      </c:otherwise>
-    </c:choose>
-      
+      <td>${student.no}</td> 
+      <td><a href='view?no=${student.no}'>${student.name}</a></td> 
+      <td>${student.tel}</td> 
+      <td>${student.working ? "예" : "아니오"}</td> 
+      <td>
+        <c:choose>
+          <c:when test="${student.level == 0}">비전공자</c:when>
+          <c:when test="${student.level == 1}">준전공자</c:when>
+          <c:when test="${student.level == 2}">전공자</c:when>
+          <c:otherwise>기타</c:otherwise>
+        </c:choose>
+      </td>
   </tr>
 </c:forEach>
+
 </table>
 
 <form action='list' method='get'>

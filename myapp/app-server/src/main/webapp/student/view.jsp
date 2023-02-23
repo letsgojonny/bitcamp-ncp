@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,12 +57,12 @@
   </tr>
   <tr>
     <th>성별</th>
-    <td><input type='radio' name='gender' value='M' ${student.gender == 'M'.charAt(0) ? "checked" : ""}> 남
+    <td><input type='radio' name='gender' value='M' ${student.gender == 'M'.charAt(0) ? "checked" : ""}>
     <input type='radio' name='gender' value='W' ${student.gender == 'W'.charAt(0) ? "checked" : ""}> 여</td>
   </tr>
   <tr>
     <th>전공</th>
-    <td><select name='level'>
+    <td><select name='level'>"
     <option value='0' ${student.level == 0 ? "selected" : ""}>비전공자</option>
     <option value='1' ${student.level == 1 ? "selected" : ""}>준전공자</option>
     <option value='2' ${student.level == 2 ? "selected" : ""}>전공자</option>
@@ -74,14 +73,13 @@
     <td>${student.createdDate}</td>
   </tr>
   </table>
-  
-<div>
-  <button id='btn-list' type='button'>목록</button>
-  <button>변경</button>
-  <button id='btn-delete' type='button'>삭제</button>
-</div>
 
-</form>
+	<div>
+	  <button id='btn-list' type='button'>목록</button>
+	  <button>변경</button>
+	  <button id='btn-delete' type='button'>삭제</button>
+	</div>
+	</form>
 </c:if>
 
 <script>

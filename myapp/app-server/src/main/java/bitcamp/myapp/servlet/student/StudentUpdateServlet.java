@@ -45,15 +45,19 @@ public class StudentUpdateServlet extends HttpServlet {
     student.setLevel(Byte.parseByte(request.getParameter("level")));
 
     txManager.startTransaction();
-
-    if (memberDao.update(student) == 1 &&
-        studentDao.update(student) == 1) {
-      txManager.commit();
-
-    } else {
+    try {
+      if (memberDao.update(student) == 1 &&
+          studentDao.update(student) == 1) {
+        txManager.commit();
+      } else {
+        request.setAttribute("error", "data");
+      }
+    } catch (Exception e) {
       txManager.rollback();
-      request.setAttribute("error", "error");
+      e.printStackTrace();
+      request.setAttribute("error", "other");
     }
     request.getRequestDispatcher("/student/update.jsp").forward(request, response);
   }
+
 }

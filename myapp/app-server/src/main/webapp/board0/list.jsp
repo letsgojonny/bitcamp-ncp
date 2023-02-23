@@ -19,14 +19,14 @@
 </tr>
 <jsp:useBean id="boards" scope="request" type="java.util.List<Board>"/>
 <% 
-  for (Board board : boards) {
-  pageContext.setAttribute("b", board);
+    for (Board board : boards) {
+      pageContext.setAttribute("b", board);
 %>
   <tr>
      <td>${b.no}</td> 
      <td><a href='view?no=${b.no}'>${b.title}</a></td> 
      <td>${b.createdDate}</td> 
-     <td>${b.viewCount}</td>
+     <td>${b.viewCount} </td>
   </tr>
 <% 
     }
@@ -41,3 +41,19 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

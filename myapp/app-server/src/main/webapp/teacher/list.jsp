@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,38 +17,26 @@
   <th>번호</th> <th>이름</th> <th>전화</th> <th>학위</th> <th>전공</th> <th>시강료</th>
 </tr>
 
-<c:forEach items="${teachers}" var="t">
-
+<c:forEach items="${teachers}" var="teacher">
   <tr>
-      <td>${t.no}</td> 
-      <td><a href='view?no=${t.no}'>${t.name}</a></td> 
-      <td>${t.tel}</td> 
-
-      <c:choose>
-        <c:when test="${t.degree == 1}">
-          <td>고졸</td>
-        </c:when>
-        <c:when test="${t.degree == 2}">
-          <td>전문학사</td>
-        </c:when>
-        <c:when test="${t.degree == 3}">
-          <td>학사</td>
-        </c:when>
-        <c:when test="${t.degree == 4}">
-          <td>석사</td>
-        </c:when>
-        <c:when test="${t.degree == 5}">
-          <td>박사</td>
-        </c:when>
-        <c:otherwise>
-          <td>기타</td>
-        </c:otherwise>
-      </c:choose>
-      
-      <td>${t.major}</td> 
-      <td>${t.wage}</td>
+      <td>${teacher.no}</td> 
+      <td><a href='view?no=${teacher.no}'>${teacher.name}</a></td> 
+      <td>${teacher.tel}</td> 
+      <td>
+        <c:choose>
+          <c:when test="${teacher.degree == 1}">고졸</c:when>
+          <c:when test="${teacher.degree == 2}">전문학사</c:when>
+          <c:when test="${teacher.degree == 3}">학사</c:when>
+          <c:when test="${teacher.degree == 4}">석사</c:when>
+          <c:when test="${teacher.degree == 5}">박사</c:when>
+          <c:otherwise>기타</c:otherwise>
+        </c:choose>
+      </td> 
+      <td>${teacher.major}</td> 
+      <td>${teacher.wage}</td>
   </tr>
 </c:forEach>
+
 </table>
 
 </body>

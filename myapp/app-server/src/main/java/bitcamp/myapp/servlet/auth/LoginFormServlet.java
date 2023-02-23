@@ -16,7 +16,7 @@ public class LoginFormServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    // 웹 브라우저가 보낸 email 쿠키 꺼내기
+    // 웹브라우저가 보낸 email 쿠키 꺼내기
     Cookie[] cookies = request.getCookies();
     if (cookies != null) {
       for (Cookie cookie : cookies) {
@@ -31,3 +31,11 @@ public class LoginFormServlet extends HttpServlet {
     request.getRequestDispatcher("/auth/form.jsp").forward(request, response);
   }
 }
+
+
+
+
+
+
+
+

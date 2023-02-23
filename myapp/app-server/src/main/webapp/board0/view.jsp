@@ -1,7 +1,6 @@
 <%@ page import="bitcamp.myapp.vo.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,11 +10,9 @@
 <body>
 <h1>게시판(JSP + MVC2 + EL + JSP 액션태그)</h1>
 <jsp:useBean id="board" class="bitcamp.myapp.vo.Board" scope="request"/>
-
-<%
-  if (board.getNo() == 0) { 
+<% 
+    if (board.getNo() == 0) {
 %>
-
   <p>해당 번호의 게시글 없습니다.</p>
 <% 
     } else {

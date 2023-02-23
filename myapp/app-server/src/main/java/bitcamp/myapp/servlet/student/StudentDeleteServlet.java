@@ -32,15 +32,18 @@ public class StudentDeleteServlet extends HttpServlet {
       throws ServletException, IOException {
 
     int studentNo = Integer.parseInt(request.getParameter("no"));
-
     txManager.startTransaction();
-    if (studentDao.delete(studentNo) == 1 &&
-        memberDao.delete(studentNo) == 1) {
-      txManager.commit();
-
-    } else {
+    try {
+      if (studentDao.delete(studentNo) == 1 &&
+          memberDao.delete(studentNo) == 1) {
+        txManager.commit();
+      } else {
+        request.setAttribute("error", "data");
+      }
+    } catch (Exception e) {
       txManager.rollback();
-      request.setAttribute("error", "error");
+      e.printStackTrace();
+      request.setAttribute("error", "other");
     }
     request.getRequestDispatcher("/student/delete.jsp").forward(request, response);
   }

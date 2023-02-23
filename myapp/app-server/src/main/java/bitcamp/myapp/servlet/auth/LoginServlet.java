@@ -45,11 +45,12 @@ public class LoginServlet extends HttpServlet {
       Cookie cookie = new Cookie("email", (String) paramMap.get("email"));
 
       // 쿠키 보존 시간을 지정한다.
-      // => 쿠키 보존 시간을 지정하지 않으면 웹 브라우저가 실행되는 동안만 유지된다.
+      // => 쿠키 보존 시간을 지정하지 않으면 웹브라우저가 실행되는 동안만 유지된다.
       cookie.setMaxAge(60 * 60 * 24 * 30); // 30일 동안 유지
 
       // 응답 헤더에 추가한다.
       response.addCookie(cookie);
+
     } else {
       // 쿠키에 저장된 이메일을 제거하고 싶을 때
       Cookie cookie = new Cookie("email", "");
@@ -72,23 +73,22 @@ public class LoginServlet extends HttpServlet {
 
       // 로그인 사용자 정보를 저장할 세션 객체를 준비한다.
       // 1) 요청 프로토콜에 세션ID가 쿠키로 넘어 왔다면,
-      //    - 세션 ID에 해당하는 객체를 찾는다.
-      //    1-1) 세션 객체가 유효한 경우,
-      //        - 찾은 세션 객체를 리턴한다.
-      //        - 응답할 때 세션 ID를 쿠키로 전달하지 않는다.
-      //    1-2) 세션 객체가 타임아웃 되어 유효하지 않은 경우,
-      //        - 2) 를 수행한다.
+      //    - 세션ID에 해당하는 객체를 찾는다.
+      //      1-1) 세션 객체가 유효한 경우,
+      //         - 찾은 세션 객체를 리턴한다.
+      //         - 응답할 때 세션ID를 쿠키로 전달하지 않는다.
+      //      1-2) 세션 객체가 타임아웃 되어 유효하지 않은 경우,
+      //         - 2) 를 수행한다.
       // 2) 요청 프로토콜에 세션ID가 쿠키로 넘어오지 않았다면,
-      //    - 새 세션 객체를 생성한 후 리턴한다
-      //    - 응답할 때 새로 생성한 세션의 ID가 쿠키로 웹브라우저에게 전달한다.
+      //    - 새 세션 객체를 생성한 후 리턴한다.
+      //    - 응답할 때 새로 생성한 세션의 ID를 쿠키로 웹브라우저에게 전달한다.
       //
       HttpSession session = request.getSession();
 
       // 로그인 사용자 정보를 세션에 보관한다.
       session.setAttribute("loginUser", member);
 
-
-      response.sendRedirect("../"); // ==> http://localhost:8080/web/
+      response.sendRedirect("../"); // ===> http://localhost:8080/web/
       // 웹브라우저에게 전달하는 URL이다.
       // 응답 프로토콜 예:
       //     HTTP/1.1 302

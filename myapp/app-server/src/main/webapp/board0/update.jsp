@@ -1,7 +1,6 @@
 <%@ page import="bitcamp.myapp.vo.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,21 +16,21 @@
 
     if (error == null) {
 %>
-  <p>변경했습니다.</p>
+      <p>변경했습니다.</p>
 <% 
     } else if (error.equals("data")) {
 %>
-  <p>해당 번호의 게시글이 없습니다.</p>
+      <p>해당 번호의 게시글이 없습니다.</p>
 <% 
     } else if (error.equals("password")) {
 %>
-  <p>암호가 맞지 않습니다!</p>
+      <p>암호가 맞지 않습니다!</p>
 <% 
     } else {
 %>
-  <p>변경 실패입니다.</p>
-<%
-  }
+      <p>변경 실패입니다.</p>
+<%      
+    }
 %>
 </body>
 </html>

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,8 +19,8 @@
 <tr>
   <th>회원 유형</th>
   <td>
-  <input type="radio" name="usertype" value="student" checked>학생
-  <input type="radio" name="usertype" value="teacher">강사
+    <input type="radio" name="usertype" value="student" checked> 학생
+    <input type="radio" name="usertype" value="teacher"> 강사
   </td>
 </tr>
 <tr>
@@ -40,3 +39,9 @@
 </form>
 </body>
 </html>
+
+
+
+
+
+

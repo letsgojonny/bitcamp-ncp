@@ -115,3 +115,138 @@
   - ArrayList와 LinkedList는 List 규칙에 따라 재구현
   - XxxDao 클래스에 인터페이스 적용
   - 인터페이스를 이용하여 느슨하게 결합(loose coupling)하는 방법
+
+### 22. 데이터 조회 로직을 객체화 하기: Iterator 패턴 적용
+  - 데이터 조회 규격을 Iterator 인터페이스로 정의한다.
+  - List 구현체에서 Iterator 규격을 따르도록 변경한다.
+  - 객체 목록을 다룰 때 Iterator 구현체를 사용한다.
+
+### 23. 중첩 클래스 문법을 이용하여 클래스 사용 범위를 제한하기
+  - 특정 클래스 안에서만 사용될 클래스라면 그 클래스 내부에 정의하는 것이 유지보수에 좋다.
+  - 패키지 클래스인 Node 클래스를 LinkedList의 스태틱 중첩 클래스로 전환하여 LinkedList를 다룰 때만 Node 클래스를 유지보수 할 수 있게 사용 범위를 제한한다.
+
+### 24. List가 특정 타입의 목록만 다룰 수 있게 맞춤 설정하는 방법: 제네릭 문법 적용
+  - 한 개의 클래스를 정의하여 타입 별로 클래스가 있는 것처럼 사용한다.
+    - 즉 타입 파라미터를 이용하여 목록에서 특정 타입의 값만 다루도록 제한한다.  
+    - 형변환 없이 목록에 들어 있는 데이터를 꺼낸다.
+  - 이를 통해 각 타입 별로 전용 클래스가 있는 효과를 누린다.
+
+### 25. 기존 List 구현체를 자바 컬렉션 API로 교체하기: java.util 패키지의 클래스 사용
+  - 기존의 List 관련 클래스를 모두 자바 컬렉션 API로 변환한다
+
+### 26. 파일 API를 사용하여 데이터를 바이너리 형식으로 입출력하기: FileInputStream/FileOutputStream
+  - 입출력 스트림 API를 사용하여 데이터를 파일로 저장하고 읽는 방법
+  - 바이너리 형식으로 데이터를 입출력하는 방법
+
+### 27. Decorator 디자인 패턴을 이용하여 데이터를 바이트 배열로 입출력하는 기능을 캡슐화하기: DataInputStream/DataOutputStream
+  - Primitive 타입과 String 타입의 값을 바이트 또는 바이트 배열로 가공하는 방법
+  - GoF의 데코레이터 설계 기법의 이해
+
+### 28. 인스턴스를 통째로 입출력하기(객체 직렬화): ObjectInputStream/ObjectOutputStream
+  - 인스턴스 필드의 값을 통째로 입출력하는 방법
+
+### 29. 인스턴스를 CSV 텍스트 형식으로 입출력하기: FileReader/FileWriter
+  - 객체의 필드 값을 텍스트로 입출력하는 방법
+  - CSV 형식으로 한 객체의 필드 값을 한 줄 단위로 출력하는 방법
+
+### 30. 리팩토링: Factory Method 패턴, Information Expert 패턴
+  - CSV 데이터를 가지고 Board 객체를 생성하는 일은 Board 클래스에 맡긴다.
+    - 객체 생성은 메서드를 통해 수행한다. => Factory Method 패턴
+  - Board 객체의 값을 CSV 형식으로 변환하는 일은 Board 클래스에 맡긴다.
+    - CSV 데이터 생성은 Board의 메서드를 통해 수행한다. => Information Expert 패턴
+
+### 31. JSON 형식으로 데이터 입출력하기: Gson 라이브러리 사용
+  - JSON 형식으로 데이터를 읽고 쓰는 법
+  - Google 에서 제공해주는 JSON 라이브러리인 Gson 사용법
+
+### 32-1. DAO 객체를 교체하기 쉽게 만들기 - 인터페이스와 의존 객체 주입
+  - Handler에서 DAO 객체를 교체하기 쉽게 만들기
+
+### 32-2. 네트워킹을 이용한 파일 공유: client/server app. 아키텍처로 전환
+  - 네트워크를 통해 파일을 공유하고 데이터 입출력을 처리하는 방법
+    - 데이터를 파일에 저장하고 꺼내는 기능을 별도의 애플리케이션으로 분리한다.
+    - 기존의 프로그램은 네트워크를 통해 파일 서버에 접속하여 데이터 입출력을 처리한다.
+  - projects: client, server, common
+
+### 33. 통신 방식을 Stateful에서 Stateless로 변경하기
+  - Stateful과 Stateless 방식의 차이점 이해
+  - Stateless 방식으로 통신하는 방법
+  - projects: client, server, common
+
+### 34. Thread를 이용한 멀티 태스킹 구현하기: 동시 요청 처리하기
+  - Thread로 멀티 태스킹을 구현하는 방법
+  - 멀티 태스킹의 이해
+  - 멀티 프로세스와 멀티 스레드의 구동 원리 이해
+  - projects: client, server, common
+
+### 35. DBMS 도입하기
+  - DBMS를 이용해 데이터를 처리하는 방법
+  - projects: client, DBMS
+
+### 36. Connection 객체 공유하기
+  - Connection 객체 공유하는 이유 및 방법 
+  
+### 37. Application Server 구조로 전환하기
+  - 애플리케이션 서버 아키텍처의 특징과 구현
+
+### 38. 트랜잭션 다루기 - 자동 커밋과 수동 커밋
+  - 여러 개의 데이터 변경 작업을 한 단위로 묶는 방법
+  - doc/ddl2.sql 실행 
+
+### 39. 멀티 스레드와 DB 커넥션 관리
+  - Thread를 이용하여 다중 클라이언트 요청을 동시에 처리하는 방법
+  - 멀티 스레드 환경에서 DB 커넥션을 다루는 방법
+
+### 40. DB 커넥션 풀을 이용한 Connection 재사용
+  - 풀링기법(pooling)을 이용하여 Connection 객체를 재사용하는 방법
+    - GoF의 'Flyweight' 디자인 패턴의 응용이다.
+
+### 41. PreparedStatement를 이용한 SQL 삽입 공격 막기
+  - SQL 삽입 공격 체험
+  - SQL 삽입 공격을 막는 방법
+
+### 42. Mybatis SQL 매퍼 사용하기(트랜잭션 제어 포함)
+  - Mybatis SQL 매퍼를 사용하여 DAO를 구현하는 방법
+  - Mybatis 를 이용하여 트랜잭션을 제어하는 방법
+  - Proxy 패턴으로 기존 클래스의 기능을 변경하는 방법
+
+### 43. Mybatis SQL 매퍼 사용하기 II(DAO 구현 자동화 포함)
+  - 도메인 클래스에 별명을 부여하고 사용하는 방법
+  - 컬럼 이름과 객체의 프로퍼티 이름을 미리 연결해 두는 방법
+  - JDBC 및 DBMS 정보를 .properties 파일로 분리하는 방법
+  - Proxy를 이용하여 DAO 인터페이스 구현체를 자동으로 생성하는 방법 
+
+### 44. Web Application Server 구조로 전환하기 - 웹 기술 도입
+  - 웹 기술을 도입하여 애플리케이션 서버를 구현하는 방법
+  - 서블릿 구동 원리 및 서블릿 만드는 방법
+
+### 45. 기타 서블릿 컴포넌트 사용하기 - 리스너, 필터 등
+  - 리스너 구동 원리 및 사용법
+  - ServletContext 보관소 사용법
+  - 필터 구동 원리 및 사용법
+
+### 46. JSP를 이용하여 출력문을 자동으로 생성하기: MVC 모델 I
+  - JSP의 동작원리 이해
+  - JSP 사용법
+
+### 47. JSP에 있는 자바 코드를 Servlet으로 분리하기: MVC 모델 II
+  - MVC 구조에서 각 컴포넌트의 역할을 이해.
+  - include/forward 동작 원리를 이해.
+
+### 48. EL과 JSTL 사용하기: JSP에서 자바 코드 제거하는 방법
+  - EL 사용법: OGNL 표기법으로 객체 프로퍼티를 좀 더 쉽게 다루기
+  - JSTL 사용법
+
+### 49. 로그인, 로그아웃 처리하기: HttpSession, Cookie 사용
+  - HttpSession을 사용하여 로그인, 로그아웃을 처리하는 방법
+  - 클라이언트 별로 세션을 구분하는 원리
+  - ddl3.sql 실행: app_board 테이블 변경
+  - 게시글을 입력할 때 로그인 사용자 아이디를 작성자로 설정하는 방법
+  - 로그인 사용자만 등록, 변경, 삭제하는 방법
+  - 필터를 이용하여 로그인 여부 검사하는 방법
+  - 게시글 작성자만 자신의 게시글을 변경, 삭제할 수 있게 만드는 방법
+
+### 50. 파일을 업로드하기: multipart/form-data MIME 타입 다루기
+  - multipart/form-data 형식으로 파일을 업로드 하는 방법
+  - apache commons-fileupload 라이브러리 사용법 
+  - Servlet에서 제공하는 API(3.0부터 추가됨)를 사용하여 파일 업로드를 처리하는 방법

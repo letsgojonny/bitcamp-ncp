@@ -41,14 +41,14 @@
     from 
       app_student s
       inner join app_member m on s.member_id = m.member_id
-      <if test="keyword != '' and keyword != null">
-      where
+    <if test="keyword != '' and keyword != null">
+    where
       m.name like(concat('%', #{keyword}, '%'))
       or m.email like(concat('%', #{keyword}, '%'))
       or m.tel like(concat('%', #{keyword}, '%'))
       or s.bas_addr like(concat('%', #{keyword}, '%'))
       or s.det_addr like(concat('%', #{keyword}, '%'))
-      </if>
+    </if>
     order by
       m.name asc
   </select>

@@ -8,7 +8,7 @@
 
   <typeAliases>
     <!-- 지정된 패키지의 모든 클래스에 대해 클래스 이름과 같은 이름으로 별명을 부여한다. -->
-    <package name="bitcamp.myapp.vo"/>  
+    <package name="bitcamp.myapp.vo"/>
   </typeAliases>
 
   <environments default="development">
@@ -28,6 +28,8 @@
     <mapper resource="bitcamp/myapp/mapper/MemberMapper.xml"/>
     <mapper resource="bitcamp/myapp/mapper/StudentMapper.xml"/>
     <mapper resource="bitcamp/myapp/mapper/TeacherMapper.xml"/>
+    <mapper resource="bitcamp/myapp/mapper/BoardFileMapper.xml"/>
+    
   </mappers>
   
 </configuration>

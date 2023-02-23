@@ -1,7 +1,7 @@
+<%@page import="bitcamp.myapp.vo.Teacher"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,18 +76,19 @@
 
   <tr>
     <th>등록일</th>
-    <td>${teacher.createdDate}</td> 
+    <td>${teacher.createdDate}</td>
   </tr>
+
   </table>
-
-<div>
-  <button id='btn-list' type='button'>목록</button>
-  <button>변경</button>
-  <button id='btn-delete' type='button'>삭제</button>
-</div>
-
-</form>
+	<div>
+	  <button id='btn-list' type='button'>목록</button>
+	  <button>변경</button>
+	  <button id='btn-delete' type='button'>삭제</button>
+	</div>
+	
+	</form>
 </c:if>
+
 <script>
 document.querySelector('#btn-list').onclick = function() {
   location.href = 'list';

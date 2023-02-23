@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.TransactionIsolationLevel;
 
 public class BitcampSqlSessionFactory implements SqlSessionFactory {
+
   SqlSessionFactory original;
 
   ThreadLocal<SqlSession> sqlSessionLocal = new ThreadLocal<>();
@@ -80,5 +81,6 @@ public class BitcampSqlSessionFactory implements SqlSessionFactory {
   public Configuration getConfiguration() {
     return original.getConfiguration();
   }
+
 
 }

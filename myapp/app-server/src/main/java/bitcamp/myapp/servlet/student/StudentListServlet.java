@@ -26,11 +26,10 @@ public class StudentListServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
     String keyword = request.getParameter("keyword");
-    List<Student> students = studentDao.findAll(keyword);
+    List<Student> students = this.studentDao.findAll(keyword);
     request.setAttribute("students", students);
     request.getRequestDispatcher("/student/list.jsp").forward(request, response);
-
   }
+
 }
