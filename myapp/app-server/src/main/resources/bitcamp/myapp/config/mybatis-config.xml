@@ -29,7 +29,6 @@
     <mapper resource="bitcamp/myapp/mapper/StudentMapper.xml"/>
     <mapper resource="bitcamp/myapp/mapper/TeacherMapper.xml"/>
     <mapper resource="bitcamp/myapp/mapper/BoardFileMapper.xml"/>
-    
   </mappers>
   
 </configuration>

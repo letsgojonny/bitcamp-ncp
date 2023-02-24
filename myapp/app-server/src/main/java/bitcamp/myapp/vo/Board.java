@@ -18,8 +18,6 @@ public class Board implements java.io.Serializable {
   private Member writer;
   private List<BoardFile> attachedFiles;
 
-
-
   @Override
   public int hashCode() {
     return Objects.hash(no);
@@ -96,7 +94,6 @@ public class Board implements java.io.Serializable {
   public void setAttachedFiles(List<BoardFile> attachedFiles) {
     this.attachedFiles = attachedFiles;
   }
-
   @Override
   public String toString() {
     return "Board [no=" + no + ", title=" + title + ", content=" + content + ", password="

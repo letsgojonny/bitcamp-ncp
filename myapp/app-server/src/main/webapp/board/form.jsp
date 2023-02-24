@@ -20,7 +20,7 @@
 </tr>
 <tr>
   <th>첨부파일</th>
-  <td><input type='file' name='files' multiple></td>
+  <td><input type="file" name='files' multiple></td>
 </tr>
 </table>
 <div>

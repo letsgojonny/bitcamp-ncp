@@ -13,3 +13,5 @@ alter table app_board_file
   
 alter table app_board_file
   add constraint app_board_file_fk foreign key (board_id) references app_board (board_id);
+
+  
