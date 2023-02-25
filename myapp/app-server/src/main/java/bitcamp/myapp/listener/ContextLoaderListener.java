@@ -8,16 +8,22 @@ import javax.servlet.annotation.WebListener;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import bitcamp.myapp.controller.AuthFailController;
-import bitcamp.myapp.controller.BoardDeleteController;
-import bitcamp.myapp.controller.BoardFileDeleteController;
-import bitcamp.myapp.controller.BoardFormController;
-import bitcamp.myapp.controller.BoardInsertController;
-import bitcamp.myapp.controller.BoardListController;
-import bitcamp.myapp.controller.BoardUpdateController;
-import bitcamp.myapp.controller.BoardViewController;
 import bitcamp.myapp.controller.LoginController;
 import bitcamp.myapp.controller.LoginFormController;
 import bitcamp.myapp.controller.LogoutController;
+import bitcamp.myapp.controller.TeacherController.TeacherDeleteController;
+import bitcamp.myapp.controller.TeacherController.TeacherFormController;
+import bitcamp.myapp.controller.TeacherController.TeacherInsertController;
+import bitcamp.myapp.controller.TeacherController.TeacherListController;
+import bitcamp.myapp.controller.TeacherController.TeacherUpdateController;
+import bitcamp.myapp.controller.TeacherController.TeacherViewController;
+import bitcamp.myapp.controller.boardController.BoardDeleteController;
+import bitcamp.myapp.controller.boardController.BoardFileDeleteController;
+import bitcamp.myapp.controller.boardController.BoardFormController;
+import bitcamp.myapp.controller.boardController.BoardInsertController;
+import bitcamp.myapp.controller.boardController.BoardListController;
+import bitcamp.myapp.controller.boardController.BoardUpdateController;
+import bitcamp.myapp.controller.boardController.BoardViewController;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.dao.BoardFileDao;
 import bitcamp.myapp.dao.MemberDao;
@@ -69,6 +75,14 @@ public class ContextLoaderListener implements ServletContextListener {
       BoardDeleteController boardDeleteController = new BoardDeleteController(boardService);
       BoardFileDeleteController boardFileDeleteController = new BoardFileDeleteController(boardService);
 
+      TeacherListController teacherListController = new TeacherListController(teacherService);
+      TeacherFormController teacherFormController = new TeacherFormController();
+      TeacherInsertController teacherInsertController = new TeacherInsertController(teacherService);
+      TeacherViewController teacherViewController = new TeacherViewController(teacherService);
+      TeacherUpdateController teacherUpdateController = new TeacherUpdateController(teacherService);
+      TeacherDeleteController teacherDeleteController = new TeacherDeleteController(teacherService);
+
+
 
       // 서블릿 컨텍스트 보관소를 알아낸다.
       ServletContext ctx = sce.getServletContext();
@@ -86,6 +100,13 @@ public class ContextLoaderListener implements ServletContextListener {
       ctx.setAttribute("/board/update", boardUpdateController);
       ctx.setAttribute("/board/delete", boardDeleteController);
       ctx.setAttribute("/board/filedelete", boardFileDeleteController);
+
+      ctx.setAttribute("/teacher/list", teacherListController);
+      ctx.setAttribute("/teacher/form", teacherFormController);
+      ctx.setAttribute("/teacher/insert", teacherInsertController);
+      ctx.setAttribute("/teacher/view", teacherViewController);
+      ctx.setAttribute("/teacher/update", teacherUpdateController);
+      ctx.setAttribute("/teacher/delete", teacherDeleteController);
 
     } catch (Exception e) {
       System.out.println("웹 애플리케이션 자원을 준비하는 중에 오류 발생!");

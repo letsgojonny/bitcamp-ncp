@@ -1,11 +1,10 @@
-package bitcamp.myapp.controller;
+package bitcamp.myapp.controller.boardController;
 
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import bitcamp.myapp.controller.PageController;
 import bitcamp.myapp.service.BoardService;
 
-@WebServlet("/board/view")
 public class BoardViewController implements PageController {
 
   private BoardService boardService;
