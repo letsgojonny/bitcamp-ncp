@@ -1,3 +1,4 @@
+<%@page import="bitcamp.myapp.vo.Teacher"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -79,14 +80,12 @@
   </tr>
 
   </table>
-  
 	<div>
 	  <button id='btn-list' type='button'>목록</button>
-	<c:if test="${loginUser.no == teacher.no}">
 	  <button>변경</button>
 	  <button id='btn-delete' type='button'>삭제</button>
-	</c:if>
 	</div>
+	
 	</form>
 </c:if>
 
