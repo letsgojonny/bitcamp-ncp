@@ -13,6 +13,26 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+<<<<<<< HEAD
+=======
+import bitcamp.myapp.controller.AuthFailController;
+import bitcamp.myapp.controller.LoginController;
+import bitcamp.myapp.controller.LoginFormController;
+import bitcamp.myapp.controller.LogoutController;
+import bitcamp.myapp.controller.TeacherController.TeacherDeleteController;
+import bitcamp.myapp.controller.TeacherController.TeacherFormController;
+import bitcamp.myapp.controller.TeacherController.TeacherInsertController;
+import bitcamp.myapp.controller.TeacherController.TeacherListController;
+import bitcamp.myapp.controller.TeacherController.TeacherUpdateController;
+import bitcamp.myapp.controller.TeacherController.TeacherViewController;
+import bitcamp.myapp.controller.boardController.BoardDeleteController;
+import bitcamp.myapp.controller.boardController.BoardFileDeleteController;
+import bitcamp.myapp.controller.boardController.BoardFormController;
+import bitcamp.myapp.controller.boardController.BoardInsertController;
+import bitcamp.myapp.controller.boardController.BoardListController;
+import bitcamp.myapp.controller.boardController.BoardUpdateController;
+import bitcamp.myapp.controller.boardController.BoardViewController;
+>>>>>>> 30b097aa2253aa35c03018e867fb53e4cd1a5960
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.dao.BoardFileDao;
 import bitcamp.myapp.dao.MemberDao;
@@ -52,9 +72,37 @@ public class ContextLoaderListener implements ServletContextListener {
       TeacherDao teacherDao = new DaoGenerator(sqlSessionFactory).getObject(TeacherDao.class);
       BoardFileDao boardFileDao = new DaoGenerator(sqlSessionFactory).getObject(BoardFileDao.class);
 
+<<<<<<< HEAD
       servicePool.add(new DefaultBoardService(txManager, boardDao, boardFileDao));
       servicePool.add(new DefaultStudentService(txManager, memberDao, studentDao));
       servicePool.add(new DefaultTeacherService(txManager, memberDao, teacherDao));
+=======
+      BoardService boardService = new DefaultBoardService(txManager, boardDao, boardFileDao);
+      StudentService studentService = new DefaultStudentService(txManager, memberDao, studentDao);
+      TeacherService teacherService = new DefaultTeacherService(txManager, memberDao, teacherDao);
+
+      LoginFormController loginFormController = new LoginFormController();
+      LoginController loginController = new LoginController(studentService, teacherService);
+      LogoutController logoutController = new LogoutController();
+      AuthFailController authFailController = new AuthFailController();
+
+      BoardListController boardListController = new BoardListController(boardService);
+      BoardFormController boardFormController = new BoardFormController();
+      BoardInsertController boardInsertController = new BoardInsertController(boardService);
+      BoardViewController boardViewController = new BoardViewController(boardService);
+      BoardUpdateController boardUpdateController = new BoardUpdateController(boardService);
+      BoardDeleteController boardDeleteController = new BoardDeleteController(boardService);
+      BoardFileDeleteController boardFileDeleteController = new BoardFileDeleteController(boardService);
+
+      TeacherListController teacherListController = new TeacherListController(teacherService);
+      TeacherFormController teacherFormController = new TeacherFormController();
+      TeacherInsertController teacherInsertController = new TeacherInsertController(teacherService);
+      TeacherViewController teacherViewController = new TeacherViewController(teacherService);
+      TeacherUpdateController teacherUpdateController = new TeacherUpdateController(teacherService);
+      TeacherDeleteController teacherDeleteController = new TeacherDeleteController(teacherService);
+
+
+>>>>>>> 30b097aa2253aa35c03018e867fb53e4cd1a5960
 
       // 서블릿 컨텍스트 보관소를 알아낸다.
       ServletContext ctx = sce.getServletContext();
@@ -65,6 +113,13 @@ public class ContextLoaderListener implements ServletContextListener {
 
       // 페이지 컨트롤러의 인스턴스 생성하기
       createPageControllers(ctx);
+
+      ctx.setAttribute("/teacher/list", teacherListController);
+      ctx.setAttribute("/teacher/form", teacherFormController);
+      ctx.setAttribute("/teacher/insert", teacherInsertController);
+      ctx.setAttribute("/teacher/view", teacherViewController);
+      ctx.setAttribute("/teacher/update", teacherUpdateController);
+      ctx.setAttribute("/teacher/delete", teacherDeleteController);
 
     } catch (Exception e) {
       System.out.println("웹 애플리케이션 자원을 준비하는 중에 오류 발생!");
