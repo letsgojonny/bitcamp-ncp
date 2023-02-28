@@ -3,24 +3,22 @@ package bitcamp.myapp.service.impl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.dao.TeacherDao;
 import bitcamp.myapp.service.TeacherService;
 import bitcamp.myapp.vo.Teacher;
 import bitcamp.util.TransactionManager;
 
+@Service
 public class DefaultTeacherService implements TeacherService {
 
-  private TransactionManager txManager;
-  private MemberDao memberDao;
-  private TeacherDao teacherDao;
+  @Autowired private TransactionManager txManager;
+  @Autowired private MemberDao memberDao;
+  @Autowired private TeacherDao teacherDao;
 
-  public DefaultTeacherService(TransactionManager txManager, MemberDao memberDao, TeacherDao teacherDao) {
-    this.txManager = txManager;
-    this.memberDao = memberDao;
-    this.teacherDao = teacherDao;
-  }
-
+  @Override
   public void add(Teacher teacher) {
     txManager.startTransaction();
     try {
@@ -34,14 +32,17 @@ public class DefaultTeacherService implements TeacherService {
     }
   }
 
+  @Override
   public List<Teacher> list() {
     return teacherDao.findAll();
   }
 
+  @Override
   public Teacher get(int no) {
     return teacherDao.findByNo(no);
   }
 
+  @Override
   public Teacher get(String email, String password) {
     Map<String,Object> paramMap = new HashMap<>();
     paramMap.put("email", email);
@@ -50,6 +51,7 @@ public class DefaultTeacherService implements TeacherService {
     return teacherDao.findByEmailAndPassword(paramMap);
   }
 
+  @Override
   public void update(Teacher teacher) {
     try {
       txManager.startTransaction();
@@ -65,6 +67,7 @@ public class DefaultTeacherService implements TeacherService {
     }
   }
 
+  @Override
   public void delete(int no) {
     try {
       txManager.startTransaction();
