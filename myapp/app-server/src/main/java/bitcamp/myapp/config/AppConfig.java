@@ -62,11 +62,4 @@ public class AppConfig {
   public BoardFileDao boardFileDao(SqlSessionFactory sqlSessionFactory) {
     return new DaoGenerator(sqlSessionFactory).getObject(BoardFileDao.class);
   }
-
-
-
-
-
-
-
 }
