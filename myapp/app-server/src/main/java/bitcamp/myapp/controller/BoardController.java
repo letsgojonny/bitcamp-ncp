@@ -28,7 +28,7 @@ public class BoardController {
 
   @GetMapping("form")
   public String form() {
-    return "/board/form.jsp";
+    return "board/form";
   }
 
   @PostMapping("insert")
@@ -75,19 +75,19 @@ public class BoardController {
       e.printStackTrace();
       model.addAttribute("error", "data");
     }
-    return "/board/insert.jsp";
+    return "board/insert";
   }
 
   @GetMapping("list")
   public String list(String keyword, Model model) {
     model.addAttribute("boards", boardService.list(keyword));
-    return "/board/list.jsp";
+    return "/board/list";
   }
 
   @GetMapping("view")
   public String view(int no, Model model) {
     model.addAttribute("board", boardService.get(no));
-    return"/board/view.jsp";
+    return"board/view";
   }
 
   @PostMapping("update")
@@ -137,7 +137,7 @@ public class BoardController {
       model.addAttribute("error", "data");
     }
 
-    return "/board/update.jsp";
+    return "board/update";
   }
 
   @PostMapping("delete")
@@ -155,7 +155,7 @@ public class BoardController {
       e.printStackTrace();
       model.addAttribute("error", "data");
     }
-    return "/board/delete.jsp";
+    return "board/delete";
   }
 
   @GetMapping("filedelete")

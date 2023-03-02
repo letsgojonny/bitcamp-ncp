@@ -17,7 +17,7 @@ public class TeacherController {
 
   @GetMapping("form")
   public String form() {
-    return "/teacher/form.jsp";
+    return "teacher/form";
   }
 
   @PostMapping("insert")
@@ -28,19 +28,19 @@ public class TeacherController {
       e.printStackTrace();
       model.addAttribute("error", "other");
     }
-    return "/teacher/insert.jsp";
+    return "teacher/insert";
   }
 
   @GetMapping("list")
   public String list(Model model) {
     model.addAttribute("teachers", teacherService.list());
-    return "/teacher/list.jsp";
+    return "teacher/list";
   }
 
   @GetMapping("view")
   public String view(int no, Model model) {
     model.addAttribute("teacher", teacherService.get(no));
-    return "/teacher/view.jsp";
+    return "teacher/view";
   }
 
   @PostMapping("update")
@@ -51,7 +51,7 @@ public class TeacherController {
       e.printStackTrace();
       model.addAttribute("error", "other");
     }
-    return "/teacher/update.jsp";
+    return "teacher/update";
   }
 
   @PostMapping("delete")
@@ -62,7 +62,7 @@ public class TeacherController {
       e.printStackTrace();
       model.addAttribute("error", "other");
     }
-    return "/teacher/delete.jsp";
+    return "teacher/delete";
   }
 
 }

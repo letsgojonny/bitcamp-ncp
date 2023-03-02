@@ -54,7 +54,7 @@ public class DownloadController {
 
     } catch (Exception e) {
       e.printStackTrace();
-      return "/downloadfail.jsp";
+      return "downloadfail";
     }
     return null;
   }
