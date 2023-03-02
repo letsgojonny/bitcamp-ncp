@@ -5,30 +5,37 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.dao.StudentDao;
 import bitcamp.myapp.service.StudentService;
 import bitcamp.myapp.vo.Student;
-import bitcamp.util.TransactionManager;
-
 
 @Service
 public class DefaultStudentService implements StudentService {
 
-  @Autowired private TransactionManager txManager;
+  @Autowired private PlatformTransactionManager txManager;
   @Autowired private MemberDao memberDao;
   @Autowired private StudentDao studentDao;
 
   @Override
   public void add(Student student) {
-    txManager.startTransaction();
+    DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+    def.setName("tx1");
+    def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+
+    // 위에서 설정한 대로 동작할 트랜잭션을 준비
+    TransactionStatus status = txManager.getTransaction(def);
     try {
       memberDao.insert(student);
       studentDao.insert(student);
-      txManager.commit();
+      txManager.commit(status);
 
     } catch (Exception e) {
-      txManager.rollback();
+      txManager.rollback(status);
       throw e;
     }
   }
@@ -54,32 +61,42 @@ public class DefaultStudentService implements StudentService {
 
   @Override
   public void update(Student student) {
+    DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+    def.setName("tx1");
+    def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+
+    // 위에서 설정한 대로 동작할 트랜잭션을 준비
+    TransactionStatus status = txManager.getTransaction(def);
     try {
-      txManager.startTransaction();
       if (memberDao.update(student) == 1 &&
           studentDao.update(student) == 1) {
-        txManager.commit();
+        txManager.commit(status);
       } else {
         throw new RuntimeException("회원이 존재하지 않습니다.");
       }
     } catch (Exception e) {
-      txManager.rollback();
+      txManager.rollback(status);
       throw e;
     }
   }
 
   @Override
   public void delete(int no) {
+    DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+    def.setName("tx1");
+    def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+
+    // 위에서 설정한 대로 동작할 트랜잭션을 준비
+    TransactionStatus status = txManager.getTransaction(def);
     try {
-      txManager.startTransaction();
       if (studentDao.delete(no) == 1 &&
           memberDao.delete(no) == 1) {
-        txManager.commit();
+        txManager.commit(status);
       } else {
         throw new RuntimeException("회원이 존재하지 않습니다.");
       }
     } catch (Exception e) {
-      txManager.rollback();
+      txManager.rollback(status);
       throw e;
     }
   }

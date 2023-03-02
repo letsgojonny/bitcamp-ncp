@@ -3,24 +3,32 @@ package bitcamp.myapp.service.impl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.dao.BoardFileDao;
 import bitcamp.myapp.service.BoardService;
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.BoardFile;
-import bitcamp.util.TransactionManager;
 
 @Service
 public class DefaultBoardService implements BoardService {
 
-  @Autowired private TransactionManager txManager;
+  @Autowired private PlatformTransactionManager txManager;
   @Autowired private BoardDao boardDao;
   @Autowired private BoardFileDao boardFileDao;
 
   @Override
   public void add(Board board) {
+    DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+    def.setName("tx1");
+    def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+
+    // 위에서 설정한 대로 동작할 트랜잭션을 준비
+    TransactionStatus status = txManager.getTransaction(def);
     try {
-      txManager.startTransaction();
       boardDao.insert(board);
       if (board.getAttachedFiles().size() > 0) {
         for (BoardFile boardFile : board.getAttachedFiles()) {
@@ -28,10 +36,10 @@ public class DefaultBoardService implements BoardService {
         }
         boardFileDao.insertList(board.getAttachedFiles());
       }
-      txManager.commit();
+      txManager.commit(status); // 트랜잭션 정책에 따라 commit 수행
 
     } catch (Exception e) {
-      txManager.rollback();
+      txManager.rollback(status); // 트랜잭션 정책에 따라 rollback 수행
       throw new RuntimeException(e);
     }
   }
@@ -52,34 +60,44 @@ public class DefaultBoardService implements BoardService {
 
   @Override
   public void update(Board board) {
+    DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+    def.setName("tx1");
+    def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+
+    // 위에서 설정한 대로 동작할 트랜잭션을 준비
+    TransactionStatus status = txManager.getTransaction(def);
     try {
-      txManager.startTransaction();
       if (boardDao.update(board) == 0) {
         throw new RuntimeException("게시글이 존재하지 않습니다!");
       }
       if (board.getAttachedFiles().size() > 0) {
         boardFileDao.insertList(board.getAttachedFiles());
       }
-      txManager.commit();
+      txManager.commit(status);
 
     }  catch (Exception e) {
-      txManager.rollback();
+      txManager.rollback(status);
       throw e;
     }
   }
 
   @Override
   public void delete(int no) {
+    DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+    def.setName("tx1");
+    def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+
+    // 위에서 설정한 대로 동작할 트랜잭션을 준비
+    TransactionStatus status = txManager.getTransaction(def);
     try {
-      txManager.startTransaction();
       boardFileDao.deleteOfBoard(no);
       if (boardDao.delete(no) == 0) {
         throw new RuntimeException("게시글이 존재하지 않습니다!");
       }
-      txManager.commit();
+      txManager.commit(status);
 
     }  catch (Exception e) {
-      txManager.rollback();
+      txManager.rollback(status);
       throw e;
     }
   }

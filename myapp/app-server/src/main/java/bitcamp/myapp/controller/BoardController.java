@@ -21,8 +21,8 @@ import bitcamp.myapp.vo.Member;
 @RequestMapping("/board")
 public class BoardController {
 
-  // ServletContext 는 필드로만 주입받을 수 있다.
-  // 요청 핸들러의 파라미터로 주입 받을 수 없다.
+  // ServletContext 는 요청 핸들러의 파라미터로 주입 받을 수 없다.
+  // 객체의 필드로만 주입 받을 수 있다.
   @Autowired private ServletContext servletContext;
   @Autowired private BoardService boardService;
 
@@ -34,14 +34,20 @@ public class BoardController {
   @PostMapping("insert")
   public String insert(
       Board board,
+      //      String title,
+      //      String content,
       Part[] files,
-      Model model,  // ServletRequest 보관소에 저장할 값을 담는 임시 저장소
+      Model model, // ServletRequest 보관소에 저장할 값을 담는 임시 저장소
       // 이 객체에 값을 담아 두면 프론트 컨트롤러(DispatcherServlet)가
       // ServletRequest 보관소로 옮겨 담을 것이다.
       HttpSession session) {
     try {
-
       Member loginUser = (Member) session.getAttribute("loginUser");
+
+      //      Board board = new Board();
+      //      board.setTitle(title);
+      //      board.setContent(content);
+
       Member writer = new Member();
       writer.setNo(loginUser.getNo());
       board.setWriter(writer);
@@ -87,11 +93,19 @@ public class BoardController {
   @PostMapping("update")
   public String update(
       Board board,
+      //      int no,
+      //      String title,
+      //      String content,
       Part[] files,
       Model model,
       HttpSession session) {
     try {
       Member loginUser = (Member) session.getAttribute("loginUser");
+
+      //      Board board = new Board();
+      //      board.setNo(no);
+      //      board.setTitle(title);
+      //      board.setContent(content);
 
       Board old = boardService.get(board.getNo());
       if (old.getWriter().getNo() != loginUser.getNo()) {
@@ -155,6 +169,7 @@ public class BoardController {
       return "redirect:view?no=" + boardNo;
     }
   }
+
 }
 
 

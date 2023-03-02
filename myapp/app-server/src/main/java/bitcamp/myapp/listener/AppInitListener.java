@@ -25,9 +25,18 @@ public class AppInitListener implements ServletContextListener {
     registration.setMultipartConfig(new MultipartConfigElement(
         System.getProperty("java.io.tmpdir"), // 클라이언트가 보낸 파일을 임시 보관할 폴더
         1024 * 1024 * 20, // 한 파일의 최대 크기
-        1024 * 1024 * 20 * 10, // 한 요청당 최대 총 파일 크기
+        1024 * 1024 * 20 * 10, // 한 요청 당 최대 총 파일 크기
         1024 * 1024 * 1 // 클라이언트가 보낸 파일을 메모리에 임시 보관하는 최대 크기.
-        // 최대 크기를 초과하면 파일로 내보낸다.
+        // 최대 크기를 초과하면 파일에 내보낸다.
         ));
   }
 }
+
+
+
+
+
+
+
+
+
