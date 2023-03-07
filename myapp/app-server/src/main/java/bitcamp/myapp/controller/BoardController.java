@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,8 +24,10 @@ import bitcamp.myapp.vo.Member;
 @RequestMapping("/board")
 public class BoardController {
 
+  Logger log = LogManager.getLogger(getClass());
+
   {
-    System.out.println("BoardController 생성됨!");
+    log.trace("BoardController 생성됨!");
   }
 
   // ServletContext 는 요청 핸들러의 파라미터로 주입 받을 수 없다.
@@ -40,43 +44,37 @@ public class BoardController {
       Board board,
       List<MultipartFile> files,
       Model model,
-      HttpSession session) {
-    try {
-      Member loginUser = (Member) session.getAttribute("loginUser");
+      HttpSession session) throws Exception{
 
-      Member writer = new Member();
-      writer.setNo(loginUser.getNo());
-      board.setWriter(writer);
+    Member loginUser = (Member) session.getAttribute("loginUser");
 
-      List<BoardFile> boardFiles = new ArrayList<>();
-      for (MultipartFile file : files) {
-        if (file.isEmpty()) {
-          continue;
-        }
+    Member writer = new Member();
+    writer.setNo(loginUser.getNo());
+    board.setWriter(writer);
 
-        String filename = UUID.randomUUID().toString();
-        file.transferTo(new File(servletContext.getRealPath("/board/upload/" + filename)));
-
-        BoardFile boardFile = new BoardFile();
-        boardFile.setOriginalFilename(file.getOriginalFilename());
-        boardFile.setFilepath(filename);
-        boardFile.setMimeType(file.getContentType());
-        boardFiles.add(boardFile);
+    List<BoardFile> boardFiles = new ArrayList<>();
+    for (MultipartFile file : files) {
+      if (file.isEmpty()) {
+        continue;
       }
-      board.setAttachedFiles(boardFiles);
 
-      boardService.add(board);
-      model.addAttribute("refresh", "list");
+      String filename = UUID.randomUUID().toString();
+      file.transferTo(new File(servletContext.getRealPath("/board/upload/" + filename)));
 
-    } catch (Exception e) {
-      e.printStackTrace();
-      model.addAttribute("error", "data");
+      BoardFile boardFile = new BoardFile();
+      boardFile.setOriginalFilename(file.getOriginalFilename());
+      boardFile.setFilepath(filename);
+      boardFile.setMimeType(file.getContentType());
+      boardFiles.add(boardFile);
     }
+    board.setAttachedFiles(boardFiles);
+
+    boardService.add(board);
   }
 
   @GetMapping("list")
   public void list(String keyword, Model model) {
-    System.out.println("BoardController.list() 호출됨!");
+    log.debug("BoardController.list() 호출됨!");
     model.addAttribute("boards", boardService.list(keyword));
   }
 
@@ -90,60 +88,48 @@ public class BoardController {
       Board board,
       List<MultipartFile> files,
       Model model,
-      HttpSession session) {
-    try {
-      Member loginUser = (Member) session.getAttribute("loginUser");
+      HttpSession session) throws Exception {
 
-      Board old = boardService.get(board.getNo());
-      if (old.getWriter().getNo() != loginUser.getNo()) {
-        return "redirect:../auth/fail";
-      }
+    Member loginUser = (Member) session.getAttribute("loginUser");
 
-      List<BoardFile> boardFiles = new ArrayList<>();
-      for (MultipartFile file : files) {
-        if (file.isEmpty()) {
-          continue;
-        }
-
-        String filename = UUID.randomUUID().toString();
-        file.transferTo(new File(servletContext.getRealPath("/board/upload/" + filename)));
-
-        BoardFile boardFile = new BoardFile();
-        boardFile.setOriginalFilename(file.getOriginalFilename());
-        boardFile.setFilepath(filename);
-        boardFile.setMimeType(file.getContentType());
-        boardFile.setBoardNo(board.getNo());
-        boardFiles.add(boardFile);
-      }
-      board.setAttachedFiles(boardFiles);
-
-      boardService.update(board);
-      model.addAttribute("refresh", "list");
-
-    }  catch (Exception e) {
-      e.printStackTrace();
-      model.addAttribute("error", "data");
+    Board old = boardService.get(board.getNo());
+    if (old.getWriter().getNo() != loginUser.getNo()) {
+      return "redirect:../auth/fail";
     }
+
+    List<BoardFile> boardFiles = new ArrayList<>();
+    for (MultipartFile file : files) {
+      if (file.isEmpty()) {
+        continue;
+      }
+
+      String filename = UUID.randomUUID().toString();
+      file.transferTo(new File(servletContext.getRealPath("/board/upload/" + filename)));
+
+      BoardFile boardFile = new BoardFile();
+      boardFile.setOriginalFilename(file.getOriginalFilename());
+      boardFile.setFilepath(filename);
+      boardFile.setMimeType(file.getContentType());
+      boardFile.setBoardNo(board.getNo());
+      boardFiles.add(boardFile);
+    }
+    board.setAttachedFiles(boardFiles);
+
+    boardService.update(board);
 
     return "board/update";
   }
 
   @PostMapping("delete")
   public String delete(int no, Model model, HttpSession session) {
-    try {
-      Member loginUser = (Member) session.getAttribute("loginUser");
+    Member loginUser = (Member) session.getAttribute("loginUser");
 
-      Board old = boardService.get(no);
-      if (old.getWriter().getNo() != loginUser.getNo()) {
-        return "redirect:../auth/fail";
-      }
-      boardService.delete(no);
-
-    }  catch (Exception e) {
-      e.printStackTrace();
-      model.addAttribute("error", "data");
+    Board old = boardService.get(no);
+    if (old.getWriter().getNo() != loginUser.getNo()) {
+      return "redirect:../auth/fail";
     }
-    model.addAttribute("refresh", "list");
+    boardService.delete(no);
+
     return "board/delete";
   }
 

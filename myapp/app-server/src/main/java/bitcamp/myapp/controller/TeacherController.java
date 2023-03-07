@@ -1,5 +1,7 @@
 package bitcamp.myapp.controller;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,8 +15,10 @@ import bitcamp.myapp.vo.Teacher;
 @RequestMapping("/teacher")
 public class TeacherController {
 
+  Logger log = LogManager.getLogger(getClass());
+
   {
-    System.out.println("TeacherController 생성됨!");
+    log.trace("TeacherController 생성됨!");
   }
 
   @Autowired private TeacherService teacherService;
@@ -25,12 +29,7 @@ public class TeacherController {
 
   @PostMapping("insert")
   public void insert(Teacher teacher, Model model) {
-    try {
-      teacherService.add(teacher);
-    } catch (Exception e) {
-      e.printStackTrace();
-      model.addAttribute("error", "other");
-    }
+    teacherService.add(teacher);
   }
 
   @GetMapping("list")
@@ -45,22 +44,12 @@ public class TeacherController {
 
   @PostMapping("update")
   public void update(Teacher teacher, Model model) {
-    try {
-      teacherService.update(teacher);
-    } catch (Exception e) {
-      e.printStackTrace();
-      model.addAttribute("error", "other");
-    }
+    teacherService.update(teacher);
   }
 
   @PostMapping("delete")
   public void delete(int no, Model model) {
-    try {
-      teacherService.delete(no);
-    } catch (Exception e) {
-      e.printStackTrace();
-      model.addAttribute("error", "other");
-    }
+    teacherService.delete(no);
   }
 
 }

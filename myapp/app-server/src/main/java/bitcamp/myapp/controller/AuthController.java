@@ -1,13 +1,15 @@
 package bitcamp.myapp.controller;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import bitcamp.myapp.service.StudentService;
 import bitcamp.myapp.service.TeacherService;
 import bitcamp.myapp.vo.Member;
@@ -15,26 +17,34 @@ import bitcamp.myapp.vo.Member;
 @Controller
 public class AuthController {
 
+  Logger log = LogManager.getLogger(getClass());
+
   {
-    System.out.println("AuthController 생성됨!");
+    log.trace("AuthController 생성됨!");
   }
 
   @Autowired private StudentService studentService;
   @Autowired private TeacherService teacherService;
 
   @RequestMapping("/auth/form")
-  public void form() {
+  public void form(@CookieValue(required = false) String email,
+      Model model,
+      HttpSession session) {
+    model.addAttribute("email", email);
+    if (session.getAttribute("error") != null) {
+      model.addAttribute("error", session.getAttribute("error"));
+    }
   }
 
   @RequestMapping("/auth/login")
   public String login(
-      @RequestParam("usertype") String usertype,
-      @RequestParam("email") String email,
-      @RequestParam("password") String password,
-      @RequestParam("saveEmail") String saveEmail,
-      HttpServletRequest request,
+      String usertype,
+      String email,
+      String password,
+      String saveEmail,
       HttpServletResponse response,
-      HttpSession session) {
+      HttpSession session,
+      Model model) {
 
     if (saveEmail != null) {
       Cookie cookie = new Cookie("email", email);
@@ -59,10 +69,11 @@ public class AuthController {
 
     if (member != null) {
       session.setAttribute("loginUser", member);
+      session.removeAttribute("error");
       return "redirect:../../";
     } else {
-      request.setAttribute("error", "loginfail");
-      return "auth/form";
+      session.setAttribute("error", "loginfail");
+      return "redirect:form";
     }
 
   }
