@@ -2,7 +2,9 @@ package bitcamp.myapp.controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -14,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import bitcamp.myapp.service.BoardService;
 import bitcamp.myapp.vo.Board;
@@ -40,7 +43,8 @@ public class BoardController {
   }
 
   @PostMapping("insert")
-  public void insert(
+  @ResponseBody
+  public Object insert(
       Board board,
       List<MultipartFile> files,
       Model model,
@@ -70,17 +74,30 @@ public class BoardController {
     board.setAttachedFiles(boardFiles);
 
     boardService.add(board);
+
+    Map<String,Object> result = new HashMap<>();
+    result.put("status", "success");
+
+    return "success";
   }
 
   @GetMapping("list")
-  public void list(String keyword, Model model) {
+  @ResponseBody
+  public Object list(String keyword, Model model) {
     log.debug("BoardController.list() 호출됨!");
-    model.addAttribute("boards", boardService.list(keyword));
+    List<Board> boards = boardService.list(keyword);
+
+    // MappingJackson2HttpMessageConverter 가 jackson 라이브러리를 이용해
+    // 자바 객체를 JSON 문자열로 변환하여 클라이언트로 보낸다.
+    // 이 컨버터를 사용하면 굳이 UTF-8 변환을 설정할 필요가 없다.
+    // 즉 produces = "application/json;charset=UTF-8" 를 설정하지 않아도 된다.
+    return boards;
   }
 
   @GetMapping("view")
-  public void view(int no, Model model) {
-    model.addAttribute("board", boardService.get(no));
+  @ResponseBody
+  public Object view(int no, Model model) {
+    return boardService.get(no);
   }
 
   @PostMapping("update")
