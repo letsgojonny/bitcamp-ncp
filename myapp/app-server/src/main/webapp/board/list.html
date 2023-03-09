@@ -25,7 +25,7 @@
 
 <script>
 fetch("../app/board/list")
-.then((response) => {
+.then(response => {
   return response.json();
   // json()은 Promise 객체를 리턴한다.
   // Promise 객체가 하는 일:
@@ -34,19 +34,19 @@ fetch("../app/board/list")
   //   - resolve()를 호출하여 다음 Promise 객체에 작업이 완료됐음을 통지한다.
   //     이때 변환된 JavaScript를 객체를 파라미터로 전달한다.
 })
-.then((boards) => {
-	let tbody = "";
-  boards.forEach(board => {
-	let html = `
-	 <tr>
-	   <td>${board.no}</td>
-     <td><a href='view.html?no=${board.no}'>${board.title == "" ? "제목없음" : board.title}</a></td> 
-     <td>${board.writer.name}</td>
-     <td>${board.createdDate}</td> 
-     <td>${board.viewCount}</td>
-  </tr>
-  `;
-	  tbody += html;
+.then(result => {
+  let tbody = "";
+  result.data.forEach(board => {
+    let html = `
+  	  <tr>
+  	     <td>${board.no}</td> 
+  	     <td><a href='view.html?no=${board.no}'>${board.title == "" ? "제목없음" : board.title}</a></td> 
+  	     <td>${board.writer.name}</td>
+  	     <td>${board.createdDate}</td> 
+  	     <td>${board.viewCount}</td>
+  	  </tr>
+  	`;
+  	tbody += html;
   });
   document.querySelector("#board-table > tbody").innerHTML = tbody;
 });
