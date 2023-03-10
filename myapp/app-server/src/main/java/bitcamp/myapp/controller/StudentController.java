@@ -6,13 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import bitcamp.myapp.service.StudentService;
 import bitcamp.myapp.vo.Student;
+import bitcamp.util.RestResult;
+import bitcamp.util.RestStatus;
 
 @Controller
-@RequestMapping("/student")
 public class StudentController {
 
   Logger log = LogManager.getLogger(getClass());
@@ -23,33 +25,40 @@ public class StudentController {
 
   @Autowired private StudentService studentService;
 
-  @GetMapping("form")
+  @GetMapping("/student/form")
   public void form() {
   }
 
-  @PostMapping("insert")
+  @PostMapping("/student/insert")
   public void insert(Student student, Model model) {
     studentService.add(student);
   }
 
-  @GetMapping("list")
-  public void list(String keyword, Model model) {
-    model.addAttribute("students", studentService.list(keyword));
+  @GetMapping("/students")
+  @ResponseBody
+  public Object list(String keyword, Model model) {
+    return new RestResult()
+        .setStatus(RestStatus.SUCCESS)
+        .setData(studentService.list(keyword));
   }
 
-  @GetMapping("view")
-  public void view(
-      int no,
-      Model model) {
-    model.addAttribute("student", studentService.get(no));
+  @GetMapping("/students/{no}")
+  @ResponseBody
+  public Object view(@PathVariable int no) {
+    return new RestResult()
+        .setStatus(RestStatus.SUCCESS)
+        .setData(studentService.get(no));
   }
 
-  @PostMapping("update")
-  public void update(Student student, Model model) {
+  @PostMapping("/students")
+  @ResponseBody
+  public Object update(Student student) {
     studentService.update(student);
+    return new RestResult()
+        .setStatus(RestStatus.SUCCESS);
   }
 
-  @PostMapping("delete")
+  @PostMapping("/student/delete")
   public void delete(int no, Model model) {
     studentService.delete(no);
   }

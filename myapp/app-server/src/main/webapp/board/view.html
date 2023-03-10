@@ -5,7 +5,7 @@
 <title>비트캠프 - NCP 1기</title>
 <style>
 .guest {
-  display: none;
+  /*display: none;*/
 }
 </style>
 </head>
@@ -78,7 +78,7 @@ if (isNaN(no)) {
   location.href = "list.html";
 }
 
-fetch("../app/board/view?no=" + no)
+fetch("../app/boards/" + no)
 .then(response => {
   return response.json();
 })
@@ -104,7 +104,7 @@ fetch("../app/board/view?no=" + no)
     if (file.no == 0) return;
     let html = `
       <li id="li-${file.no}">
-        <a href="../download/boardfile?fileNo=${file.no}">${file.originalFilename}</a>
+        <a href="../app/download/boardfile?fileNo=${file.no}">${file.originalFilename}</a>
         [<a href="#" onclick="deleteFile(${board.no}, ${file.no}); return false;">삭제</a>]
       </li>`;
     ul += html;
@@ -135,29 +135,24 @@ function checkOwner(writerNo) {
 }
 
 function deleteFile(boardNo, fileNo) {
-	const formData = new FormData();
-	  formData.append("boardNo", boardNo);
-	  formData.append("fileNo", fileNo);
-	  
-	  fetch("../app/board/filedelete", {
-	    method: "post",
-	    body: formData
-	  })
-	  .then(response => {
-	    return response.json();
-	  })
-	  .then(result => {
-	    if (result.status == 'success') {
-	    	let li = document.querySelector('#li-' + fileNo);
-	    	document.querySelector("#f-files").removeChild(li);
-	    } else {
-	      alert('파일 삭제 실패!');
-	    }
-	  })
-	  .catch(exception => {
-	    alert('파일 삭제 중 오류 발생!');
-	    console.log(exception);
-	  });
+  fetch("../app/boards/" + boardNo + "/files/" + fileNo, {
+    method: "DELETE"
+  })
+  .then(response => {
+    return response.json();
+  })
+  .then(result => {
+    if (result.status == 'success') {
+      let li = document.querySelector('#li-' + fileNo);
+      document.querySelector("#f-files").removeChild(li);
+    } else {
+      alert('파일 삭제 실패!');
+    }
+  })
+  .catch(exception => {
+    alert('파일 삭제 중 오류 발생!');
+    console.log(exception);
+  });
 }
 
 
@@ -169,8 +164,8 @@ document.querySelector('#btn-update').onclick = function() {
   const form = document.querySelector('#board-form');
   const formData = new FormData(form);
   
-  fetch("../app/board/update", {
-    method: "post",
+  fetch("../app/boards", {
+    method: "PUT",
     body: formData
   })
   .then(response => {
@@ -190,12 +185,8 @@ document.querySelector('#btn-update').onclick = function() {
 }
 	
 document.querySelector('#btn-delete').onclick = function() {
-  const formData = new FormData();
-  formData.append("no", document.querySelector('input[name="no"]').value);
-  
-  fetch("../app/board/delete", {
-    method: "post",
-    body: formData
+  fetch("../app/boards/" + document.querySelector('input[name="no"]').value, {
+    method: "DELETE"
   })
   .then(response => {
     return response.json();

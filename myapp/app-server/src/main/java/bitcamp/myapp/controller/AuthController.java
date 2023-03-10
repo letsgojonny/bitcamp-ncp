@@ -52,7 +52,6 @@ public class AuthController {
       return new RestResult()
           .setStatus(RestStatus.FAILURE);
     }
-
   }
 
   @GetMapping("logout")

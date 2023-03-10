@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +6,7 @@
 </head>
 <body>
 <h1>로그인</h1>
+
 <form id="login-form" action="login" method="post">
 <table border="1">
 <tr>
@@ -18,7 +18,8 @@
 </tr>
 <tr>
   <th>이메일</th>
-  <td><input type="email" name="email" value=""></td>
+  <td><input type="email" name="email" 
+      value=""></td>
 </tr>
 <tr>
   <th>암호</th>
@@ -34,41 +35,39 @@
 
 <script>
 
-
-
 document.querySelector('input[name="email"]').value = getCookie('email');
 
 document.querySelector('#btn-login').onclick = () => {
-	// 이메일을 쿠키에 보관
-	if (document.querySelector('input[type="checkbox"]:checked') != null) {
-		setCookie('email', document.querySelector('input[name="email"]').value, 60 * 60 * 24 * 7);
-	} else {
-		setCookie('email', '', 0);
-	}
+  // 이메일을 쿠키에 보관
+  if (document.querySelector('input[type="checkbox"]:checked') != null) {
+    setCookie('email', document.querySelector('input[name="email"]').value, 60 * 60 * 24 * 7);
+  } else {
+	  setCookie('email', '', 0);
+  }
 	
-	const form = document.querySelector('#login-form');
-	const formData = new FormData(form);
-	  
-	  fetch("../app/auth/login", {
-	    method: "post",
-	    body: formData
-	  })
-	  .then(response => {
-	    return response.json();
-	  })
-	  .then(result => {
-	    if (result.status == 'success') {
-	      location.href = '../';
-	    } else {
-	      alert('로그인 실패!');
-	      document.querySelector('input[name="email"]').value = "";
-	      document.querySelector('input[name="password"]').value = "";
-	    }
-	  })
-	  .catch(exception => {
-	    alert("로그인 오류!");
-	    console.log(exception);
-	  });
+  const form = document.querySelector('#login-form');
+  const formData = new FormData(form);
+  
+  fetch("../app/auth/login", {
+    method: "post",
+    body: formData
+  })
+  .then(response => {
+    return response.json();
+  })
+  .then(result => {
+    if (result.status == 'success') {
+      location.href = '../';
+    } else {
+      alert('로그인 실패!');
+      document.querySelector('input[name="email"]').value = "";
+      document.querySelector('input[name="password"]').value = "";
+    }
+  })
+  .catch(exception => {
+    alert("로그인 오류!");
+    console.log(exception);
+  });
 };
 
 function getCookie(cookieName){
@@ -82,19 +81,16 @@ function getCookie(cookieName){
     }
     return cookieValue;
 }
-
-
+ 
 function setCookie(cookieName, cookieValue, cookieMaxAge, cookiePath, cookieDomain, cookieSecure){
     var cookieText=encodeURIComponent(cookieName)+'='+encodeURIComponent(cookieValue);
     cookieText+=(cookieMaxAge ? '; max-age='+cookieMaxAge : '');
     cookieText+=(cookiePath ? '; path='+cookiePath : '');
-    cookieText+=(cookieDomain ? '; domain='+cookieDomain : ''); 
+    cookieText+=(cookieDomain ? '; domain='+cookieDomain : '');
     cookieText+=(cookieSecure ? '; secure' : '');
     document.cookie=cookieText;
 }
-
 </script>
-
 </body>
 </html>
 
