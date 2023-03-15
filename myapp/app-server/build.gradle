@@ -1,8 +1,8 @@
 plugins {
-    id 'eclipse'
-    id 'java'
-    id 'org.springframework.boot' version '3.0.4'
-    id 'io.spring.dependency-management' version '1.1.0'
+  id 'eclipse'
+  id 'java'
+  id 'org.springframework.boot' version '3.0.4'
+  id 'io.spring.dependency-management' version '1.1.0'
 }
 
 group = 'bitcamp'
@@ -32,6 +32,7 @@ configurations {
   }
 }
 
+
 repositories {
     mavenCentral()
 }
@@ -39,9 +40,8 @@ repositories {
 dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-jdbc'
   implementation ('org.springframework.boot:spring-boot-starter-web') {
-    exclude group: 'org.springframework.boot', module:'spring-boot-starter-tomcat'
+    exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
   }
-  
   implementation 'org.springframework.boot:spring-boot-starter-undertow'
   implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.0'
   compileOnly 'org.projectlombok:lombok'

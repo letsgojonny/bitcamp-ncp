@@ -3,7 +3,7 @@ package bitcamp.myapp.vo;
 import lombok.Data;
 
 @Data
-public class Student extends Member {
+public class Student extends Member{
   private String postNo;
   private String basicAddress;
   private String detailAddress;

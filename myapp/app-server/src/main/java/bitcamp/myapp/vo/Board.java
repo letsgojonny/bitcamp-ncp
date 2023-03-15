@@ -8,7 +8,6 @@ import lombok.Data;
 
 @Data
 public class Board {
-
   private int no;
   private String title;
   private String content;
@@ -24,5 +23,4 @@ public class Board {
   private String writerName;
   private Member writer;
   private List<BoardFile> attachedFiles;
-
 }
