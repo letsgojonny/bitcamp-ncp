@@ -1,6 +1,5 @@
 package bitcamp.myapp.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -9,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import bitcamp.util.ErrorCode;
 import bitcamp.util.RestResult;
 import bitcamp.util.RestStatus;
+import jakarta.servlet.http.HttpServletRequest;
 
 // 페이지 컨트롤러의 공통 설정을 수행하는 클래스
 @ControllerAdvice

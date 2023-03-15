@@ -39,7 +39,7 @@ document.querySelector('#btn-insert').onclick = function() {
   const form = document.querySelector('#board-form');
   const formData = new FormData(form);
   
-  fetch("../app/boards", {
+  fetch("../boards", {
     method: "POST",
     body: formData
   })

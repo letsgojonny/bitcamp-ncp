@@ -48,7 +48,7 @@
       // HTML을 가지고 템플릿 엔진을 생성한다.
       const templateEngine = Handlebars.compile(html);
 
-      fetch("../app/boards")
+      fetch("../boards")
         .then((response) => {
           return response.json();
           // json()은 Promise 객체를 리턴한다.

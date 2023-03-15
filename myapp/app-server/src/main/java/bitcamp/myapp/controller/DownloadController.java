@@ -4,8 +4,6 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import bitcamp.myapp.service.BoardService;
 import bitcamp.myapp.vo.BoardFile;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class DownloadController {
@@ -37,8 +37,7 @@ public class DownloadController {
       throw new RuntimeException("파일 정보 없음!");
     }
 
-    File downloadFile = new File(
-        request.getServletContext().getRealPath("/board/upload/" + boardFile.getFilepath()));
+    File downloadFile = new File(System.getProperty("user.home") + "/webapp-upload/" + boardFile.getFilepath());
     if (!downloadFile.exists()) {
       throw new RuntimeException("파일이 존재하지 않음!");
     }

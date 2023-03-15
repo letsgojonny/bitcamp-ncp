@@ -42,7 +42,7 @@ function getStudents(keyword) {
     qs = `?keyword=${keyword}`;
   }
 
-  fetch("../admin/students" + qs)
+  fetch("../students" + qs)
     .then((response) => {
       return response.json();
     })
@@ -68,7 +68,7 @@ function getLevelTitle(level) {
 function getStudent(e) {
   let no = e.currentTarget.getAttribute("data-no");
 
-  fetch("../admin/students/" + no)
+  fetch("../students/" + no)
     .then((response) => {
       return response.json();
     })
@@ -104,7 +104,7 @@ document.querySelector("#btn-insert").onclick = () => {
 
   let json = JSON.stringify(Object.fromEntries(formData));
 
-  fetch("../admin/students", {
+  fetch("../students", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -142,7 +142,7 @@ document.querySelector("#btn-update").onclick = () => {
   let json = JSON.stringify(Object.fromEntries(formData));
   //console.log(json);
 
-  fetch("../admin/students/" + document.querySelector("#f-no").value, {
+  fetch("../students/" + document.querySelector("#f-no").value, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -171,7 +171,7 @@ document.querySelector("#btn-update").onclick = () => {
 };
 
 document.querySelector("#btn-delete").onclick = () => {
-  fetch("../admin/students/" + document.querySelector("#f-no").value, {
+  fetch("../students/" + document.querySelector("#f-no").value, {
     method: "DELETE",
   })
     .then((response) => {

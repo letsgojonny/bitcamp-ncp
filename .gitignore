@@ -208,5 +208,6 @@ temp/
 Debug/
 Release/
 html-exam/
+upload/
 # Ignore Gradle build output directory
 build

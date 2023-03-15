@@ -39,7 +39,7 @@ function getTeachers(keyword) {
     qs = `?keyword=${keyword}`;
   }
 
-  fetch("../admin/teachers" + qs)
+  fetch("../teachers" + qs)
     .then((response) => {
       return response.json();
     })
@@ -69,7 +69,7 @@ function getDegreeLabel(degree) {
 function getTeacher(e) {
   let no = e.currentTarget.getAttribute("data-no");
 
-  fetch("../admin/teachers/" + no)
+  fetch("../teachers/" + no)
     .then((response) => {
       return response.json();
     })
@@ -103,7 +103,7 @@ document.querySelector("#btn-insert").onclick = () => {
 
   let json = JSON.stringify(Object.fromEntries(formData));
 
-  fetch("../admin/teachers", {
+  fetch("../teachers", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -133,7 +133,7 @@ document.querySelector("#btn-update").onclick = () => {
 
   let json = JSON.stringify(Object.fromEntries(formData));
 
-  fetch("../admin/teachers/" + document.querySelector("#f-no").value, {
+  fetch("../teachers/" + document.querySelector("#f-no").value, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -159,7 +159,7 @@ document.querySelector("#btn-update").onclick = () => {
 };
 
 document.querySelector("#btn-delete").onclick = () => {
-  fetch("../admin/teachers/" + document.querySelector("#f-no").value, {
+  fetch("../teachers/" + document.querySelector("#f-no").value, {
     method: "DELETE",
   })
     .then((response) => {

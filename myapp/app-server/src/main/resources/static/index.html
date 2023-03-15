@@ -29,7 +29,7 @@
     </ul>
 
     <script>
-      fetch("app/auth/user")
+      fetch("auth/user")
         .then((response) => {
           return response.json();
         })
@@ -46,7 +46,7 @@
         });
 
       function logout() {
-        fetch("app/auth/logout")
+        fetch("auth/logout")
           .then((response) => {
             return response.json();
           })
