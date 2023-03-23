@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS hms_region RESTRICT;
 DROP TABLE IF EXISTS hms_comment RESTRICT;
 
 -- QnA
-DROP TABLE IF EXISTS hms_QnA RESTRICT;
+DROP TABLE IF EXISTS hms_qna RESTRICT;
 
 -- 게시판좋아요
 DROP TABLE IF EXISTS hms_board_like RESTRICT;
@@ -87,25 +87,25 @@ ALTER TABLE hms_comment
   MODIFY COLUMN comment_id INTEGER NOT NULL AUTO_INCREMENT COMMENT '댓글번호';
 
 -- QnA
-CREATE TABLE hms_QnA (
-  QnA_id       INTEGER      NOT NULL COMMENT '문의번호', -- 문의번호
+CREATE TABLE hms_qna (
+  qna_id       INTEGER      NOT NULL COMMENT '문의번호', -- 문의번호
   member_id    INTEGER      NOT NULL COMMENT '회원번호', -- 회원번호
   title        VARCHAR(255) NOT NULL COMMENT '문의제목', -- 문의제목
-  COL          VARCHAR(255) NOT NULL COMMENT '문의내용', -- 문의내용
+  content      VARCHAR(255) NOT NULL COMMENT '문의내용', -- 문의내용
   created_date DATE         NOT NULL DEFAULT now() COMMENT '등록일', -- 등록일
   response     VARCHAR(255) NOT NULL COMMENT '답변' -- 답변
 )
 COMMENT 'QnA';
 
 -- QnA
-ALTER TABLE hms_QnA
-  ADD CONSTRAINT PK_hms_QnA -- QnA 기본키
+ALTER TABLE hms_qna
+  ADD CONSTRAINT PK_hms_qna -- QnA 기본키
   PRIMARY KEY (
-  QnA_id -- 문의번호
+  qna_id -- 문의번호
   );
 
-ALTER TABLE hms_QnA
-  MODIFY COLUMN QnA_id INTEGER NOT NULL AUTO_INCREMENT COMMENT '문의번호';
+ALTER TABLE hms_qna
+  MODIFY COLUMN qna_id INTEGER NOT NULL AUTO_INCREMENT COMMENT '문의번호';
 
 -- 게시판좋아요
 CREATE TABLE hms_board_like (
@@ -131,8 +131,8 @@ CREATE TABLE hms_mt_information (
   height            VARCHAR(50)  NOT NULL COMMENT '산높이', -- 산높이
   photo             VARCHAR(255) NOT NULL COMMENT '사진', -- 사진
   address           VARCHAR(255) NOT NULL COMMENT '주소', -- 주소
-  sunrise           DATE         NOT NULL COMMENT '일출시간', -- 일출시간
-  sunset            DATE         NOT NULL COMMENT '일몰시간' -- 일몰시간
+  sunrise           TIME         NOT NULL COMMENT '일출시간', -- 일출시간
+  sunset            TIME         NOT NULL COMMENT '일몰시간' -- 일몰시간
 )
 COMMENT '산';
 
@@ -372,8 +372,8 @@ ALTER TABLE hms_comment
   );
 
 -- QnA
-ALTER TABLE hms_QnA
-  ADD CONSTRAINT FK_hms_member_TO_hms_QnA -- 회원 -> QnA
+ALTER TABLE hms_qna
+  ADD CONSTRAINT FK_hms_member_TO_hms_qna -- 회원 -> QnA
   FOREIGN KEY (
   member_id -- 회원번호
   )

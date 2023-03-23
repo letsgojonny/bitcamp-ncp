@@ -1,0 +1,102 @@
+<<데이터 입력 순서!!!!>>
+
+1. 산 정보 (region data가 있어야 함!!)
+
+1-1. hms_region (먼저 region_list 데이터를 모두 넣어둔다. ex)제주도/서울/대전/부산...) 
+	- FK로 사용하기 때문에 필수!!!
+
+ex)	insert into hms_region(region_list)
+	values('제주도');				
+
+1-1-1. hms_mt_information (sunrise, sunset 도메인-데이터 타입-TIME 으로 수정)
+
+ex)	insert into hms_mt_information(region_id, name, height, photo, address, sunrise, sunset)
+	values(1, '한라산', '1985m', '사진1', '제주시 서귀포', '06:00:01', '18:00:10');
+
+1-1-2. hms_course_information
+
+ex)	insert into hms_course_information(mt_information_id, name, length, time, level, photo)
+	values(1, '성판악', '8.2km', '7시간 20분', '중간', '성판악 코스');
+
+--------------------------------------------------------------------------------------------------------
+
+2. 게시판 (category와 member data가 있어야 함!!)
+
+2-1. hms_board_category (먼저 board_name 데이터를 모두 넣어둔다. ex)포토피드/지역행사/맛집)
+
+ex)	insert into hms_board_category(board_name)
+	values('포토피드'); 
+
+2-2. hms_member 
+
+ex)	insert into hms_member(name, tel, email, id, profile_photo, password, nickname, postno, 
+		basic_address, detail_address, birth, status_message, authority)
+	values('김종현', '010-4006-5204', 'kjh0206sky@naver.com', '0206sky', '프로필사진', '1111', 'jonny', 
+		'656565', '인천 연수구', '동춘동 송도파크자이', '910206', '프로 등산러', '관리자');
+
+2-2-1. hms_board & hms_photo (식별관계로?? 1:포토피트 or 2:맛집 or 3:지역행사 or 4:산뉴스 
+					중 하나와 반드시 합쳐져야 함)
+
+	(1. 포토피드 작성)
+ex)	insert into hms_board(board_category_id, member_id, title, content, tag, writer)
+	values(1, 1, '한라산 정상', '설경 미쳤고!!', '#한라산 #설경 #등산', 'jonny');
+
+	insert into hms_photo(board_id, photo, mimetype)
+	values(1, '사진1,2,3', '.jpg');
+
+2-2-2. hms_board & hms_food (2.맛집: 마찬가지)
+
+ex)	insert into hms_board(board_category_id, member_id, title, content, tag, writer)
+	values(2, 1, '중문시장', '고기국수 미쳤고!!', '#시장 #고기국수 #JMT', 'jonny');
+
+	insert into hms_food(board_id, food_address, food_tel)
+	values(2, '제주시 서귀포 중문', '064-1234-1234');
+
+2-2-3. hms_board & hms_local_event (3. 지역행사: 마찬가지)
+
+ex)	insert into hms_board(board_category_id, member_id, title, content, tag, writer)
+	values(3, 1, '감귤 축제', '감귤 따기 레스고~!!', '#감귤 #농장 #체험', 'jonny');
+
+	insert into hms_local_event(board_id, period, postno, basic_address, detail_address)
+	values(3, '23/3/23~23/4/7', '456456', '제주시 제주읍', '협재 해수욕장 근방');
+
+2-2-4. hms_board & hms_mt_news (4. 산뉴스: 마찬가지)
+
+ex)	insert into hms_board(board_category_id, member_id, title, content, tag, writer)
+	values(4, 1, '한라산 2시간 컷!', '신기록 경신 ㅊㅊ', '#신기록 #한라산 #세상에이런일이', 'jonny');
+
+	insert into hms_mt_news(board_id)
+	values(4);
+
+
+2-2-5. hms_board & hms_diary (5. 등산일지)
+
+ex)	insert into hms_board(board_category_id, member_id, title, content, tag, writer)
+	values(5, 1, '북한산 완등', '날씨 좋고 바람 좋고', '#북한산 #태극기 #인증샷', 'jonny');
+
+	insert into hms_diary(board_id, mt_information_id, course, record_length, record_time)
+	values(6, 1, '코스는 몰라요', '1.9km', '1시간 32분');
+
+--------------------------------------------------------------------------------------------------------
+
+3. 좋아요, 댓글 (board_id와 member_id가 있어야 함!!)
+
+3-1. hms_board_like
+
+ex)	insert into hms_board_like(board_id, member_id, like_count)
+	values(1, 1, 1);
+
+3-2. hms_comment
+
+ex)	insert into hms_comment(board_id, member_id, content)
+	values(1, 1, '저도 내년 겨울에 다녀와야겠어요!!');
+
+3-3. hms_comment_like
+
+ex)	insert into hms_comment_like(comment_id, member_id, like_count)
+	values(1, 1, 1);
+
+4. QnA (response N-N 이 맞는지??)
+
+ex)	insert into hms_qna(member_id, title, content, response)
+	values(1, '등산 쉼터 알려주세요', '한라산 중턱에 쉼터가 있나요??', '링크 참조해주세요 (www.sandlehouse.com)');
