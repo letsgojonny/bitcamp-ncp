@@ -1,4 +1,6 @@
-<<데이터 입력 순서!!!!>>
+<<데이터 입력 SQL 순서!!!!>> 
+
+-- INDEX 없는 테이블 추가해 두는게 좋을듯?? OR 데이터 목록 불러올 때마다 order by **** asc/desc
 
 1. 산 정보 (region data가 있어야 함!!)
 
@@ -35,7 +37,7 @@ ex)	insert into hms_member(name, tel, email, id, profile_photo, password, nickna
 		'656565', '인천 연수구', '동춘동 송도파크자이', '910206', '프로 등산러', '관리자');
 
 2-2-1. hms_board & hms_photo (식별관계로?? 1:포토피트 or 2:맛집 or 3:지역행사 or 4:산뉴스 
-					중 하나와 반드시 합쳐져야 함)
+					중 하나와 반드시 합쳐져야 함 + writer = nickname 수정 필요)
 
 	(1. 포토피드 작성)
 ex)	insert into hms_board(board_category_id, member_id, title, content, tag, writer)

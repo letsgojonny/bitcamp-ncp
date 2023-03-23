@@ -1,0 +1,64 @@
+<< 데이터 출력 SQL문 >>
+
+7-3. 별칭 붙이기(as) + concat
+7-4. select 결과 중복 값 제거o/x (union, union all) + 교집합/차집합(where ~~ in, where not ~~ in)
+8-1. 조인: 서로 관련된 테이블의 데이터를 연결하여 추출
+
+	1) CROSS 조인(=Cartesian product): 두 테이블의 데이터를 1:1로 모두 연결한다
+	ex)	select b.bno, a.bno
+		from board b cross join attach_file a;
+
+	2) NATURAL 조인: 같은 이름을 가진 컬럼 값을 기준으로 레코드를 연결한다.
+	ex)	select b.bno, b.title, content, a.fno, a.title, a.bno
+		from board4 b, attach_file4 a
+		where b.bno = a.bno;
+
+	3) JOIN ~ USING(컬럼명): 같은 이름을 가진 컬럼이 여러 개 있을 경우 USING을 사용하여 컬럼을 명시할 수 있다
+				한계 :  두 테이블에 같은 이름의 컬럼이 없을 경우 연결하지 못한다.
+	ex)	select b.bno, b.title, content, a.fno, a.title, a.bno
+		from board4 b join attach_file4 a using (bno);
+
+	4) JOIN ~ ON: 조인 조건을 on에 명시할 수 있다.
+				- 조건에 일치하는 경우에만 두 테이블의 데이터를 연결한다.
+				- 이런 조인을 'inner join' 이라 부른다.(생략 가능)
+				- 한계: 반드시 on 에서 지정한 컬럼의 값이 같을 경우에만 연결된다.
+	ex)	select no, title, content, fno, filepath, bno
+		from board5 b join attach_file5 a on b.no=a.bno;
+
+	5) OUTER JOIN: 조인 조건에 일치하는 데이터가 없더라도 두 테이블 중에서 한 테이블의 데이터를 결과로 포함시킨다.
+				- left outer join => 왼쪽 테이블의 데이터는 반드시 포함시키라는 뜻
+				- right outer join => 오른쪽 테이블의 데이터를 반드시 포함시키는 뜻이다.
+	ex)	select b.no, b.title, b.content, a.fno, a.filepath, a.bno
+		from board5 b left outer join attach_file5 a on b.no=a.bno
+		order by no desc;
+
+-------------------------------------------------------------------------------------------------------------------------
+
+<여러 테이블의 데이터 연결하기>
+수강신청번호, 강의명, 학생명, 재직여부, 수강신청일, 강의실명, 매니저명, 직위 출력하기//
+
+/* 7단계: 매니저의 직위 출력
+ * => 매니저 번호는 lect 테이블 있다.
+ * => 매니저 직위는 mgr 테이블에 있다. 
+ */
+select
+  la.lano,
+  l.titl,
+  m.name snm,
+  s.work,
+  la.rdt,
+  r.name rnm,
+  m2.name mnm,
+  mr.posi
+from lect_appl la
+        join memb m on la.mno=m.mno
+        join stnt s on la.mno=s.mno
+        join lect l on la.lno=l.lno
+        left outer join room r on l.rno=r.rno
+        left outer join memb m2 on l.mno=m2.mno
+        left outer join mgr mr on l.mno=mr.mno;
+
+
+
+
+				
