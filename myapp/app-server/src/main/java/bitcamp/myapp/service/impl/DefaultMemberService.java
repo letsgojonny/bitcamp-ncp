@@ -48,8 +48,7 @@ public class DefaultMemberService implements MemberService {
   @Transactional
   @Override
   public void update(Member member) {
-    if (memberDao.update(member) == 1 &&
-        memberDao.update(member) == 1) {
+    if (memberDao.update(member) == 1) {
     } else {
       throw new RuntimeException("회원이 존재하지 않습니다.");
     }
@@ -58,8 +57,7 @@ public class DefaultMemberService implements MemberService {
   @Transactional
   @Override
   public void delete(int no) {
-    if (memberDao.delete(no) == 1 &&
-        memberDao.delete(no) == 1) {
+    if (memberDao.delete(no) == 1) {
     } else {
       throw new RuntimeException("회원이 존재하지 않습니다.");
     }

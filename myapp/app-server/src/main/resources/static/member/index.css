@@ -1,8 +1,8 @@
 aside {
   /*border: 1px solid red;*/
   box-sizing: border-box;
-  float: left;
-  width: 260px;
+  /* float: left; */
+  /* width: 260px; */
 }
 
 article {

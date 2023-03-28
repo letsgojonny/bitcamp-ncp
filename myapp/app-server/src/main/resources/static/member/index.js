@@ -67,20 +67,20 @@ function getMember(e) {
 
       let member = result.data;
       console.log(member);
-      document.querySelector("#f-no").value = member.no;
-      document.querySelector("#f-name").value = member.name;
-      document.querySelector("#f-tel").value = member.tel;
-      document.querySelector("#f-email").value = member.email;
-      document.querySelector("#f-id").value = member.id;
-      document.querySelector("#f-profilePhoto").value = member.profilePhoto;
-      document.querySelector("#f-nickname").value = member.nickname;
-      document.querySelector("#f-postNo").value = member.postNo;
-      document.querySelector("#f-basicAddress").value = member.basicAddress;
-      document.querySelector("#f-detailAddress").value = member.detailAddress;
-      document.querySelector("#f-birth").value = member.birth;
-      document.querySelector("#f-statusMessage").value = member.statusMessage;
-      document.querySelector("#f-createdDate").innerHTML = member.createdDate;
-      document.querySelector("#f-authority").value = member.authority;
+      document.querySelector("#m-no").value = member.no;
+      document.querySelector("#m-name").value = member.name;
+      document.querySelector("#m-tel").value = member.tel;
+      document.querySelector("#m-email").value = member.email;
+      document.querySelector("#m-id").value = member.id;
+      document.querySelector("#m-profilePhoto").value = member.profilePhoto;
+      document.querySelector("#m-nickname").value = member.nickname;
+      document.querySelector("#m-postNo").value = member.postNo;
+      document.querySelector("#m-basicAddress").value = member.basicAddress;
+      document.querySelector("#m-detailAddress").value = member.detailAddress;
+      document.querySelector("#m-birth").value = member.birth;
+      document.querySelector("#m-statusMessage").value = member.statusMessage;
+      document.querySelector("#m-createdDate").innerHTML = member.createdDate;
+      document.querySelector("#m-authority").value = member.authority;
       showEdit();
     });
 }
@@ -129,7 +129,7 @@ document.querySelector("#btn-update").onclick = () => {
   let json = JSON.stringify(Object.fromEntries(formData));
   //console.log(json);
 
-  fetch("../members/" + document.querySelector("#f-no").value, {
+  fetch("../members/" + document.querySelector("#m-no").value, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -158,7 +158,7 @@ document.querySelector("#btn-update").onclick = () => {
 };
 
 document.querySelector("#btn-delete").onclick = () => {
-  fetch("../members/" + document.querySelector("#f-no").value, {
+  fetch("../members/" + document.querySelector("#m-no").value, {
     method: "DELETE",
   })
     .then((response) => {
