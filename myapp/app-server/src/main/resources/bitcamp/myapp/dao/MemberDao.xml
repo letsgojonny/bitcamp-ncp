@@ -27,7 +27,7 @@
     values(#{name}, #{tel}, #{email}, #{id}, #{password}, #{profilePhoto}, #{nickname}, #{postNo}, #{basicAddress}, #{detailAddress}, #{birth}, #{statusMessage}, #{authority})
   </insert>
 
-  <select id="findAll" resultMap="memberMap">
+  <!-- <select id="findAll" resultMap="memberMap">
     select 
       member_id, 
       name, 
@@ -47,8 +47,40 @@
       hms_member
     order by 
       member_id desc
-  </select>
+  </select> -->
 
+  <!-- 멤버 검색  -->
+  <select id="findAll" resultMap="memberMap" parameterType="string">
+    select
+      member_id, 
+      name, 
+      tel,
+      email, 
+      id,
+      profile_photo,
+      nickname, 
+      postno, 
+      basic_address, 
+      detail_address, 
+      birth, 
+      status_message, 
+      created_date,
+      authority
+    from 
+      hms_member
+    <if test="keyword != '' and keyword != null">
+    where
+      name like(concat('%', #{keyword}, '%'))
+      or email like(concat('%', #{keyword}, '%'))
+      or tel like(concat('%', #{keyword}, '%'))
+      or id like(concat('%', #{keyword}, '%'))
+      or nickname like(concat('%', #{keyword}, '%'))
+    </if>
+    order by
+      name asc
+  </select> 
+
+  <!-- 선택 멤버 정보 입력 -->
   <select id="findByNo" parameterType="int" resultMap="memberMap">
     select 
       member_id, 
@@ -71,6 +103,33 @@
       member_id=#{no}
   </select>
   
+  <!-- email & password 정보를 토대로 정보 불러오기  -->
+  <!-- id & password 정보를 토대로 정보 불러오기  -->
+  <select id="findByEmailAndPassword" parameterType="map" resultMap="memberMap">
+    select
+      member_id, 
+      name, 
+      tel,
+      email, 
+      id,
+      profile_photo,
+      nickname, 
+      postno, 
+      basic_address, 
+      detail_address, 
+      birth, 
+      status_message, 
+      created_date,
+      authority
+    from 
+      hms_member
+    where 
+      email = #{email}
+      <!-- or id = #{id} -->
+      and password = #{password}
+  </select> 
+  
+  <!-- 아직 안됨  -->
   <update id="update" parameterType="member">
     update hms_member set
       name=#{name}, 
@@ -90,6 +149,7 @@
     where member_id=#{no}
   </update>
   
+  <!-- 삭제는 됨  -->
   <delete id="delete" parameterType="int">
     delete from hms_member
     where member_id=#{no}

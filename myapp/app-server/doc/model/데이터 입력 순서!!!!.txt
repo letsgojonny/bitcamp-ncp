@@ -31,10 +31,15 @@ ex)	insert into hms_board_category(board_name)
 
 2-2. hms_member 
 
-ex)	insert into hms_member(name, tel, email, id, profile_photo, password, nickname, postno, 
+ex)	insert into hms_member(name, tel, email, id, photo, password, nickname, post_no, 
 		basic_address, detail_address, birth, status_message, authority)
 	values('김종현', '010-4006-5204', 'kjh0206sky@naver.com', '0206sky', '프로필사진', '1111', 'jonny', 
 		'656565', '인천 연수구', '동춘동 송도파크자이', '910206', '프로 등산러', '관리자');
+
+	insert into hms_member(name, tel, email, id, photo, password, nickname, post_no, 
+		basic_address, detail_address, birth, status_message, authority)
+	values('오승욱', '010-7334-5389', 'wook@naver.com', 'wook', '바프', '1111', 'wook', 
+		'656565', '인천 연수구', '연수동 문남마을', '900913', 'crossfitter', 'user');
 
 2-2-1. hms_board & hms_photo (식별관계로?? 1:포토피트 or 2:맛집 or 3:지역행사 or 4:산뉴스 
 					중 하나와 반드시 합쳐져야 함 + writer = nickname 수정 필요)
@@ -59,7 +64,7 @@ ex)	insert into hms_board(board_category_id, member_id, title, content, tag, wri
 ex)	insert into hms_board(board_category_id, member_id, title, content, tag, writer)
 	values(3, 1, '감귤 축제', '감귤 따기 레스고~!!', '#감귤 #농장 #체험', 'jonny');
 
-	insert into hms_local_event(board_id, period, postno, basic_address, detail_address)
+	insert into hms_local_event(board_id, period, post_no, basic_address, detail_address)
 	values(3, '23/3/23~23/4/7', '456456', '제주시 제주읍', '협재 해수욕장 근방');
 
 2-2-4. hms_board & hms_mt_news (4. 산뉴스: 마찬가지)
