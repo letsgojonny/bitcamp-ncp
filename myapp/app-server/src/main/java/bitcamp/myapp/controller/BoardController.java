@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import bitcamp.myapp.service.BoardService;
+import bitcamp.myapp.service.ObjectStorageService;
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.BoardFile;
 import bitcamp.myapp.vo.Member;
@@ -36,11 +37,9 @@ public class BoardController {
 
   Logger log = LogManager.getLogger(getClass());
 
-  {
-    log.trace("BoardController 생성됨!");
-  }
-
   @Autowired private BoardService boardService;
+  @Autowired private ObjectStorageService objectStorageService;
+  private String bucketName = "bitcamp-bucket08";
 
   @PostMapping
   public Object insert(
@@ -56,16 +55,14 @@ public class BoardController {
 
     List<BoardFile> boardFiles = new ArrayList<>();
     for (MultipartFile file : files) {
-      if (file.isEmpty()) {
+      String fileUrl = objectStorageService.uploadFile(bucketName, file);
+      if (fileUrl == null) {
         continue;
       }
 
-      String filename = UUID.randomUUID().toString();
-      file.transferTo(new File(System.getProperty("user.home") + "/webapp-upload/" + filename));
-
       BoardFile boardFile = new BoardFile();
       boardFile.setOriginalFilename(file.getOriginalFilename());
-      boardFile.setFilepath(filename);
+      boardFile.setFilepath(fileUrl);
       boardFile.setMimeType(file.getContentType());
       boardFiles.add(boardFile);
     }

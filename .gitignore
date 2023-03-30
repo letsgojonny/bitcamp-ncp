@@ -209,5 +209,7 @@ Debug/
 Release/
 html-exam/
 upload/
+naver.properties
 # Ignore Gradle build output directory
 build
+
