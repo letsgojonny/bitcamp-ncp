@@ -7,151 +7,59 @@
   <resultMap type="member" id="memberMap">
     <id column="member_id" property="no"/>
     <result column="name" property="name"/>
-    <result column="tel" property="tel"/>
     <result column="email" property="email"/>
-    <result column="id" property="id"/>
-    <result column="profile_photo" property="profilePhoto"/>
-    <result column="nickname" property="nickname"/>
-    <result column="postno" property="postNo"/>
-    <result column="basic_address" property="basicAddress"/>
-    <result column="detail_address" property="detailAddress"/>
-    <result column="birth" property="birth"/>
-    <result column="status_message" property="statusMessage"/>
+    <result column="tel" property="tel"/>
     <result column="created_date" property="createdDate"/>
-    <result column="authority" property="authority"/>
+    <result column="photo" property="photo"/>
   </resultMap>
 
   <insert id="insert" parameterType="member" 
           useGeneratedKeys="true" keyProperty="no" keyColumn="member_id">
-    insert into hms_member(name, tel, email, id, password, profile_photo, nickname, postno, basic_address, detail_address, birth, status_message, authority)
-    values(#{name}, #{tel}, #{email}, #{id}, #{password}, #{profilePhoto}, #{nickname}, #{postNo}, #{basicAddress}, #{detailAddress}, #{birth}, #{statusMessage}, #{authority})
+    insert into app_member(name, email, pwd, tel, photo)
+    values(#{name}, #{email}, sha2(#{password},256), #{tel}, #{photo})
   </insert>
 
-  <!-- <select id="findAll" resultMap="memberMap">
+  <select id="findAll" resultMap="memberMap">
     select 
       member_id, 
       name, 
-      tel,
       email, 
-      id,
-      profile_photo,
-      nickname, 
-      postno, 
-      basic_address, 
-      detail_address, 
-      birth, 
-      status_message, 
       created_date,
-      authority
+      photo
     from 
-      hms_member
+      app_member
     order by 
       member_id desc
-  </select> -->
+  </select>
 
-  <!-- 멤버 검색  -->
-  <select id="findAll" resultMap="memberMap" parameterType="string">
-    select
-      member_id, 
-      name, 
-      tel,
-      email, 
-      id,
-      profile_photo,
-      nickname, 
-      postno, 
-      basic_address, 
-      detail_address, 
-      birth, 
-      status_message, 
-      created_date,
-      authority
-    from 
-      hms_member
-    <if test="keyword != '' and keyword != null">
-    where
-      name like(concat('%', #{keyword}, '%'))
-      or email like(concat('%', #{keyword}, '%'))
-      or tel like(concat('%', #{keyword}, '%'))
-      or id like(concat('%', #{keyword}, '%'))
-      or nickname like(concat('%', #{keyword}, '%'))
-    </if>
-    order by
-      name asc
-  </select> 
-
-  <!-- 선택 멤버 정보 입력 -->
   <select id="findByNo" parameterType="int" resultMap="memberMap">
     select 
       member_id, 
       name, 
-      tel,
       email, 
-      id,
-      profile_photo,
-      nickname, 
-      postno, 
-      basic_address, 
-      detail_address, 
-      birth, 
-      status_message, 
+      tel,
       created_date,
-      authority
+      photo
     from 
-      hms_member
+      app_member
     where 
       member_id=#{no}
   </select>
   
-  <!-- email & password 정보를 토대로 정보 불러오기  -->
-  <!-- id & password 정보를 토대로 정보 불러오기  -->
-  <select id="findByEmailAndPassword" parameterType="map" resultMap="memberMap">
-    select
-      member_id, 
-      name, 
-      tel,
-      email, 
-      id,
-      profile_photo,
-      nickname, 
-      postno, 
-      basic_address, 
-      detail_address, 
-      birth, 
-      status_message, 
-      created_date,
-      authority
-    from 
-      hms_member
-    where 
-      email = #{email}
-      <!-- or id = #{id} -->
-      and password = #{password}
-  </select> 
-  
-  <!-- 아직 안됨  -->
   <update id="update" parameterType="member">
-    update hms_member set
+    update app_member set
       name=#{name}, 
-      tel=#{tel},
       email=#{email}, 
-      id=#{id},
-      password=#{password}, 
-      profile_photo=#{profilePhoto},
-      nickname=#{nickname}, 
-      postno=#{postNo}, 
-      basic_address=#{basicAddress}, 
-      detail_address=#{detailAddress}, 
-      birth=#{birth}, 
-      status_message=#{statusMessage}, 
-      created_date,
-      authority=#{authority}
+      pwd=sha2(#{password},256),
+      <if test="photo != null"> 
+        photo=#{photo},
+      </if>
+      tel=#{tel}
     where member_id=#{no}
   </update>
   
-  <!-- 삭제는 됨  -->
   <delete id="delete" parameterType="int">
-    delete from hms_member
+    delete from app_member
     where member_id=#{no}
   </delete>
 </mapper>

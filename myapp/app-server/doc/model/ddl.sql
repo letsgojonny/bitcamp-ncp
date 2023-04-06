@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS lms_department RESTRICT;
 -- 학력
 DROP TABLE IF EXISTS lms_degree RESTRICT;
 
--- 강의실 사진
+-- 강의실사진
 DROP TABLE IF EXISTS lms_class_photo RESTRICT;
 
 -- 기본주소
@@ -251,7 +251,7 @@ CREATE UNIQUE INDEX UIX_lms_degree
 ALTER TABLE lms_degree
   MODIFY COLUMN degree_id INTEGER NOT NULL AUTO_INCREMENT COMMENT '학력번호';
 
--- 강의실 사진
+-- 강의실사진
 CREATE TABLE lms_class_photo (
   class_photo_id  INTEGER      NOT NULL COMMENT '강의실사진번호', -- 강의실사진번호
   photo_path      VARCHAR(255) NOT NULL COMMENT '사진', -- 사진
@@ -259,11 +259,11 @@ CREATE TABLE lms_class_photo (
   mimetype        VARCHAR(60)  NOT NULL COMMENT 'MIMETYPE', -- MIMETYPE
   class_id        INTEGER      NOT NULL COMMENT '강의실번호' -- 강의실번호
 )
-COMMENT '강의실 사진';
+COMMENT '강의실사진';
 
--- 강의실 사진
+-- 강의실사진
 ALTER TABLE lms_class_photo
-  ADD CONSTRAINT PK_lms_class_photo -- 강의실 사진 기본키
+  ADD CONSTRAINT PK_lms_class_photo -- 강의실사진 기본키
   PRIMARY KEY (
   class_photo_id -- 강의실사진번호
   );
@@ -441,9 +441,9 @@ ALTER TABLE lms_edu_center
   addr_id -- 기본주소번호
   );
 
--- 강의실 사진
+-- 강의실사진
 ALTER TABLE lms_class_photo
-  ADD CONSTRAINT FK_lms_class_TO_lms_class_photo -- 강의실 -> 강의실 사진
+  ADD CONSTRAINT FK_lms_class_TO_lms_class_photo -- 강의실 -> 강의실사진
   FOREIGN KEY (
   class_id -- 강의실번호
   )
